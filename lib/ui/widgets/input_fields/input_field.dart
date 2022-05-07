@@ -6,6 +6,7 @@ class InputField extends StatelessWidget {
   final TextEditingController textEditingController;
   final TextCapitalization textCapitalization;
   final TextInputAction textInputAction;
+  final TextInputType textInputType;
   final Validator validator;
   final String labelText;
   final OnInputFieldChanged onInputFieldChanged;
@@ -14,6 +15,7 @@ class InputField extends StatelessWidget {
     Key? key,
     required this.textEditingController,
     required this.textCapitalization,
+    required this.textInputType,
     required this.textInputAction,
     required this.validator,
     required this.labelText,
@@ -28,6 +30,8 @@ class InputField extends StatelessWidget {
       textCapitalization: textCapitalization,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       textInputAction: textInputAction,
+      obscureText:
+          textInputType == TextInputType.visiblePassword ? true : false,
       onChanged: onInputFieldChanged,
       validator: validator,
       decoration: InputDecoration(
