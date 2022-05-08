@@ -161,12 +161,7 @@ class RegisterScreen extends StatelessWidget {
                               labelText: 'Confirm Password',
                               textEditingController:
                                   controller.confirmPasswordTextController,
-                              validator: (String? value) {
-                                confirmPassword(
-                                    controller.passwordTextController.text,
-                                    controller
-                                        .confirmPasswordTextController.text);
-                              },
+                              validator: isValidPassword,
                             ),
                           ),
                         ],

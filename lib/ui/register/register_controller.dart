@@ -11,7 +11,7 @@ class RegisterController extends GetxController {
   final TextEditingController emailTextController = TextEditingController();
   final TextEditingController passwordTextController = TextEditingController();
   final TextEditingController confirmPasswordTextController =
-  TextEditingController();
+      TextEditingController();
   final TextEditingController firstNameTextController = TextEditingController();
   final TextEditingController lastNameTextController = TextEditingController();
   final TextEditingController userNameTextController = TextEditingController();
@@ -39,25 +39,18 @@ class RegisterController extends GetxController {
             isValidName(lastNameTextController.text) == null &&
             isValidEmail(emailTextController.text) == null &&
             confirmPassword(passwordTextController.text,
-                confirmPasswordTextController.text) ==
+                    confirmPasswordTextController.text) ==
                 null;
   }
 
   void onConfirmPasswordInputChange(String value) {
     isButtonEnabled.value = confirmPassword(passwordTextController.text,
-        confirmPasswordTextController.text) ==
-        null &&
+                confirmPasswordTextController.text) ==
+            null &&
         isValidPassword(passwordTextController.text) == null &&
         isValidName(firstNameTextController.text) == null &&
         isValidName(lastNameTextController.text) == null &&
         isValidEmail(emailTextController.text) == null;
-  }
-
-  void redirectToLogin() {
-    const SpinKitCircle(
-      color: Colors.blue,
-    );
-    Get.to(const LoginScreen());
   }
 
   void printText() {
@@ -65,18 +58,15 @@ class RegisterController extends GetxController {
       try {
         Authentication()
             .registerUser(
-            name: firstNameTextController.text,
-            firstName: lastNameTextController.text,
-            userName: userNameTextController.text,
-            email: emailTextController.text,
-            password: passwordTextController.text)
-            .then(
-              (value) => redirectToLogin(),
-        );
+                name: firstNameTextController.text,
+                firstName: lastNameTextController.text,
+                userName: userNameTextController.text,
+                email: emailTextController.text,
+                password: passwordTextController.text)
+            .then((value) => Get.to(() => const LoginScreen()));
       } catch (e) {
         print(e.toString());
       }
-      // isButtonEnabled.value = false;
     } else {}
   }
 }
