@@ -35,9 +35,10 @@ class LoginScreen extends GetView<LoginController> {
                                   controller.emailTextController,
                               textInputAction: TextInputAction.next,
                               labelText: 'Email',
+                              textInputType: TextInputType.text,
                               onInputFieldChanged:
                                   controller.onEmailInputChanged,
-                              validator: isValidName,
+                              validator: isValidEmail,
                             ),
                           ),
                           const SizedBox(
@@ -51,10 +52,22 @@ class LoginScreen extends GetView<LoginController> {
                               textEditingController:
                                   controller.passwordTextController,
                               textInputAction: TextInputAction.done,
-                              validator: isValidName,
+                              validator: isValidPassword,
+                              textInputType: TextInputType.visiblePassword,
                               onInputFieldChanged:
                                   controller.onPasswordInputChanged,
                               labelText: 'Password',
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          GestureDetector(
+                            onTap: () => {
+                               controller.goToRegisterScreen(),
+                            },
+                            child: const Text(
+                              'Don\'t have an account? Sign up',
                             ),
                           ),
                         ],

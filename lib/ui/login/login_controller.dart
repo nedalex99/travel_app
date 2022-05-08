@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:travel_app/ui/dashboard/dashboard_screen.dart';
+import 'package:travel_app/ui/register/register_screen.dart';
 import 'package:travel_app/utils/constants/validator.dart';
 import 'package:travel_app/utils/network/authentication.dart';
 
@@ -13,13 +13,19 @@ class LoginController extends GetxController {
   RxBool isButtonEnabled = false.obs;
 
   void onEmailInputChanged(String value) {
-    isButtonEnabled.value = isValidName(emailTextController.text) == null &&
-        isValidName(passwordTextController.text) == null;
+    isButtonEnabled.value = isValidEmail(emailTextController.text) == null &&
+        isValidPassword(passwordTextController.text) == null;
   }
 
   void onPasswordInputChanged(String value) {
-    isButtonEnabled.value = isValidName(emailTextController.text) == null &&
-        isValidName(passwordTextController.text) == null;
+    isButtonEnabled.value = isValidPassword(emailTextController.text) == null &&
+        isValidEmail(passwordTextController.text) == null;
+  }
+
+  void goToRegisterScreen() {
+    Get.to(
+      () => RegisterScreen(),
+    );
   }
 
   void printText() {
