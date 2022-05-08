@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:travel_app/ui/dashboard/dashboard_screen.dart';
 import 'package:travel_app/utils/constants/validator.dart';
+import 'package:travel_app/utils/network/authentication.dart';
 
 class LoginController extends GetxController {
   String loginText = "In Login screen";
@@ -21,10 +23,15 @@ class LoginController extends GetxController {
   }
 
   void printText() {
-    if (!formKey.currentState!.validate()) {
-      isButtonEnabled.value = false;
-    } else {
-      isButtonEnabled.value = true;
+    Get.to(const DashboardScreen());
+    if (formKey.currentState!.validate()) {
+      Authentication()
+          .signInWithEmailAndPassword(
+            email: emailTextController.text,
+            password: passwordTextController.text,
+          )
+          .then((value) => {
+              });
     }
   }
 }
