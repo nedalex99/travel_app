@@ -27,19 +27,30 @@ String? isValidEmail(String? value) {
   } else {
     return null;
   }
-
 }
 
 String? isValidPassword(String? value) {
   if (value != null) {
     if (value.isEmpty) {
       return "Password cannot be empty";
-    } else if (value.length < 3) {
-      return "Password should be higher then 3";
+    } else if (value.length < 6) {
+      return "Password should be higher then 6";
     } else {
       return null;
     }
   } else {
     return null;
+  }
+}
+
+String? confirmPassword(String? password, String confirmPassword) {
+  if (confirmPassword != null) {
+    if (password == confirmPassword) {
+      return null;
+    } else {
+      return 'Password does not match!';
+    }
+  } else {
+    return 'Password cannot be empty';
   }
 }

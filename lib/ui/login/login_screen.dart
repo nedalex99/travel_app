@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:travel_app/ui/login/login_controller.dart';
 import 'package:travel_app/ui/widgets/buttons/custom_button.dart';
 import 'package:travel_app/ui/widgets/input_fields/input_field.dart';
+import 'package:travel_app/ui/widgets/input_fields/input_field_controller.dart';
 import 'package:travel_app/utils/constants/validator.dart';
 
 class LoginScreen extends GetView<LoginController> {
@@ -31,14 +32,18 @@ class LoginScreen extends GetView<LoginController> {
                                 const EdgeInsets.symmetric(horizontal: 24.0),
                             child: InputField(
                               textCapitalization: TextCapitalization.sentences,
-                              textEditingController:
-                                  controller.emailTextController,
                               textInputAction: TextInputAction.next,
                               labelText: 'Email',
                               textInputType: TextInputType.text,
                               onInputFieldChanged:
                                   controller.onEmailInputChanged,
                               validator: isValidEmail,
+                              textEditingController:
+                                  controller.emailTextController,
+                              controller: Get.put(
+                                InputFieldController(),
+                                tag: "register_screen_email",
+                              ),
                             ),
                           ),
                           const SizedBox(
@@ -48,23 +53,27 @@ class LoginScreen extends GetView<LoginController> {
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 24.0),
                             child: InputField(
-                              textCapitalization: TextCapitalization.sentences,
-                              textEditingController:
-                                  controller.passwordTextController,
-                              textInputAction: TextInputAction.done,
-                              validator: isValidPassword,
-                              textInputType: TextInputType.visiblePassword,
-                              onInputFieldChanged:
-                                  controller.onPasswordInputChanged,
-                              labelText: 'Password',
-                            ),
+                                textCapitalization:
+                                    TextCapitalization.sentences,
+                                controller: Get.put(
+                                  InputFieldController(),
+                                  tag: "register_screen_password",
+                                ),
+                                textInputAction: TextInputAction.done,
+                                validator: isValidPassword,
+                                textInputType: TextInputType.visiblePassword,
+                                onInputFieldChanged:
+                                    controller.onPasswordInputChanged,
+                                labelText: 'Password',
+                                textEditingController:
+                                    controller.passwordTextController),
                           ),
                           const SizedBox(
                             height: 30,
                           ),
                           GestureDetector(
                             onTap: () => {
-                               controller.goToRegisterScreen(),
+                              controller.goToRegisterScreen(),
                             },
                             child: const Text(
                               'Don\'t have an account? Sign up',

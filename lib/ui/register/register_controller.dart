@@ -1,46 +1,82 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:travel_app/ui/register/register_screen.dart';
+import 'package:travel_app/ui/login/login_screen.dart';
 import 'package:travel_app/utils/constants/validator.dart';
+import 'package:travel_app/utils/network/authentication.dart';
 
 class RegisterController extends GetxController {
   String loginText = "Register";
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController emailTextController = TextEditingController();
   final TextEditingController passwordTextController = TextEditingController();
-  final TextEditingController nameTextController = TextEditingController();
+  final TextEditingController confirmPasswordTextController =
+  TextEditingController();
   final TextEditingController firstNameTextController = TextEditingController();
+  final TextEditingController lastNameTextController = TextEditingController();
+  final TextEditingController userNameTextController = TextEditingController();
 
   RxBool isButtonEnabled = false.obs;
 
-
   void onNameInputChanged(String value) {
-    isButtonEnabled.value = isValidName(nameTextController.text) == null &&
+    isButtonEnabled.value = isValidName(firstNameTextController.text) == null &&
         isValidPassword(passwordTextController.text) == null &&
-            isValidName(firstNameTextController.text) == null &&
-            isValidEmail(emailTextController.text) == null;
+        isValidName(lastNameTextController.text) == null &&
+        isValidEmail(emailTextController.text) == null;
   }
 
   void onEmailInputChanged(String value) {
     isButtonEnabled.value = isValidEmail(emailTextController.text) == null &&
         isValidPassword(passwordTextController.text) == null &&
-        isValidName(nameTextController.text) == null &&
-        isValidName(firstNameTextController.text) == null;
+        isValidName(firstNameTextController.text) == null &&
+        isValidName(lastNameTextController.text) == null;
   }
 
   void onPasswordInputChanged(String value) {
     isButtonEnabled.value =
         isValidPassword(passwordTextController.text) == null &&
-            isValidName(nameTextController.text) == null &&
             isValidName(firstNameTextController.text) == null &&
-            isValidEmail(emailTextController.text) == null;
+            isValidName(lastNameTextController.text) == null &&
+            isValidEmail(emailTextController.text) == null &&
+            confirmPassword(passwordTextController.text,
+                confirmPasswordTextController.text) ==
+                null;
+  }
+
+  void onConfirmPasswordInputChange(String value) {
+    isButtonEnabled.value = confirmPassword(passwordTextController.text,
+        confirmPasswordTextController.text) ==
+        null &&
+        isValidPassword(passwordTextController.text) == null &&
+        isValidName(firstNameTextController.text) == null &&
+        isValidName(lastNameTextController.text) == null &&
+        isValidEmail(emailTextController.text) == null;
+  }
+
+  void redirectToLogin() {
+    const SpinKitCircle(
+      color: Colors.blue,
+    );
+    Get.to(const LoginScreen());
   }
 
   void printText() {
-    if (!formKey.currentState!.validate()) {
-      isButtonEnabled.value = false;
-    } else {
-      isButtonEnabled.value = true;
-    }
+    if (formKey.currentState!.validate()) {
+      try {
+        Authentication()
+            .registerUser(
+            name: firstNameTextController.text,
+            firstName: lastNameTextController.text,
+            userName: userNameTextController.text,
+            email: emailTextController.text,
+            password: passwordTextController.text)
+            .then(
+              (value) => redirectToLogin(),
+        );
+      } catch (e) {
+        print(e.toString());
+      }
+      // isButtonEnabled.value = false;
+    } else {}
   }
 }

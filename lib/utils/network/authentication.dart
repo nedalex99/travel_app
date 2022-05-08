@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
@@ -18,5 +19,29 @@ class Authentication extends GetConnect {
               },
           },
         );
+  }
+
+  Future<void> registerUser({
+    required String name,
+    required String firstName,
+    required String userName,
+    required String email,
+    required String password,
+  }) async {
+    await _firebaseAuth
+        .createUserWithEmailAndPassword(email: email, password: password)
+        .then((value) async => {
+              if (value.user != null)
+                {
+                  await FirebaseFirestore.instance
+                      .collection('users')
+                      .add({
+                    'firstName': name,
+                    'lastName': firstName,
+                    'userName': userName,
+                    'email': email,
+                  })
+                }
+            });
   }
 }
