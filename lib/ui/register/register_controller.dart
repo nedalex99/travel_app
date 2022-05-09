@@ -63,7 +63,7 @@ class RegisterController extends GetxController {
                 userName: userNameTextController.text,
                 email: emailTextController.text,
                 password: passwordTextController.text)
-            .then((value) => Get.to(() => const LoginScreen()));
+            .then((value) => Get.back());
       } catch (e) {
         print(e.toString());
       }

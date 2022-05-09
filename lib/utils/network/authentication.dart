@@ -11,13 +11,6 @@ class Authentication extends GetConnect {
     required String email,
     required String password,
   }) async {
-    const SpinKitRotatingCircle(
-      color: Colors.blue,
-      size: 24.0,
-      duration: Duration(
-        seconds: 5,
-      ),
-    );
     await _firebaseAuth
         .signInWithEmailAndPassword(email: email, password: password)
         .then(
@@ -37,13 +30,6 @@ class Authentication extends GetConnect {
     required String email,
     required String password,
   }) async {
-    const SpinKitRotatingCircle(
-      color: Colors.blue,
-      size: 24.0,
-      duration: Duration(
-        seconds: 5,
-      ),
-    );
     await _firebaseAuth
         .createUserWithEmailAndPassword(email: email, password: password)
         .then((value) async => {

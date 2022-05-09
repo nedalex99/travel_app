@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:travel_app/ui/widgets/input_fields/input_field_controller.dart';
 import 'package:travel_app/utils/constants/colors.dart';
 import 'package:travel_app/utils/constants/typedefs.dart';
@@ -76,21 +77,23 @@ class InputField extends StatelessWidget {
         ),
         labelText: labelText,
         suffixIcon: textInputType == TextInputType.visiblePassword
-            ? GestureDetector(
-                onTap: () {
-                  controller.isVisible.value = !controller.isVisible.value;
-                },
-                child: controller.isVisible.value
-                    ? const Icon(
-                        Icons.remove_red_eye,
-                        color: Colors.black,
-                        size: 20.0,
-                      )
-                    : const Icon(
-                        Icons.visibility_off,
-                        color: Colors.black,
-                        size: 20.0,
-                      ),
+            ? Obx(
+                () => GestureDetector(
+                  onTap: () {
+                    controller.isVisible.value = !controller.isVisible.value;
+                  },
+                  child: controller.isVisible.value
+                      ? const Icon(
+                          Icons.remove_red_eye,
+                          color: Colors.black,
+                          size: 20.0,
+                        )
+                      : const Icon(
+                          Icons.visibility_off,
+                          color: Colors.black,
+                          size: 20.0,
+                        ),
+                ),
               )
             : null,
       ),
