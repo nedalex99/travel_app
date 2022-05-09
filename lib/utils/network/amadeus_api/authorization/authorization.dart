@@ -1,12 +1,11 @@
-import 'dart:collection';
 import 'dart:convert';
 
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:travel_app/model/authorization_response_model.dart';
 import 'package:travel_app/utils/network/amadeus_api/authorization/authorization_response.dart';
 import 'package:travel_app/utils/responses/default_response.dart';
 import 'package:travel_app/utils/responses/error_response.dart';
-import 'package:http/http.dart' as http;
 
 class Authorization extends GetConnect {
   Future<DefaultResponse> authorize() async {
