@@ -98,8 +98,8 @@ class LoginScreen extends GetView<LoginController> {
                     child: Obx(
                       () => CustomButton(
                         onTap: controller.isButtonEnabled.value
-                            ? controller.printText
-                            : null,
+                            ? null
+                            : controller.printText,
                         text: controller.loginText,
                         backgroundColor: controller.isButtonEnabled.value
                             ? Colors.blue

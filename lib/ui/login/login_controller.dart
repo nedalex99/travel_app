@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/ui/dashboard/dashboard_screen.dart';
+import 'package:travel_app/ui/profile/user_profile.dart';
 import 'package:travel_app/ui/register/register_screen.dart';
 import 'package:travel_app/utils/constants/validator.dart';
 import 'package:travel_app/utils/network/amadeus_api/authorization/authorization.dart';
@@ -57,9 +58,20 @@ class LoginController extends GetxController {
                   ),
                   amadeusAccessToken =
                       value.authorizationResponseModel.accessToken,
-                  Get.to(
-                    () => const DashboardScreen(),
-                  ),
+                  if (!Authentication().findNewUser())
+                    {
+                      Get.to(
+                        () => const DashboardScreen(),
+                      ),
+                    }
+                  else
+                    {
+                      Get.to(
+                        () => UserProfile(
+                          username: 'username',
+                        ),
+                      ),
+                    }
                 }
               else
                 {
