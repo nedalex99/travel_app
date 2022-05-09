@@ -64,7 +64,7 @@ class LoginScreen extends GetView<LoginController> {
                           ),
                           GestureDetector(
                             onTap: () => {
-                               controller.goToRegisterScreen(),
+                              controller.goToRegisterScreen(),
                             },
                             child: const Text(
                               'Don\'t have an account? Sign up',

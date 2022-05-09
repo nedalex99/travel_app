@@ -17,7 +17,9 @@ class BaseScaffold extends StatelessWidget {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Get.to(const CreateTripScreen()),
+        onPressed: () => Get.to(
+          () => CreateTripScreen(),
+        ),
         tooltip: 'Add trip',
         child: const Icon(
           Icons.add,
