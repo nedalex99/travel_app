@@ -58,18 +58,16 @@ class LoginController extends GetxController {
                   ),
                   amadeusAccessToken =
                       value.authorizationResponseModel.accessToken,
-                  if (!Authentication().findNewUser())
+                  if (Authentication().findNewUser())
                     {
                       Get.to(
-                        () => const DashboardScreen(),
+                        () => UserProfile(),
                       ),
                     }
                   else
                     {
                       Get.to(
-                        () => UserProfile(
-                          username: 'username',
-                        ),
+                        () => const DashboardScreen(),
                       ),
                     }
                 }

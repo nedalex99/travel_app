@@ -49,10 +49,10 @@ class Authentication extends GetConnect {
     String? creationTimestamp =
         _firebaseAuth.currentUser?.metadata.creationTime.toString();
     if (lastDingInDate == creationTimestamp) {
-      return false;
+      return true;
     } else {
       print("user vechi");
-      return true;
+      return false;
     }
   }
 
