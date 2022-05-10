@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
 class Authentication extends GetConnect {
@@ -44,4 +42,18 @@ class Authentication extends GetConnect {
                 }
             });
   }
+
+  bool findNewUser() {
+    String? lastDingInDate =
+        _firebaseAuth.currentUser?.metadata.lastSignInTime.toString();
+    String? creationTimestamp =
+        _firebaseAuth.currentUser?.metadata.creationTime.toString();
+    if (lastDingInDate == creationTimestamp) {
+      return true;
+    } else {
+      print("user vechi");
+      return false;
+    }
+  }
+
 }
