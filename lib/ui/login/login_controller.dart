@@ -67,7 +67,7 @@ class LoginController extends GetxController {
                   else
                     {
                       Get.to(
-                        () => const DashboardScreen(),
+                        () =>  DashboardScreen(),
                       ),
                     }
                 }

@@ -58,7 +58,7 @@ class _UserProfileState extends State<UserProfile> {
                 ? CustomButton(
                     backgroundColor: Colors.blue,
                     onTap: () {
-                      Get.to(() => const DashboardScreen());
+                      Get.to(() =>  DashboardScreen());
                     },
                     text: 'Go to dashboard',
                   )
