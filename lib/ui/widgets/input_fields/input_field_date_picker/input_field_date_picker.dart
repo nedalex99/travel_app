@@ -11,15 +11,23 @@ class InputFieldDatePicker extends StatelessWidget {
     Key? key,
     required this.text,
   }) : super(key: key) {
-    _controller = Get.put(InputFieldDatePickerController(), tag: text);
+    _controller = Get.put(
+      InputFieldDatePickerController(
+        textController: TextEditingController()..text = text,
+      ),
+      tag: text,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       readOnly: true,
-      initialValue: text,
+      onTap: _controller.getDate,
+      controller: _controller.textController,
       decoration: InputDecoration(
+        fillColor: Colors.white,
+        filled: true,
         contentPadding: const EdgeInsets.all(
           8,
         ),
