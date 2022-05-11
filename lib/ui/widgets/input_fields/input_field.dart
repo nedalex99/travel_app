@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:travel_app/ui/widgets/input_fields/input_field_controller.dart';
 import 'package:travel_app/utils/constants/colors.dart';
 import 'package:travel_app/utils/constants/typedefs.dart';
 
 class InputField extends StatelessWidget {
+  final InputFieldController controller;
   final TextEditingController textEditingController;
   final TextCapitalization textCapitalization;
   final TextInputAction textInputAction;
@@ -13,13 +16,14 @@ class InputField extends StatelessWidget {
 
   const InputField({
     Key? key,
-    required this.textEditingController,
+    required this.controller,
     required this.textCapitalization,
     required this.textInputType,
     required this.textInputAction,
     required this.validator,
     required this.labelText,
     required this.onInputFieldChanged,
+    required this.textEditingController,
   }) : super(key: key);
 
   @override
@@ -30,8 +34,9 @@ class InputField extends StatelessWidget {
       textCapitalization: textCapitalization,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       textInputAction: textInputAction,
-      obscureText:
-          textInputType == TextInputType.visiblePassword ? true : false,
+      obscureText: textInputType == TextInputType.visiblePassword
+          ? controller.isVisible.value
+          : false,
       onChanged: onInputFieldChanged,
       validator: validator,
       decoration: InputDecoration(
@@ -71,6 +76,26 @@ class InputField extends StatelessWidget {
           color: kRedErrorField,
         ),
         labelText: labelText,
+        suffixIcon: textInputType == TextInputType.visiblePassword
+            ? Obx(
+                () => GestureDetector(
+                  onTap: () {
+                    controller.isVisible.value = !controller.isVisible.value;
+                  },
+                  child: controller.isVisible.value
+                      ? const Icon(
+                          Icons.remove_red_eye,
+                          color: Colors.black,
+                          size: 20.0,
+                        )
+                      : const Icon(
+                          Icons.visibility_off,
+                          color: Colors.black,
+                          size: 20.0,
+                        ),
+                ),
+              )
+            : null,
       ),
     );
   }
