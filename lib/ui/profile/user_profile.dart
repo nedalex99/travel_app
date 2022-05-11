@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,13 +17,14 @@ class UserProfile extends StatefulWidget {
 class _UserProfileState extends State<UserProfile> {
   File? _imageFile;
   final ImagePicker picker = ImagePicker();
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   Future<String> updateImage(File? pickedFile) async {
+    final String? uid = _firebaseAuth.currentUser?.uid;
     TaskSnapshot taskSnapshot = await FirebaseStorage.instance
-        .ref()
-        .child('profile_pictures')
-        .child(pickedFile!.path)
-        .putFile(pickedFile);
+        .ref(uid)
+        .child('images/$uid')
+        .putFile(pickedFile!);
 
     return taskSnapshot.ref.getDownloadURL();
   }
@@ -58,7 +60,7 @@ class _UserProfileState extends State<UserProfile> {
                 ? CustomButton(
                     backgroundColor: Colors.blue,
                     onTap: () {
-                      Get.to(() =>  DashboardScreen());
+                      Get.to(() => DashboardScreen());
                     },
                     text: 'Go to dashboard',
                   )
@@ -77,7 +79,8 @@ class _UserProfileState extends State<UserProfile> {
       backgroundColor: Colors.yellow,
       backgroundImage: _imageFile == null
           ? const NetworkImage(
-              'https://upload.wikimedia.org/wikipedia/en/3/35/Supermanflying.png')
+              'https://upload.wikimedia.org/wikipedia/en/3/35/Supermanflying.png',
+            )
           : Image.file(File(_imageFile!.path)).image,
     );
   }

@@ -1,10 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/ui/base_scaffold.dart';
 import 'package:travel_app/ui/dashboard/components/button_recomandation_widget.dart';
+import 'package:travel_app/ui/dashboard/dashboard_controller.dart';
 import 'package:travel_app/ui/widgets/bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'package:travel_app/utils/constants/styles.dart';
 
@@ -13,22 +13,16 @@ import 'components/recomandation_card.dart';
 
 class DashboardScreen extends StatelessWidget {
   DashboardScreen({Key? key}) : super(key: key);
+  final controller = Get.put(DashboardController());
+  final buttonCitiesController = Get.put(ButtonRecommendationController());
 
   final List<String> imageList = [
     'https://upload.wikimedia.org/wikipedia/commons/6/69/Paris_montage2.jpg',
     'https://upload.wikimedia.org/wikipedia/commons/7/75/Collage_Rome.jpg',
+    'https://upload.wikimedia.org/wikipedia/commons/7/75/Collage_Rome.jpg',
+    'https://upload.wikimedia.org/wikipedia/commons/7/75/Collage_Rome.jpg',
     'https://upload.wikimedia.org/wikipedia/commons/c/ca/Bucharest_collage_02.jpg',
   ];
-  //final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-
-
-  // Future<String> getUserName() async {
-  //   final CollectionReference users = FirebaseFirestore.instance.collection('users');
-  //   final String? uid = _firebaseAuth.currentUser?.uid;
-  //   final result = await users.doc(uid).get();
-  //   return result.id;
-  //
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -48,18 +42,37 @@ class DashboardScreen extends StatelessWidget {
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   CircleAvatar(
                     radius: 25,
-                    backgroundImage: NetworkImage(
-                      'https://upload.wikimedia.org/wikipedia/en/3/35/Supermanflying.png',
+                    backgroundColor: Colors.blue,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(
+                        50.0,
+                      ),
+                      child: controller.img.value != ''
+                          ? Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(
+                                  50.0,
+                                ),
+                              ),
+                              width: 25,
+                              height: 25,
+                            )
+                          : Image.network(
+                              "https://${controller.img.value}",
+                              width: 20,
+                              height: 20,
+                              fit: BoxFit.fill,
+                            ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Text(
-                    "Hello USERNAME!",
+                    controller.userData.value.userName!,
                     style: kNormalTextStyle,
                   ),
                 ],
@@ -69,7 +82,7 @@ class DashboardScreen extends StatelessWidget {
               height: 50.0,
             ),
             const Text(
-              'RECOMANDARI',
+              'Recommendations depending on the city',
               style: kDefaultHeaderTextStyle,
             ),
             const SizedBox(
@@ -83,21 +96,21 @@ class DashboardScreen extends StatelessWidget {
                     ButtonRecommendationController(),
                     tag: "button_1",
                   ),
-                  text: 'For you',
+                  text: 'PAR',
                 ),
                 ButtonRecommendation(
                   controller: Get.put(
                     ButtonRecommendationController(),
                     tag: "button_2",
                   ),
-                  text: 'Most Wanted',
+                  text: 'LIS',
                 ),
                 ButtonRecommendation(
                   controller: Get.put(
                     ButtonRecommendationController(),
                     tag: "button_3",
                   ),
-                  text: 'For Landscapes',
+                  text: 'OPO',
                 ),
               ],
             ),
@@ -109,8 +122,9 @@ class DashboardScreen extends StatelessWidget {
               itemBuilder: (context, index, realIndex) {
                 final urlImage = imageList[index];
                 return CardRecommendation(
-                  imageUrl: urlImage,
-                  text: 'TARA',
+                  cityName: 'NUME ORAS',
+                  relevance: ' NOTA',
+                  //imageUrl: urlImage,
                 );
               },
               options: CarouselOptions(

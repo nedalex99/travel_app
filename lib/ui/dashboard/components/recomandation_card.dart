@@ -3,13 +3,16 @@ import 'package:travel_app/utils/constants/colors.dart';
 import 'package:travel_app/utils/constants/styles.dart';
 
 class CardRecommendation extends StatelessWidget {
-  final String text;
-  final String imageUrl;
+  final String cityName;
+  final String relevance;
+
+  // final String imageUrl;
 
   CardRecommendation({
     Key? key,
-    required this.text,
-    required this.imageUrl,
+    //required this.imageUrl,
+    required this.cityName,
+    required this.relevance,
   }) : super(key: key);
 
   @override
@@ -32,20 +35,24 @@ class CardRecommendation extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Image.network(
-              imageUrl,
-              width:200,
-              height: 200,
+            // Image.network(
+            //   imageUrl,
+            //   width:50,
+            //   height: 50,
+            // ),
+            const SizedBox(
+              height: 5,
+            ),
+            Text(
+              cityName,
+              style: kNormalTextStyle,
             ),
             const SizedBox(
               height: 5,
             ),
             Text(
-              text,
+              relevance,
               style: kNormalTextStyle,
-            ),
-            const SizedBox(
-              height: 5,
             ),
           ],
         ),

@@ -4,14 +4,14 @@ import 'package:travel_app/utils/constants/colors.dart';
 const kDefaultHeaderTextStyle = TextStyle(
   fontFamily: "MazzardH",
   fontWeight: FontWeight.w600,
-  fontSize: 18.0,
+  fontSize: 16.0,
   color: Color(0xFF282828),
 );
 
 const kNormalTextStyle = TextStyle(
   fontFamily: "Roboto",
   fontStyle: FontStyle.normal,
-  fontSize: 15,
+  fontSize: 14,
   color: Color(0xFF212121),
 );
 

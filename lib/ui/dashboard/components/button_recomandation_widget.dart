@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:travel_app/ui/dashboard/dashboard_controller.dart';
 import 'package:travel_app/utils/constants/colors.dart';
 import 'package:travel_app/utils/constants/styles.dart';
 
@@ -9,6 +10,7 @@ class ButtonRecommendation extends StatelessWidget {
   final String text;
   final RxBool isSelected = false.obs;
   final ButtonRecommendationController controller;
+  final DashboardController dashboardController = Get.find();
 
   List<String> imageList = [
     'https://upload.wikimedia.org/wikipedia/commons/6/69/Paris_montage2.jpg',
@@ -36,12 +38,13 @@ class ButtonRecommendation extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (text == 'For you') {
-          //return imageList;
-        } else if (text == 'Most Wanted') {
-          //return imageList2;
-        } else if (text == 'For Landscapes') {
-          //return imageList3;
+        if (text == 'PAR') {
+          controller.cityRecommendation = text.obs;
+          controller.getRecommendation();
+        } else if (text == 'LTS') {
+          controller.cityRecommendation = text.obs;
+        } else if (text == 'OPO') {
+          controller.cityRecommendation = text.obs;
         }
         controller.isSelected.value = !controller.isSelected.value;
       },
