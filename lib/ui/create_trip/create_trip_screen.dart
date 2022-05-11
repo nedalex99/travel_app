@@ -169,15 +169,25 @@ class CreateTripScreen extends StatelessWidget {
                           controller.selectedDeparture.value == "" &&
                           controller.selectedDate.value !=
                               DateTime(DateTime.now().year - 1)
-                      ? CustomButton(
-                          onTap: controller.getFlights,
-                          text: 'Search Flights',
-                          backgroundColor: Colors.blueGrey,
+                      ? Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                top: 8.0,
+                              ),
+                              child: CustomButton(
+                                onTap: controller.getFlights,
+                                text: 'Search Flights',
+                                backgroundColor: Colors.blueGrey,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            const Text('Skip')
+                          ],
                         )
                       : Container(),
-                ),
-                const Text(
-                  'Skip',
                 ),
               ],
             ),

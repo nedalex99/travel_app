@@ -19,12 +19,11 @@ class LoginController extends GetxController {
   void onEmailInputChanged(String value) {
     isButtonEnabled.value = isValidEmail(emailTextController.text) == null &&
         isValidPassword(passwordTextController.text) == null;
-    print(isButtonEnabled.value);
   }
 
   void onPasswordInputChanged(String value) {
-    isButtonEnabled.value = isValidPassword(emailTextController.text) == null &&
-        isValidEmail(passwordTextController.text) == null;
+    isButtonEnabled.value = isValidEmail(emailTextController.text) == null &&
+        isValidPassword(passwordTextController.text) == null;
   }
 
   void goToRegisterScreen() {

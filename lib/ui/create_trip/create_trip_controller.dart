@@ -10,10 +10,10 @@ import 'package:travel_app/utils/network/amadeus_api/flight_offer_search/flight_
 class CreateTripController extends GetxController {
   Rx<DateTime> selectedDate = DateTime(DateTime.now().year - 1).obs;
   RxString selectedDeparture = "".obs;
-  AirportModel selectedDepartureAirport = AirportModel();
+  late AirportModel selectedDepartureAirport;
 
   RxString selectedArrival = "".obs;
-  AirportModel selectedArrivalAirport = AirportModel();
+  late AirportModel selectedArrivalAirport;
 
   TextEditingController departureZoneController = TextEditingController();
   TextEditingController arrivalZoneController = TextEditingController();
@@ -63,8 +63,13 @@ class CreateTripController extends GetxController {
   Future<void> getFlights() async {
     FlightOfferSearch()
         .getFlightOffer(
-            departureCode: selectedDepartureAirport.code!,
-            arrivalCode: selectedArrivalAirport.code!)
-        .then((value) => print(value.statusCode));
+          departureCode: selectedDepartureAirport.code!,
+          arrivalCode: selectedArrivalAirport.code!,
+        )
+        .then(
+          (value) => print(
+            value.statusCode,
+          ),
+        );
   }
 }
