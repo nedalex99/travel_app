@@ -12,7 +12,6 @@ class LoginScreen extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFEFFAF0),
       body: Form(
         key: controller.formKey,
         child: Column(
@@ -102,8 +101,8 @@ class LoginScreen extends GetView<LoginController> {
                             : null,
                         text: controller.loginText,
                         backgroundColor: controller.isButtonEnabled.value
-                            ? Colors.blue
-                            : Colors.yellow,
+                            ? Colors.blueAccent
+                            : Color(0x80000000),
                       ),
                     ),
                   ),
