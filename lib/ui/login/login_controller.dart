@@ -3,10 +3,12 @@ import 'package:get/get.dart';
 import 'package:travel_app/ui/dashboard/dashboard_screen.dart';
 import 'package:travel_app/ui/profile/user_profile.dart';
 import 'package:travel_app/ui/register/register_screen.dart';
+import 'package:travel_app/ui/widgets/dialogs/loading_dialog.dart';
 import 'package:travel_app/utils/constants/validator.dart';
 import 'package:travel_app/utils/network/amadeus_api/authorization/authorization.dart';
 import 'package:travel_app/utils/network/amadeus_api/authorization/authorization_response.dart';
-import 'package:travel_app/utils/network/authentication.dart';
+import 'package:travel_app/utils/network/firebase/authentication/authentication.dart';
+import 'package:travel_app/utils/network/firebase/authentication/sign_in_response.dart';
 import 'package:travel_app/utils/session_temp.dart';
 
 class LoginController extends GetxController {
@@ -46,36 +48,64 @@ class LoginController extends GetxController {
     // }
 
     if (formKey.currentState!.validate()) {
-      Authorization().authorize().then(
+      Get.dialog(
+        const LoadingDialog(),
+        barrierDismissible: false,
+      );
+      Authentication()
+          .signInWithEmailAndPassword(
+              email: emailTextController.text,
+              password: passwordTextController.text)
+          .then(
             (value) => {
               if (value.statusCode == 200)
                 {
-                  print(
-                    (value as AuthorizationResponse)
-                        .authorizationResponseModel
-                        .accessToken,
-                  ),
-                  amadeusAccessToken =
-                      value.authorizationResponseModel.accessToken,
-                  if (Authentication().findNewUser())
-                    {
-                      Get.to(
-                        () => UserProfile(),
-                      ),
-                    }
-                  else
-                    {
-                      Get.to(
-                        () =>  DashboardScreen(),
-                      ),
-                    }
-                }
-              else
-                {
-                  print("${value.statusCode} ${value.status}"),
+                  userLoggedIn = (value as SignInResponse).user,
+                  Authorization().authorize().then(
+                        (value) => {
+                          if (value.statusCode == 200)
+                            {
+                              amadeusAccessToken =
+                                  (value as AuthorizationResponse)
+                                      .authorizationResponseModel
+                                      .accessToken,
+                              Get.back(),
+                              Get.to(
+                                () => DashboardScreen(),
+                              ),
+                            }
+                        },
+                      )
                 },
             },
           );
+      // Authorization().authorize().then(
+      //       (value) => {
+      //         if (value.statusCode == 200)
+      //           {
+      //             amadeusAccessToken = (value as AuthorizationResponse)
+      //                 .authorizationResponseModel
+      //                 .accessToken,
+      //             if (Authentication().findNewUser())
+      //               {
+      //                 Get.back(),
+      //                 Get.to(
+      //                   () => UserProfile(),
+      //                 ),
+      //               }
+      //             else
+      //               {
+      //                 Get.to(
+      //                   () => const DashboardScreen(),
+      //                 ),
+      //               }
+      //           }
+      //         else
+      //           {
+      //             print("${value.statusCode} ${value.status}"),
+      //           },
+      //       },
+      //     );
     }
   }
 }

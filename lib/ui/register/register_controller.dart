@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:travel_app/model/user_model.dart';
 import 'package:travel_app/ui/login/login_screen.dart';
+import 'package:travel_app/ui/widgets/dialogs/loading_dialog.dart';
 import 'package:travel_app/utils/constants/validator.dart';
-import 'package:travel_app/utils/network/authentication.dart';
+import 'package:travel_app/utils/network/firebase/authentication/authentication.dart';
+import 'package:travel_app/utils/network/firebase/authentication/sign_in_response.dart';
+import 'package:travel_app/utils/network/firebase/firestore/users_collection.dart';
 
 class RegisterController extends GetxController {
   String loginText = "Register";
@@ -52,17 +56,40 @@ class RegisterController extends GetxController {
         isValidEmail(emailTextController.text) == null;
   }
 
-  void printText() {
+  Future<void> registerUser() async {
     if (formKey.currentState!.validate()) {
       try {
-        Authentication()
+        Get.dialog(
+          const LoadingDialog(),
+        );
+        UserModel userModel = UserModel(
+          lastName: lastNameTextController.text,
+          firstName: firstNameTextController.text,
+          userName: userNameTextController.text,
+          email: emailTextController.text,
+        );
+        await Authentication()
             .registerUser(
-                name: firstNameTextController.text,
-                firstName: lastNameTextController.text,
-                userName: userNameTextController.text,
-                email: emailTextController.text,
-                password: passwordTextController.text)
-            .then((value) => Get.back());
+              lastName: lastNameTextController.text,
+              firstName: firstNameTextController.text,
+              userName: userNameTextController.text,
+              email: emailTextController.text,
+              password: passwordTextController.text,
+            )
+            .then(
+              (value) => {
+                UsersCollection()
+                    .addUser(
+                        userModel: userModel,
+                        uid: (value as SignInResponse).user.uid)
+                    .then(
+                      (value) => {
+                        Get.back(),
+                        Get.back(),
+                      },
+                    ),
+              },
+            );
       } catch (e) {
         print(e.toString());
       }
