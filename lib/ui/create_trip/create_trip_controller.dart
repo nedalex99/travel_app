@@ -5,7 +5,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_material_pickers/flutter_material_pickers.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/model/airport_model.dart';
+import 'package:travel_app/model/flights_model.dart';
+import 'package:travel_app/ui/widgets/dialogs/loading_dialog.dart';
 import 'package:travel_app/utils/network/amadeus_api/flight_offer_search/flight_offer_search.dart';
+import 'package:travel_app/utils/network/amadeus_api/flight_offer_search/get_flight_offer_response.dart';
 
 class CreateTripController extends GetxController {
   Rx<DateTime> selectedDate = DateTime(DateTime.now().year - 1).obs;
@@ -18,6 +21,8 @@ class CreateTripController extends GetxController {
   TextEditingController departureZoneController = TextEditingController();
   TextEditingController arrivalZoneController = TextEditingController();
   List<AirportModel> airportsList = [];
+  RxBool didSearchFlights = false.obs;
+  Rx<FlightsModel> flightList = FlightsModel().obs;
 
   @override
   void onInit() {
@@ -61,15 +66,23 @@ class CreateTripController extends GetxController {
   }
 
   Future<void> getFlights() async {
-    FlightOfferSearch()
+    didSearchFlights.value = true;
+    Get.dialog(
+      const LoadingDialog(),
+      barrierDismissible: false,
+    );
+    await FlightOfferSearch()
         .getFlightOffer(
-          departureCode: selectedDepartureAirport.code!,
-          arrivalCode: selectedArrivalAirport.code!,
-        )
+      departureCode: selectedDepartureAirport.code!,
+      arrivalCode: selectedArrivalAirport.code!,
+    )
         .then(
-          (value) => print(
-            value.statusCode,
-          ),
-        );
+      (value) {
+        Get.back();
+        if (value.statusCode == 200) {
+          flightList.value = (value as GetFlightOfferResponse).flightModel;
+        }
+      },
+    );
   }
 }

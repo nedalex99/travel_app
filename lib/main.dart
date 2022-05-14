@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/ui/login/login_screen.dart';
 import 'package:travel_app/utils/constants/bindings.dart';
+import 'package:travel_app/utils/constants/themes.dart';
 
 Future<void> main() async {
   runApp(const MyApp());
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       initialBinding: DataBindings(),
+      theme: kMainTheme,
       home: LoginScreen(),
     );
   }

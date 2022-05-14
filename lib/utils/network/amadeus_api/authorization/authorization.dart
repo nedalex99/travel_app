@@ -9,14 +9,9 @@ import 'package:travel_app/utils/responses/error_response.dart';
 
 class Authorization extends GetConnect {
   Future<DefaultResponse> authorize() async {
-    var body = jsonEncode(
-      {
-        'client_id': 'rIAi8hcBUd3uPLZQrdoPxMNZXr0J8pi1',
-        'client_secre': 'AkGnWVJcVGVNQ4k1',
-        'grant_type': 'client_credentials',
-      },
-    );
-    var headers = {'Content-Type': 'application/x-www-form-urlencoded'};
+    var headers = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    };
     var request = http.Request(
       'POST',
       Uri.parse(
@@ -32,8 +27,6 @@ class Authorization extends GetConnect {
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
-    late http.Response response1;
-    Map<String, String> jsonx;
     var json = jsonDecode(
       await response.stream.bytesToString(),
     );

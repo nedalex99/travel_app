@@ -40,6 +40,8 @@ class InputField extends StatelessWidget {
       onChanged: onInputFieldChanged,
       validator: validator,
       decoration: InputDecoration(
+        filled: true,
+        fillColor: Colors.white,
         contentPadding: const EdgeInsets.all(
           8,
         ),
