@@ -5,7 +5,7 @@ import 'package:travel_app/utils/constants/colors.dart';
 import 'package:travel_app/utils/constants/typedefs.dart';
 
 class InputField extends StatelessWidget {
-  final InputFieldController controller;
+  final InputFieldController? controller;
   final TextEditingController textEditingController;
   final TextCapitalization textCapitalization;
   final TextInputAction textInputAction;
@@ -16,7 +16,7 @@ class InputField extends StatelessWidget {
 
   const InputField({
     Key? key,
-    required this.controller,
+    this.controller,
     required this.textCapitalization,
     required this.textInputType,
     required this.textInputAction,
@@ -35,7 +35,7 @@ class InputField extends StatelessWidget {
       autovalidateMode: AutovalidateMode.onUserInteraction,
       textInputAction: textInputAction,
       obscureText: textInputType == TextInputType.visiblePassword
-          ? controller.isVisible.value
+          ? controller!.isVisible.value
           : false,
       onChanged: onInputFieldChanged,
       validator: validator,
@@ -82,9 +82,9 @@ class InputField extends StatelessWidget {
             ? Obx(
                 () => GestureDetector(
                   onTap: () {
-                    controller.isVisible.value = !controller.isVisible.value;
+                    controller!.isVisible.value = !controller!.isVisible.value;
                   },
-                  child: controller.isVisible.value
+                  child: controller!.isVisible.value
                       ? const Icon(
                           Icons.remove_red_eye,
                           color: Colors.black,

@@ -58,7 +58,7 @@ class CreateTripScreen extends StatelessWidget {
                   height: 16.0,
                 ),
                 Obx(
-                  () => controller.selectedDate.value ==
+                  () => controller.selectedDepartureDate.value ==
                           DateTime(DateTime.now().year - 1)
                       ? Padding(
                           padding: const EdgeInsets.symmetric(
@@ -67,7 +67,8 @@ class CreateTripScreen extends StatelessWidget {
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: GestureDetector(
-                              onTap: controller.getDate,
+                              onTap: () =>
+                                  controller.getDate(isFromDeparture: true),
                               child: const Text(
                                 "Select a starting date",
                                 style: TextStyle(
@@ -81,22 +82,74 @@ class CreateTripScreen extends StatelessWidget {
                         )
                       : Container(),
                 ),
+                //
                 Obx(
-                  () => controller.selectedDate.value !=
+                  () => controller.selectedDepartureDate.value !=
                           DateTime(DateTime.now().year - 1)
                       ? Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16.0),
                           child: InputFieldDatePicker(
                             text: DateFormat("dd-MM-yyyy")
-                                .format(controller.selectedDate.value)
+                                .format(controller.selectedDepartureDate.value)
                                 .toString(),
+                            textEditingController: controller.dateOfDeparture,
+                            labelText: 'Departure date',
+                          ),
+                        )
+                      : Container(),
+                ),
+                const SizedBox(
+                  height: 16.0,
+                ),
+                Obx(
+                  () => controller.selectedDepartureDate.value !=
+                          DateTime(DateTime.now().year - 1)
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16.0,
+                          ),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: GestureDetector(
+                              onTap: () =>
+                                  controller.getDate(isFromDeparture: false),
+                              child: const Text(
+                                "Select an arrival date",
+                                style: TextStyle(
+                                  color: Colors.blueGrey,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      : Container(),
+                ),
+                const SizedBox(
+                  height: 16.0,
+                ),
+                Obx(
+                  () => controller.selectedArrivalDate.value !=
+                          DateTime(DateTime.now().year - 1)
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: InputFieldDatePicker(
+                            text: DateFormat("dd-MM-yyyy")
+                                .format(controller.selectedArrivalDate.value)
+                                .toString(),
+                            textEditingController: controller.dateOfArrival,
+                            labelText: 'Arrival date',
                           ),
                         )
                       : Container(),
                 ),
                 Obx(
                   () => controller.selectedDeparture.value == "" &&
-                          controller.selectedDate.value !=
+                          controller.selectedDepartureDate.value !=
+                              DateTime(DateTime.now().year - 1) &&
+                          controller.selectedArrival.value == "" &&
+                          controller.selectedArrivalDate.value !=
                               DateTime(DateTime.now().year - 1)
                       ? Padding(
                           padding: const EdgeInsets.all(
@@ -121,7 +174,10 @@ class CreateTripScreen extends StatelessWidget {
                 ),
                 Obx(
                   () => controller.selectedDeparture.value == "" &&
-                          controller.selectedDate.value !=
+                          controller.selectedDepartureDate.value !=
+                              DateTime(DateTime.now().year - 1) &&
+                          controller.selectedArrival.value == "" &&
+                          controller.selectedArrivalDate.value !=
                               DateTime(DateTime.now().year - 1)
                       ? Padding(
                           padding: const EdgeInsets.symmetric(
@@ -136,9 +192,11 @@ class CreateTripScreen extends StatelessWidget {
                       : Container(),
                 ),
                 Obx(
-                  () => controller.selectedArrival.value == "" &&
-                          controller.selectedDeparture.value == "" &&
-                          controller.selectedDate.value !=
+                  () => controller.selectedDeparture.value == "" &&
+                          controller.selectedDepartureDate.value !=
+                              DateTime(DateTime.now().year - 1) &&
+                          controller.selectedArrival.value == "" &&
+                          controller.selectedArrivalDate.value !=
                               DateTime(DateTime.now().year - 1)
                       ? Padding(
                           padding: const EdgeInsets.all(
@@ -162,9 +220,11 @@ class CreateTripScreen extends StatelessWidget {
                       : Container(),
                 ),
                 Obx(
-                  () => controller.selectedArrival.value == "" &&
-                          controller.selectedDeparture.value == "" &&
-                          controller.selectedDate.value !=
+                  () => controller.selectedDeparture.value == "" &&
+                          controller.selectedDepartureDate.value !=
+                              DateTime(DateTime.now().year - 1) &&
+                          controller.selectedArrival.value == "" &&
+                          controller.selectedArrivalDate.value !=
                               DateTime(DateTime.now().year - 1)
                       ? Padding(
                           padding: const EdgeInsets.symmetric(
@@ -179,9 +239,11 @@ class CreateTripScreen extends StatelessWidget {
                       : Container(),
                 ),
                 Obx(
-                  () => controller.selectedArrival.value == "" &&
-                          controller.selectedDeparture.value == "" &&
-                          controller.selectedDate.value !=
+                  () => controller.selectedDeparture.value == "" &&
+                          controller.selectedDepartureDate.value !=
+                              DateTime(DateTime.now().year - 1) &&
+                          controller.selectedArrival.value == "" &&
+                          controller.selectedArrivalDate.value !=
                               DateTime(DateTime.now().year - 1)
                       ? Column(
                           children: [
@@ -208,9 +270,11 @@ class CreateTripScreen extends StatelessWidget {
                 Obx(
                   () => Column(
                     children: [
-                      controller.selectedArrival.value == "" &&
-                              controller.selectedDeparture.value == "" &&
-                              controller.selectedDate.value !=
+                      controller.selectedDeparture.value == "" &&
+                              controller.selectedDepartureDate.value !=
+                                  DateTime(DateTime.now().year - 1) &&
+                              controller.selectedArrival.value == "" &&
+                              controller.selectedArrivalDate.value !=
                                   DateTime(DateTime.now().year - 1)
                           ? const Align(
                               alignment: Alignment.centerLeft,
@@ -240,8 +304,8 @@ class CreateTripScreen extends StatelessWidget {
                           List<String> arrivalTime = [];
                           for (var itinerary in controller
                               .flightList.value.data![index].itineraries!) {
-                            duration.add(itinerary.duration!);
                             for (var segment in itinerary.segments!) {
+                              duration.add(segment.duration!);
                               departureCode.add(segment.departure!.iataCode!);
                               departureTime.add(segment.departure!.at!);
                               arrivalCode.add(segment.arrival!.iataCode!);
@@ -250,34 +314,13 @@ class CreateTripScreen extends StatelessWidget {
                           }
                           FlightCardDetails flightCardDetails =
                               FlightCardDetails(
-                            departureCode: "${departureCode[0]} : ",
-                            arrivalCode: "${arrivalCode[0]} : ",
-                            departureTime: DateFormat("HH:mm").format(
-                              DateTime.parse(
-                                departureTime[0],
-                              ),
-                            ),
-                            arrivalTime: DateFormat("HH:mm").format(
-                              DateTime.parse(
-                                arrivalTime[0],
-                              ),
-                            ),
-                            flightDuration: duration[0],
+                            departureCode: departureCode,
+                            arrivalCode: arrivalCode,
+                            departureTime: departureTime,
+                            arrivalTime: arrivalTime,
+                            flightDuration: duration,
                             price: controller
                                 .flightList.value.data![index].price!.total!,
-                            returnArrivalCode: "${arrivalCode[1]} : ",
-                            returnDepartureTime: DateFormat("HH:mm").format(
-                              DateTime.parse(
-                                departureTime[1],
-                              ),
-                            ),
-                            returnFlightDuration: duration[1],
-                            returnDepartureCode: "${departureCode[1]} : ",
-                            returnArrivalTime: DateFormat("HH:mm").format(
-                              DateTime.parse(
-                                arrivalTime[1],
-                              ),
-                            ),
                           );
                           return Padding(
                             padding: const EdgeInsets.only(

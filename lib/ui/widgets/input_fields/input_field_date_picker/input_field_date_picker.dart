@@ -5,18 +5,31 @@ import 'package:get/get.dart';
 class InputFieldDatePicker extends StatelessWidget {
   late final InputFieldDatePickerController _controller;
 
-  final String text;
+  final String? text;
+  final String labelText;
+  final TextEditingController textEditingController;
 
   InputFieldDatePicker({
     Key? key,
-    required this.text,
+    this.text,
+    required this.textEditingController,
+    required this.labelText,
   }) : super(key: key) {
-    _controller = Get.put(
-      InputFieldDatePickerController(
-        textController: TextEditingController()..text = text,
-      ),
-      tag: text,
-    );
+    if (text == null) {
+      _controller = Get.put(
+        InputFieldDatePickerController(
+          textController: textEditingController,
+        ),
+        tag: labelText,
+      );
+    } else {
+      _controller = Get.put(
+        InputFieldDatePickerController(
+          textController: TextEditingController()..text = text!,
+        ),
+        tag: labelText,
+      );
+    }
   }
 
   @override
@@ -38,7 +51,7 @@ class InputFieldDatePicker extends StatelessWidget {
             ),
           ),
         ),
-        labelText: text,
+        labelText: labelText,
       ),
     );
   }
