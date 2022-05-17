@@ -12,14 +12,17 @@ class FlightOfferSearch extends GetConnect {
   Future<DefaultResponse> getFlightOffer({
     required String departureCode,
     required String arrivalCode,
+    required String departureDate,
+    required String arrivalDate,
   }) async {
     var headers = {
       'Authorization': 'Bearer $amadeusAccessToken',
     };
+    print(departureDate);
     var request = http.Request(
       'GET',
       Uri.parse(
-        'https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=$departureCode&destinationLocationCode=$arrivalCode&departureDate=2022-11-01&returnDate=2022-11-18&adults=1&max=2',
+        'https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=$departureCode&destinationLocationCode=$arrivalCode&departureDate=$departureDate&returnDate=$arrivalDate&adults=1&max=2',
       ),
     );
     request.headers.addAll(headers);

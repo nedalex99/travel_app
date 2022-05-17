@@ -1,14 +1,9 @@
 class FlightCardDetails {
-  String departureCode;
-  String arrivalCode;
-  String departureTime;
-  String arrivalTime;
-  String flightDuration;
-  String returnDepartureCode;
-  String returnArrivalCode;
-  String returnDepartureTime;
-  String returnArrivalTime;
-  String returnFlightDuration;
+  List<String> departureCode;
+  List<String> arrivalCode;
+  List<String> departureTime;
+  List<String> arrivalTime;
+  List<String> flightDuration;
   String price;
 
   FlightCardDetails({
@@ -17,11 +12,15 @@ class FlightCardDetails {
     required this.departureTime,
     required this.arrivalTime,
     required this.flightDuration,
-    required this.returnDepartureCode,
-    required this.returnArrivalCode,
-    required this.returnDepartureTime,
-    required this.returnArrivalTime,
-    required this.returnFlightDuration,
     required this.price,
   });
+
+  Map<String, dynamic> toJson() => {
+        'departureCode': departureCode.map((e) => e).toList(),
+        'arrivalCode': arrivalCode.map((e) => e).toList(),
+        'departureTime': departureTime.map((e) => e).toList(),
+        'arrivalTime': arrivalTime.map((e) => e).toList(),
+        'flightDuration': flightDuration.map((e) => e).toList(),
+        'price': price,
+      };
 }

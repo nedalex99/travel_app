@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:travel_app/model/flight_card_details.dart';
 import 'package:travel_app/ui/select_flight_ticket/select_flight_ticket_screen.dart';
 
@@ -13,6 +14,8 @@ class FlightCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("Time ${flightCardDetails.departureTime.length}");
+    print("Code ${flightCardDetails.departureCode.length}");
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -49,78 +52,50 @@ class FlightCard extends StatelessWidget {
               ),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                '${flightCardDetails.departureCode} : ${flightCardDetails.departureTime}',
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              Column(
+          ListView.builder(
+            shrinkWrap: true,
+            itemCount: flightCardDetails.departureCode.length,
+            itemBuilder: (context, index) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Icon(
-                    Icons.flight_takeoff,
+                  Text(
+                    '${flightCardDetails.departureCode[index]} : ${DateFormat("HH:mm").format(
+                      DateTime.parse(flightCardDetails.departureTime[index]),
+                    )}',
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  Column(
+                    children: [
+                      const Icon(
+                        Icons.flight_takeoff,
+                      ),
+                      Text(
+                        flightCardDetails.flightDuration[index],
+                        style: const TextStyle(
+                          color: Color(
+                            0x80000000,
+                          ),
+                          fontSize: 12.0,
+                        ),
+                      ),
+                    ],
                   ),
                   Text(
-                    flightCardDetails.flightDuration,
+                    '${flightCardDetails.arrivalCode[index]} : ${DateFormat("HH:mm").format(
+                      DateTime.parse(flightCardDetails.arrivalTime[index]),
+                    )}',
                     style: const TextStyle(
-                      color: Color(
-                        0x80000000,
-                      ),
-                      fontSize: 12.0,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                 ],
-              ),
-              Text(
-                '${flightCardDetails.arrivalCode} : ${flightCardDetails.arrivalTime}',
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 12.0,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                '${flightCardDetails.returnDepartureCode} : ${flightCardDetails.returnDepartureTime}',
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              Column(
-                children: [
-                  const Icon(
-                    Icons.flight_takeoff,
-                  ),
-                  Text(
-                    flightCardDetails.returnFlightDuration,
-                    style: const TextStyle(
-                      color: Color(
-                        0x80000000,
-                      ),
-                      fontSize: 12.0,
-                    ),
-                  ),
-                ],
-              ),
-              Text(
-                '${flightCardDetails.returnArrivalCode} : ${flightCardDetails.returnArrivalTime}',
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ],
+              );
+            },
           ),
           Column(
             children: [

@@ -79,33 +79,6 @@ class LoginController extends GetxController {
                 },
             },
           );
-      // Authorization().authorize().then(
-      //       (value) => {
-      //         if (value.statusCode == 200)
-      //           {
-      //             amadeusAccessToken = (value as AuthorizationResponse)
-      //                 .authorizationResponseModel
-      //                 .accessToken,
-      //             if (Authentication().findNewUser())
-      //               {
-      //                 Get.back(),
-      //                 Get.to(
-      //                   () => UserProfile(),
-      //                 ),
-      //               }
-      //             else
-      //               {
-      //                 Get.to(
-      //                   () => const DashboardScreen(),
-      //                 ),
-      //               }
-      //           }
-      //         else
-      //           {
-      //             print("${value.statusCode} ${value.status}"),
-      //           },
-      //       },
-      //     );
     }
   }
 }
