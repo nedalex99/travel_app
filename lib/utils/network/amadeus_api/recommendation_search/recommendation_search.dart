@@ -1,11 +1,14 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
+import 'package:travel_app/model/recommendation_model.dart';
+import 'package:travel_app/utils/network/amadeus_api/recommendation_search/get_recommendation_response.dart';
 import 'package:travel_app/utils/responses/default_response.dart';
 import 'package:travel_app/utils/responses/error_response.dart';
 import 'package:travel_app/utils/session_temp.dart';
 import 'package:http/http.dart' as http;
 
 class RecommendationSearch extends GetConnect {
-
   Future<DefaultResponse> getRecommendationSearch({
     required String cityCode,
   }) async {
@@ -21,10 +24,19 @@ class RecommendationSearch extends GetConnect {
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
+    var json = jsonDecode(
+      await response.stream.bytesToString(),
+    );
 
     if (response.statusCode == 200) {
-      print(await response.stream.bytesToString());
-      return DefaultResponse(statusCode: 200, status: "success");
+      //print(await response.stream.bytesToString());
+      return GetRecommendationResponse(
+        statusCode: 200,
+        status: "success",
+        recommendationModel: RecommendationModel.fromJson(
+          json,
+        ),
+      );
     } else {
       return ErrorResponse(status: "error", statusCode: response.statusCode);
     }

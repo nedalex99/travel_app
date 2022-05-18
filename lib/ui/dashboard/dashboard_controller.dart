@@ -2,7 +2,11 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:travel_app/model/recommendation_model.dart';
 import 'package:travel_app/model/user_data.dart';
+import 'package:travel_app/ui/widgets/dialogs/loading_dialog.dart';
+import 'package:travel_app/utils/network/amadeus_api/recommendation_search/get_recommendation_response.dart';
+import 'package:travel_app/utils/network/amadeus_api/recommendation_search/recommendation_search.dart';
 
 class DashboardController extends GetxController {
   DocumentSnapshot? documentSnapshot;
@@ -10,6 +14,7 @@ class DashboardController extends GetxController {
   RxString img = "".obs;
   Rx<UserData> userData =
       UserData(firstName: "", lastName: "", userName: "").obs;
+  RxString cityRecommendation = "".obs;
 
   @override
   void onInit() {
@@ -41,5 +46,30 @@ class DashboardController extends GetxController {
     print(img.value);
   }
 
+  Rx<RecommendationModel> recommendationList = RecommendationModel().obs;
 
+  //API RECOMM
+  Future<void> getRecommendation() async {
+    // Get.dialog(
+    //   const LoadingDialog(),
+    //   barrierDismissible: false,
+    // );
+    try {
+      RecommendationSearch()
+          .getRecommendationSearch(
+        cityCode: cityRecommendation.value,
+      )
+          .then((value) {
+        if (value.statusCode == 200) {
+          recommendationList.value =
+              (value as GetRecommendationResponse).recommendationModel;
+          print(recommendationList.toString());
+        } else {
+          print(value.statusCode!);
+        }
+      });
+    } catch (e) {
+      print("Erroar +${e.toString()}");
+    }
+  }
 }

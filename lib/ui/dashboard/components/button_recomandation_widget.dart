@@ -41,7 +41,7 @@ class ButtonRecommendation extends StatelessWidget {
         if (text == 'PAR') {
           controller.cityRecommendation = text.obs;
           controller.getRecommendation();
-        } else if (text == 'LTS') {
+        } else if (text == 'LIS') {
           controller.cityRecommendation = text.obs;
         } else if (text == 'OPO') {
           controller.cityRecommendation = text.obs;

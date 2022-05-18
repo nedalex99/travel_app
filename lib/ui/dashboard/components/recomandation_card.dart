@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:travel_app/model/recommendation_model.dart';
 import 'package:travel_app/utils/constants/colors.dart';
 import 'package:travel_app/utils/constants/styles.dart';
 
 class CardRecommendation extends StatelessWidget {
-  final String cityName;
-  final String relevance;
+  RecommendationModel recommendationModel;
 
   // final String imageUrl;
 
   CardRecommendation({
     Key? key,
     //required this.imageUrl,
-    required this.cityName,
-    required this.relevance,
+    required this.recommendationModel,
   }) : super(key: key);
 
   @override
@@ -44,14 +43,14 @@ class CardRecommendation extends StatelessWidget {
               height: 5,
             ),
             Text(
-              cityName,
+              recommendationModel.name!,
               style: kNormalTextStyle,
             ),
             const SizedBox(
               height: 5,
             ),
             Text(
-              relevance,
+              recommendationModel.relevance.toString(),
               style: kNormalTextStyle,
             ),
           ],

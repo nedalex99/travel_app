@@ -2,8 +2,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:travel_app/model/recommendation_model.dart';
 import 'package:travel_app/ui/base_scaffold.dart';
-import 'package:travel_app/ui/dashboard/components/button_recomandation_widget.dart';
 import 'package:travel_app/ui/dashboard/dashboard_controller.dart';
 import 'package:travel_app/ui/widgets/bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'package:travel_app/utils/constants/styles.dart';
@@ -50,29 +50,29 @@ class DashboardScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(
                         50.0,
                       ),
-                      child: controller.img.value != ''
+                      child: controller.img.value == ''
                           ? Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(
-                                  50.0,
-                                ),
-                              ),
-                              width: 25,
-                              height: 25,
-                            )
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(
+                            50.0,
+                          ),
+                        ),
+                        width: 25,
+                        height: 25,
+                      )
                           : Image.network(
-                              "https://${controller.img.value}",
-                              width: 20,
-                              height: 20,
-                              fit: BoxFit.fill,
-                            ),
+                        "https://${controller.img.value}",
+                        width: 20,
+                        height: 20,
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
                   const SizedBox(
                     width: 10,
                   ),
                   Text(
-                    controller.userData.value.userName!,
+                    "Hello  ${controller.userData.value.userName!}!",
                     style: kNormalTextStyle,
                   ),
                 ],
@@ -89,28 +89,44 @@ class DashboardScreen extends StatelessWidget {
               height: 10.0,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ButtonRecommendation(
-                  controller: Get.put(
-                    ButtonRecommendationController(),
-                    tag: "button_1",
-                  ),
-                  text: 'PAR',
+                //     ButtonRecommendation(
+                //       controller: Get.put(
+                //         ButtonRecommendationController(),
+                //         tag: "button_1",
+                //       ),
+                //       text: 'PAR',
+                //     ),
+                //     ButtonRecommendation(
+                //       controller: Get.put(
+                //         ButtonRecommendationController(),
+                //         tag: "button_2",
+                //       ),
+                //       text: 'LIS',
+                //     ),
+                //     ButtonRecommendation(
+                //       controller: Get.put(
+                //         ButtonRecommendationController(),
+                //         tag: "button_3",
+                //       ),
+                //       text: 'OPO',
+                //     ),
+                TextButton(
+                  onPressed: () =>
+                  {
+                    controller.cityRecommendation = 'PAR'.obs,
+                    controller.getRecommendation(),
+                  },
+                  child: const Text('PAR'),
                 ),
-                ButtonRecommendation(
-                  controller: Get.put(
-                    ButtonRecommendationController(),
-                    tag: "button_2",
-                  ),
-                  text: 'LIS',
-                ),
-                ButtonRecommendation(
-                  controller: Get.put(
-                    ButtonRecommendationController(),
-                    tag: "button_3",
-                  ),
-                  text: 'OPO',
+                TextButton(
+                  onPressed: () =>
+                  {
+                    controller.cityRecommendation = 'OTO'.obs,
+                    controller.getRecommendation(),
+                  },
+                  child: const Text('OTO'),
                 ),
               ],
             ),
@@ -121,9 +137,12 @@ class DashboardScreen extends StatelessWidget {
               itemCount: imageList.length,
               itemBuilder: (context, index, realIndex) {
                 final urlImage = imageList[index];
+                RecommendationModel recommendationModel = RecommendationModel(
+                  name: controller.recommendationList.value.name,
+                  relevance: controller.recommendationList.value.relevance,
+                );
                 return CardRecommendation(
-                  cityName: 'NUME ORAS',
-                  relevance: ' NOTA',
+                  recommendationModel: recommendationModel,
                   //imageUrl: urlImage,
                 );
               },
@@ -140,7 +159,8 @@ class DashboardScreen extends StatelessWidget {
     );
   }
 
-  Widget buildImage(String urlImage, int index) => Container(
+  Widget buildImage(String urlImage, int index) =>
+      Container(
         width: 200,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(
