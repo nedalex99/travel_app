@@ -10,7 +10,7 @@ class ButtonRecommendationController extends GetxController {
 
   //late RecommendationModel citiesRecommendations;
   //late RecommendationModel countryRecommendations;
-  Rx<RecommendationModel> recommendationList = RecommendationModel().obs;
+  RxList<RecommendationModel> recommendationList = <RecommendationModel>[].obs;
 
   //API RECOMM
   Future<void> getRecommendation() async {
@@ -27,7 +27,7 @@ class ButtonRecommendationController extends GetxController {
         print(value);
         if (value.statusCode == 200) {
           recommendationList.value =
-              (value as GetRecommendationResponse).recommendationModel;
+              (value as GetRecommendationResponse).recommendationModelList;
         } else {
           print(value.statusCode!);
         }

@@ -46,23 +46,24 @@ class DashboardController extends GetxController {
     print(img.value);
   }
 
-  Rx<RecommendationModel> recommendationList = RecommendationModel().obs;
+  RxList<RecommendationModel> recommendationList = <RecommendationModel>[].obs;
 
   //API RECOMM
   Future<void> getRecommendation() async {
-    // Get.dialog(
-    //   const LoadingDialog(),
-    //   barrierDismissible: false,
-    // );
+    Get.dialog(
+      const LoadingDialog(),
+      barrierDismissible: false,
+    );
     try {
       RecommendationSearch()
           .getRecommendationSearch(
         cityCode: cityRecommendation.value,
       )
           .then((value) {
+        Get.back();
         if (value.statusCode == 200) {
           recommendationList.value =
-              (value as GetRecommendationResponse).recommendationModel;
+              (value as GetRecommendationResponse).recommendationModelList;
           print(recommendationList.toString());
         } else {
           print(value.statusCode!);

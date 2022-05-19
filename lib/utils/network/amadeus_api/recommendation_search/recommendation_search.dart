@@ -29,13 +29,11 @@ class RecommendationSearch extends GetConnect {
     );
 
     if (response.statusCode == 200) {
-      //print(await response.stream.bytesToString());
       return GetRecommendationResponse(
         statusCode: 200,
         status: "success",
-        recommendationModel: RecommendationModel.fromJson(
-          json,
-        ),
+        recommendationModelList:
+            (json['data'] as List).map((e) => RecommendationModel.fromJson(e)).toList(),
       );
     } else {
       return ErrorResponse(status: "error", statusCode: response.statusCode);

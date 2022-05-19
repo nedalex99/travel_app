@@ -5,7 +5,7 @@ class GetRecommendationResponse extends DefaultResponse {
   GetRecommendationResponse({
     required int statusCode,
     required String status,
-    required this.recommendationModel,
+    required this.recommendationModelList,
   }) : super(statusCode: statusCode, status: status);
-  RecommendationModel recommendationModel;
+  List<RecommendationModel> recommendationModelList;
 }

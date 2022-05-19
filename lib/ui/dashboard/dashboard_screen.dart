@@ -52,20 +52,20 @@ class DashboardScreen extends StatelessWidget {
                       ),
                       child: controller.img.value == ''
                           ? Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(
-                            50.0,
-                          ),
-                        ),
-                        width: 25,
-                        height: 25,
-                      )
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(
+                                  50.0,
+                                ),
+                              ),
+                              width: 25,
+                              height: 25,
+                            )
                           : Image.network(
-                        "https://${controller.img.value}",
-                        width: 20,
-                        height: 20,
-                        fit: BoxFit.fill,
-                      ),
+                              "https://${controller.img.value}",
+                              width: 20,
+                              height: 20,
+                              fit: BoxFit.fill,
+                            ),
                     ),
                   ),
                   const SizedBox(
@@ -113,43 +113,43 @@ class DashboardScreen extends StatelessWidget {
                 //       text: 'OPO',
                 //     ),
                 TextButton(
-                  onPressed: () =>
-                  {
+                  onPressed: () => {
                     controller.cityRecommendation = 'PAR'.obs,
                     controller.getRecommendation(),
                   },
                   child: const Text('PAR'),
                 ),
                 TextButton(
-                  onPressed: () =>
-                  {
-                    controller.cityRecommendation = 'OTO'.obs,
+                  onPressed: () => {
+                    controller.cityRecommendation = 'OPO'.obs,
                     controller.getRecommendation(),
                   },
-                  child: const Text('OTO'),
+                  child: const Text('OPO'),
                 ),
               ],
             ),
             const SizedBox(
               height: 10.0,
             ),
-            CarouselSlider.builder(
-              itemCount: imageList.length,
-              itemBuilder: (context, index, realIndex) {
-                final urlImage = imageList[index];
-                RecommendationModel recommendationModel = RecommendationModel(
-                  name: controller.recommendationList.value.name,
-                  relevance: controller.recommendationList.value.relevance,
-                );
-                return CardRecommendation(
-                  recommendationModel: recommendationModel,
-                  //imageUrl: urlImage,
-                );
-              },
-              options: CarouselOptions(
-                height: 250,
-                enableInfiniteScroll: false,
-                viewportFraction: 0.6,
+            Obx(
+              () => CarouselSlider.builder(
+                itemCount:controller.recommendationList.length,
+                itemBuilder: (context, index, realIndex) {
+                  //final urlImage = imageList[index];
+                  RecommendationModel recommendationModel = RecommendationModel(
+                    name: controller.recommendationList[index].name,
+                    relevance: controller.recommendationList[index].relevance,
+                  );
+                  return CardRecommendation(
+                    recommendationModel: recommendationModel,
+                    //imageUrl: urlImage,
+                  );
+                },
+                options: CarouselOptions(
+                  height: 250,
+                  enableInfiniteScroll: false,
+                  viewportFraction: 0.6,
+                ),
               ),
             )
           ],
@@ -159,8 +159,7 @@ class DashboardScreen extends StatelessWidget {
     );
   }
 
-  Widget buildImage(String urlImage, int index) =>
-      Container(
+  Widget buildImage(String urlImage, int index) => Container(
         width: 200,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(

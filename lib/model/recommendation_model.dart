@@ -10,7 +10,7 @@ class RecommendationModel {
     String? name,
     String? iataCode,
     GeoCode? geoCode,
-    int? relevance,
+    double? relevance,
   }) {
     _subtype = subtype;
     _name = name;
@@ -32,14 +32,14 @@ class RecommendationModel {
   String? _name;
   String? _iataCode;
   GeoCode? _geoCode;
-  int? _relevance;
+  double? _relevance;
 
   RecommendationModel copyWith({
     String? subtype,
     String? name,
     String? iataCode,
     GeoCode? geoCode,
-    int? relevance,
+    double? relevance,
   }) =>
       RecommendationModel(
         subtype: subtype ?? _subtype,
@@ -57,7 +57,7 @@ class RecommendationModel {
 
   GeoCode? get geoCode => _geoCode;
 
-  int? get relevance => _relevance;
+  double? get relevance => _relevance;
 
 
 
