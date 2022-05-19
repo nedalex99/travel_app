@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:travel_app/ui/dashboard/dashboard_screen.dart';
 import 'package:travel_app/ui/widgets/buttons/custom_button.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:travel_app/utils/constants/colors.dart';
+import 'package:travel_app/utils/constants/images.dart';
 
 class UserProfile extends StatefulWidget {
   bool done = false;
@@ -32,40 +34,69 @@ class _UserProfileState extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFEFFAF0),
+      backgroundColor: Colors.white,
       body: Center(
         child: Column(
           children: [
-            const SizedBox(
-              height: 150.0,
+            Padding(
+              padding: const EdgeInsets.only(right: 300),
+              child: Image.asset(
+                kPlane2,
+                height: 200,
+                width: 300,
+              ),
             ),
             imageProfile(context),
             const SizedBox(
               height: 60.0,
             ),
-            CustomButton(
-              backgroundColor: Colors.blue,
-              onTap: () {
-                showModalBottomSheet(
-                  context: context,
-                  builder: ((bulder) => bottomSheet()),
-                );
-              },
-              text: 'Add profile picture',
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 80.0,
+              ),
+              child: CustomButton(
+                backgroundColor: kGeneralColor,
+                onTap: () {
+                  showModalBottomSheet(
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(20),
+                      ),
+                    ),
+                    backgroundColor: kGeneralColor,
+                    context: context,
+                    builder: ((bulder) => bottomSheet()),
+                  );
+                },
+                text: 'Set profile picture',
+              ),
             ),
             const SizedBox(
               height: 80.0,
             ),
             widget.done == true
-                ? CustomButton(
-                    backgroundColor: Colors.blue,
-                    onTap: () {
-                      Get.to(() => DashboardScreen());
-                    },
-                    text: 'Go to dashboard',
+                ? Padding(
+                    padding: const EdgeInsets.only(
+                      left: 80.0,
+                    ),
+                    child: CustomButton(
+                      backgroundColor: kGeneralColor,
+                      onTap: () {
+                        Get.to(() => DashboardScreen());
+                      },
+                      text: 'Go to dashboard',
+                    ),
                   )
-                : const SizedBox(
-                    height: 20,
+                : Padding(
+                    padding: const EdgeInsets.only(
+                      right: 300,
+                      top: 140,
+                    ),
+                    child: Image.asset(
+                      kPlane,
+                      height: 100,
+                      width: 200,
+                    ),
                   ),
           ],
         ),
@@ -76,10 +107,10 @@ class _UserProfileState extends State<UserProfile> {
   Widget imageProfile(BuildContext context) {
     return CircleAvatar(
       radius: 80.0,
-      backgroundColor: Colors.yellow,
+      backgroundColor: kGeneralColor.withOpacity(0.3),
       backgroundImage: _imageFile == null
           ? const NetworkImage(
-              'https://upload.wikimedia.org/wikipedia/en/3/35/Supermanflying.png',
+              'https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png',
             )
           : Image.file(File(_imageFile!.path)).image,
     );
@@ -87,20 +118,20 @@ class _UserProfileState extends State<UserProfile> {
 
   Widget bottomSheet() {
     return Container(
-      height: 100.0,
+      height: 70.0,
       width: 100.0,
+      decoration: BoxDecoration(
+        color: kGeneralColor,
+        borderRadius: BorderRadius.circular(
+          10,
+        ),
+      ),
       margin: const EdgeInsets.symmetric(
         horizontal: 20,
         vertical: 20,
       ),
       child: Column(
         children: [
-          const Text(
-            "Choose Profile photo",
-            style: TextStyle(
-              fontSize: 20.0,
-            ),
-          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -116,7 +147,7 @@ class _UserProfileState extends State<UserProfile> {
                 ],
               ),
               const SizedBox(
-                width: 30,
+                width: 90,
               ),
               Column(
                 children: [
