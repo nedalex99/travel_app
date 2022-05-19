@@ -69,10 +69,20 @@ class LoginController extends GetxController {
                                   (value as AuthorizationResponse)
                                       .authorizationResponseModel
                                       .accessToken,
-                              Get.back(),
-                              Get.to(
-                                () => DashboardScreen(),
-                              ),
+                              if (Authentication().findNewUser())
+                                {
+                                  Get.back(),
+                                  Get.to(
+                                    () => UserProfile(),
+                                  ),
+                                }
+                              else
+                                {
+                                  Get.back(),
+                                  Get.to(
+                                    () => DashboardScreen(),
+                                  ),
+                                }
                             }
                         },
                       )

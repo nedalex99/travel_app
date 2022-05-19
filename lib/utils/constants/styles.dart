@@ -21,3 +21,23 @@ const kSelectedTextStyle = TextStyle(
   fontSize: 15,
   color: kSelectedContainerRecommendation,
 );
+
+
+const kTitleTextStyle = TextStyle(
+  fontFamily: "Quicksand",
+  fontWeight: FontWeight.w600,
+  fontSize: 36.0,
+  color: Colors.black,
+);
+const kTitleScreenTextStyle = TextStyle(
+  fontFamily: "Quicksand",
+  fontWeight: FontWeight.w600,
+  fontSize: 24.0,
+  color: Colors.black,
+);
+const kTitleColoredTextStyle = TextStyle(
+  fontFamily: "Quicksand",
+  fontWeight: FontWeight.w600,
+  fontSize: 36.0,
+  color: Color(0xFF7B94FF),
+);

@@ -7,6 +7,7 @@ import 'package:travel_app/ui/widgets/buttons/custom_button.dart';
 import 'package:travel_app/ui/widgets/input_fields/input_field.dart';
 import 'package:travel_app/ui/widgets/input_fields/input_field_custom_picker/input_field_custom_picker.dart';
 import 'package:travel_app/ui/widgets/input_fields/input_field_date_picker/input_field_date_picker.dart';
+import 'package:travel_app/utils/constants/colors.dart';
 import 'package:travel_app/utils/constants/validator.dart';
 
 class SelectFlightTicketScreen extends StatelessWidget {
@@ -52,7 +53,7 @@ class SelectFlightTicketScreen extends StatelessWidget {
                           ),
                           child: Container(
                             decoration: BoxDecoration(
-                              color: Colors.lightBlue,
+                              color: kSelectedContainerRecommendation,
                               borderRadius: BorderRadius.circular(
                                 6.0,
                               ),
@@ -105,9 +106,10 @@ class SelectFlightTicketScreen extends StatelessWidget {
                       child: Text(
                         "First passenger",
                         style: TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.blueAccent),
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.blueAccent,
+                        ),
                       ),
                     ),
                   ),
@@ -174,22 +176,32 @@ class SelectFlightTicketScreen extends StatelessWidget {
                   const SizedBox(
                     height: 16.0,
                   ),
-                  CustomButton(
-                    onTap: _controller.addPassenger,
-                    text: "Add passenger",
-                    backgroundColor: Colors.brown,
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 70.0,
+                    ),
+                    child: CustomButton(
+                      onTap: _controller.addPassenger,
+                      text: "Add passenger",
+                      backgroundColor: kPaleColor,
+                    ),
                   ),
                 ],
               ),
             ),
             SliverFillRemaining(
               hasScrollBody: false,
-              child: CustomButton(
-                backgroundColor: Colors.blueGrey,
-                onTap: () => _controller.addFlightTicket(
-                  flightCardDetails: flightCardDetails,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: 70.0,
                 ),
-                text: 'Create ticket',
+                child: CustomButton(
+                  backgroundColor: Colors.blueAccent,
+                  onTap: () => _controller.addFlightTicket(
+                    flightCardDetails: flightCardDetails,
+                  ),
+                  text: 'Create ticket',
+                ),
               ),
             ),
           ],
