@@ -12,21 +12,6 @@ class ButtonRecommendation extends StatelessWidget {
   final ButtonRecommendationController controller;
   final DashboardController dashboardController = Get.find();
 
-  List<String> imageList = [
-    'https://upload.wikimedia.org/wikipedia/commons/6/69/Paris_montage2.jpg',
-    'https://upload.wikimedia.org/wikipedia/commons/7/75/Collage_Rome.jpg',
-    'https://upload.wikimedia.org/wikipedia/commons/c/ca/Bucharest_collage_02.jpg',
-  ];
-  List<String> imageList2 = [
-    'https://upload.wikimedia.org/wikipedia/commons/6/69/Paris_montage2.jpg',
-    'https://upload.wikimedia.org/wikipedia/commons/7/75/Collage_Rome.jpg',
-    'https://upload.wikimedia.org/wikipedia/commons/c/ca/Bucharest_collage_02.jpg',
-  ];
-  List<String> imageList3 = [
-    'https://upload.wikimedia.org/wikipedia/commons/6/69/Paris_montage2.jpg',
-    'https://upload.wikimedia.org/wikipedia/commons/7/75/Collage_Rome.jpg',
-    'https://upload.wikimedia.org/wikipedia/commons/c/ca/Bucharest_collage_02.jpg',
-  ];
 
   ButtonRecommendation({
     Key? key,

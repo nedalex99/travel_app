@@ -15,14 +15,9 @@ class DashboardScreen extends StatelessWidget {
   DashboardScreen({Key? key}) : super(key: key);
   final controller = Get.put(DashboardController());
   final buttonCitiesController = Get.put(ButtonRecommendationController());
-
-  final List<String> imageList = [
-    'https://upload.wikimedia.org/wikipedia/commons/6/69/Paris_montage2.jpg',
-    'https://upload.wikimedia.org/wikipedia/commons/7/75/Collage_Rome.jpg',
-    'https://upload.wikimedia.org/wikipedia/commons/7/75/Collage_Rome.jpg',
-    'https://upload.wikimedia.org/wikipedia/commons/7/75/Collage_Rome.jpg',
-    'https://upload.wikimedia.org/wikipedia/commons/c/ca/Bucharest_collage_02.jpg',
-  ];
+  RxList<RecommendationModel> recommendationList = <RecommendationModel>[].obs;
+  RxList<RecommendationModel> recommendationList2 = <RecommendationModel>[].obs;
+  RxList<RecommendationModel> recommendationList3 = <RecommendationModel>[].obs;
 
   @override
   Widget build(BuildContext context) {
@@ -82,93 +77,97 @@ class DashboardScreen extends StatelessWidget {
               height: 50.0,
             ),
             const Text(
-              'Recommendations depending on the city',
+              'Because you visit:',
               style: kDefaultHeaderTextStyle,
             ),
             const SizedBox(
-              height: 10.0,
+              height: 5.0,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                //     ButtonRecommendation(
-                //       controller: Get.put(
-                //         ButtonRecommendationController(),
-                //         tag: "button_1",
-                //       ),
-                //       text: 'PAR',
-                //     ),
-                //     ButtonRecommendation(
-                //       controller: Get.put(
-                //         ButtonRecommendationController(),
-                //         tag: "button_2",
-                //       ),
-                //       text: 'LIS',
-                //     ),
-                //     ButtonRecommendation(
-                //       controller: Get.put(
-                //         ButtonRecommendationController(),
-                //         tag: "button_3",
-                //       ),
-                //       text: 'OPO',
-                //     ),
-                TextButton(
-                  onPressed: () => {
-                    controller.cityRecommendation = 'PAR'.obs,
-                    controller.getRecommendation(),
-                  },
-                  child: const Text('PAR'),
-                ),
-                TextButton(
-                  onPressed: () => {
-                    controller.cityRecommendation = 'OPO'.obs,
-                    controller.getRecommendation(),
-                  },
-                  child: const Text('OPO'),
-                ),
-              ],
+            TextButton(
+              onPressed: () => {
+                controller.cityRecommendation = 'PAR'.obs,
+                controller.getRecommendation(recommendationList),
+              },
+              child: const Text('PAR'),
             ),
             const SizedBox(
-              height: 10.0,
+              height: 5.0,
             ),
             Obx(
               () => CarouselSlider.builder(
-                itemCount:controller.recommendationList.length,
+                itemCount: recommendationList.length,
                 itemBuilder: (context, index, realIndex) {
-                  //final urlImage = imageList[index];
                   RecommendationModel recommendationModel = RecommendationModel(
-                    name: controller.recommendationList[index].name,
-                    relevance: controller.recommendationList[index].relevance,
+                    name: recommendationList[index].name,
+                    relevance: recommendationList[index].relevance,
                   );
                   return CardRecommendation(
                     recommendationModel: recommendationModel,
-                    //imageUrl: urlImage,
                   );
                 },
                 options: CarouselOptions(
-                  height: 250,
+                  height: 90,
                   enableInfiniteScroll: false,
                   viewportFraction: 0.6,
                 ),
               ),
-            )
+            ),
+            TextButton(
+              onPressed: () => {
+                controller.cityRecommendation = 'OPO'.obs,
+                controller.getRecommendation(recommendationList2),
+              },
+              child: const Text('OPO'),
+            ),
+            Obx(
+              () => CarouselSlider.builder(
+                itemCount: recommendationList2.length,
+                itemBuilder: (context, index, realIndex) {
+                  RecommendationModel recommendationModel = RecommendationModel(
+                    name: recommendationList2[index].name,
+                    relevance: recommendationList2[index].relevance,
+                  );
+                  return CardRecommendation(
+                    recommendationModel: recommendationModel,
+                  );
+                },
+                options: CarouselOptions(
+                  height: 90,
+                  enableInfiniteScroll: false,
+                  viewportFraction: 0.6,
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: () => {
+                controller.cityRecommendation = 'NCE'.obs,
+                controller.getRecommendation(recommendationList3),
+              },
+              child: const Text('NCE'),
+            ),
+            Obx(
+              () => CarouselSlider.builder(
+                itemCount: recommendationList3.length,
+                itemBuilder: (context, index, realIndex) {
+                  RecommendationModel recommendationModel = RecommendationModel(
+                    name: recommendationList3[index].name,
+                    relevance: recommendationList3[index].relevance,
+                  );
+                  return CardRecommendation(
+                    recommendationModel: recommendationModel,
+                  );
+                },
+                options: CarouselOptions(
+                  height: 90,
+                  enableInfiniteScroll: false,
+                  viewportFraction: 0.6,
+                ),
+              ),
+            ),
           ],
         ),
       ),
       bottomNavigationBar: const BottomAppBarWidget(),
     );
   }
-
-  Widget buildImage(String urlImage, int index) => Container(
-        width: 200,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(
-            30,
-          ),
-        ),
-        child: Image.network(
-          urlImage,
-          fit: BoxFit.fill,
-        ),
-      );
 }

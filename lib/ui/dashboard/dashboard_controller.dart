@@ -46,10 +46,10 @@ class DashboardController extends GetxController {
     print(img.value);
   }
 
-  RxList<RecommendationModel> recommendationList = <RecommendationModel>[].obs;
+
 
   //API RECOMM
-  Future<void> getRecommendation() async {
+  Future<void> getRecommendation(RxList<RecommendationModel> list) async {
     Get.dialog(
       const LoadingDialog(),
       barrierDismissible: false,
@@ -62,9 +62,9 @@ class DashboardController extends GetxController {
           .then((value) {
         Get.back();
         if (value.statusCode == 200) {
-          recommendationList.value =
+          list.value =
               (value as GetRecommendationResponse).recommendationModelList;
-          print(recommendationList.toString());
+          print(list.toString());
         } else {
           print(value.statusCode!);
         }
