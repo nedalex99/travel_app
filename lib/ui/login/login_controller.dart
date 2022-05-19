@@ -71,7 +71,7 @@ class LoginController extends GetxController {
                                       .accessToken,
                               Get.back(),
                               Get.to(
-                                () => const DashboardScreen(),
+                                () => DashboardScreen(),
                               ),
                             }
                         },
