@@ -41,3 +41,10 @@ const kTitleColoredTextStyle = TextStyle(
   fontSize: 36.0,
   color: Color(0xFF7B94FF),
 );
+
+const kLittleTextStyle = TextStyle(
+  fontFamily: "Quicksand",
+  fontWeight: FontWeight.w600,
+  fontSize: 16.0,
+  color: Colors.black,
+);

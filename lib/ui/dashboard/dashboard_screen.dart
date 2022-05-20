@@ -12,7 +12,17 @@ import 'components/button_recommendation_controller.dart';
 import 'components/recomandation_card.dart';
 
 class DashboardScreen extends StatelessWidget {
-  DashboardScreen({Key? key}) : super(key: key);
+  final String cityOne;
+  final String cityTwo;
+  final String cityThree;
+
+  DashboardScreen({
+    Key? key,
+    required this.cityOne,
+    required this.cityTwo,
+    required this.cityThree,
+  }) : super(key: key);
+
   final controller = Get.put(DashboardController());
   final buttonCitiesController = Get.put(ButtonRecommendationController());
   RxList<RecommendationModel> recommendationList = <RecommendationModel>[].obs;
@@ -88,7 +98,7 @@ class DashboardScreen extends StatelessWidget {
                 controller.cityRecommendation = 'PAR'.obs,
                 controller.getRecommendation(recommendationList),
               },
-              child: const Text('PAR'),
+              child: Text(cityOne),
             ),
             const SizedBox(
               height: 5.0,
@@ -117,7 +127,7 @@ class DashboardScreen extends StatelessWidget {
                 controller.cityRecommendation = 'OPO'.obs,
                 controller.getRecommendation(recommendationList2),
               },
-              child: const Text('OPO'),
+              child: Text(cityTwo),
             ),
             Obx(
               () => CarouselSlider.builder(
@@ -143,7 +153,7 @@ class DashboardScreen extends StatelessWidget {
                 controller.cityRecommendation = 'NCE'.obs,
                 controller.getRecommendation(recommendationList3),
               },
-              child: const Text('NCE'),
+              child: Text(cityThree),
             ),
             Obx(
               () => CarouselSlider.builder(
