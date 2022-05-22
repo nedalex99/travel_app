@@ -24,12 +24,29 @@ class SelectFlightTicketScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            "Select passengers",
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ),
+        elevation: 3,
+        backgroundColor: Colors.grey,
+        centerTitle: true,
+      ),
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
               child: Column(
                 children: [
+                  const SizedBox(
+                    height: 16.0,
+                  ),
                   Hero(
                     tag: flightCardDetails,
                     child: FlightCard(
@@ -53,7 +70,7 @@ class SelectFlightTicketScreen extends StatelessWidget {
                           ),
                           child: Container(
                             decoration: BoxDecoration(
-                              color: kSelectedContainerRecommendation,
+                              color: Colors.lightBlue,
                               borderRadius: BorderRadius.circular(
                                 6.0,
                               ),
@@ -106,10 +123,9 @@ class SelectFlightTicketScreen extends StatelessWidget {
                       child: Text(
                         "First passenger",
                         style: TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.blueAccent,
-                        ),
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.blueAccent),
                       ),
                     ),
                   ),
@@ -191,16 +207,19 @@ class SelectFlightTicketScreen extends StatelessWidget {
             ),
             SliverFillRemaining(
               hasScrollBody: false,
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  left: 70.0,
-                ),
-                child: CustomButton(
-                  backgroundColor: Colors.blueAccent,
-                  onTap: () => _controller.addFlightTicket(
-                    flightCardDetails: flightCardDetails,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    bottom: 24.0,
                   ),
-                  text: 'Create ticket',
+                  child: CustomButton(
+                    backgroundColor: Colors.blueGrey,
+                    onTap: () => _controller.addFlightTicket(
+                      flightCardDetails: flightCardDetails,
+                    ),
+                    text: 'Create ticket',
+                  ),
                 ),
               ),
             ),

@@ -45,11 +45,12 @@ dependencies:
   cloud_firestore: ^3.1.14
   image_picker: ^0.8.5+1
   firebase_storage: ^10.2.15
-  carousel_slider: ^4.1.1
   flutter_spinkit: ^5.1.0
   animations: ^2.0.2
+  url_launcher: ^6.1.2
+  maps_launcher: ^2.0.1
   flutter_rating_bar: ^4.0.1
-
+  carousel_slider: ^4.1.1
 
 dev_dependencies:
   flutter_test:
@@ -76,7 +77,6 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
-    - images/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

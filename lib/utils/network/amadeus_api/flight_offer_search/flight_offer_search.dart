@@ -18,7 +18,6 @@ class FlightOfferSearch extends GetConnect {
     var headers = {
       'Authorization': 'Bearer $amadeusAccessToken',
     };
-    print(departureDate);
     var request = http.Request(
       'GET',
       Uri.parse(

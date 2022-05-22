@@ -4,31 +4,29 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/model/recommendation_model.dart';
 import 'package:travel_app/ui/base_scaffold.dart';
+import 'package:travel_app/ui/dashboard/components/recomandation_card.dart';
 import 'package:travel_app/ui/dashboard/dashboard_controller.dart';
 import 'package:travel_app/ui/to_do_list_screen/to_do_list_screen.dart';
 import 'package:travel_app/ui/widgets/bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'package:travel_app/utils/constants/colors.dart';
 import 'package:travel_app/utils/constants/styles.dart';
 
-import 'components/button_recommendation_controller.dart';
-import 'components/recomandation_card.dart';
-
 class DashboardScreen extends StatelessWidget {
-  final String cityOne;
-  final String cityTwo;
-  final String cityThree;
+  final String? cityOne;
+  final String? cityTwo;
+  final String? cityThree;
 
   DashboardScreen({
     Key? key,
-    required this.cityOne,
-    required this.cityTwo,
-    required this.cityThree,
+    this.cityOne,
+    this.cityTwo,
+    this.cityThree,
   }) : super(key: key) {
     controller = Get.put(
       DashboardController(
-        cityOne: cityOne,
-        cityTwo: cityTwo,
-        cityThree: cityThree,
+        cityOne: cityOne!,
+        cityTwo: cityTwo!,
+        cityThree: cityThree!,
       ),
     );
   }
@@ -131,7 +129,7 @@ class DashboardScreen extends StatelessWidget {
             const SizedBox(
               height: 5.0,
             ),
-            Text(cityOne),
+            Text(controller.cityOne),
             const SizedBox(
               height: 5.0,
             ),
@@ -157,7 +155,7 @@ class DashboardScreen extends StatelessWidget {
             const SizedBox(
               height: 8.0,
             ),
-            Text(cityTwo),
+            Text(controller.cityTwo),
             Obx(
               () => CarouselSlider.builder(
                 itemCount: controller.recommendationList2.value.length,
@@ -180,7 +178,7 @@ class DashboardScreen extends StatelessWidget {
             const SizedBox(
               height: 8.0,
             ),
-            Text(cityThree),
+            Text(controller.cityThree),
             Obx(
               () => CarouselSlider.builder(
                 itemCount: controller.recommendationList3.value.length,

@@ -40,18 +40,21 @@ class SelectFlightTicketController extends GetxController {
   Future<void> addFlightTicket({
     required FlightCardDetails flightCardDetails,
   }) async {
-    Get.dialog(const LoadingDialog());
-    await FlightTicketsCollection()
-        .addFlightTicket(
-          flightTicket: FlightTicket(
-            flightCardDetails: flightCardDetails,
-            passengers: passengers,
-          ),
-        )
-        .then(
-          (value) => {
-            Get.back(),
-          },
-        );
+    Get.back(
+      result: passengers,
+    );
+    // Get.dialog(const LoadingDialog());
+    // await FlightTicketsCollection()
+    //     .addFlightTicket(
+    //       flightTicket: FlightTicket(
+    //         flightCardDetails: flightCardDetails,
+    //         passengers: passengers,
+    //       ),
+    //     )
+    //     .then(
+    //       (value) => {
+    //         Get.back(),
+    //       },
+    //     );
   }
 }
