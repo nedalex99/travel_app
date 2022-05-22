@@ -8,7 +8,7 @@ class FlightTicketsCollection extends GetConnect {
     required FlightTicket flightTicket,
   }) async {
     return FirebaseFirestore.instance
-        .collection("flight-tickets")
+        .collection("trips")
         .doc(userLoggedIn.uid)
         .set(
           flightTicket.toJson(),

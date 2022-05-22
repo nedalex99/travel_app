@@ -80,8 +80,8 @@ class LoginController extends GetxController {
                               else
                                 {
                                   Get.back(),
-                                  Get.to(
-                                        () => ChooseCity(),
+                                  Get.off(
+                                    () => ChooseCity(),
                                   ),
                                   // Get.to(
                                   //   () => DashboardScreen(),

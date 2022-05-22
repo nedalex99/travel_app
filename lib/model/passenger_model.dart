@@ -17,4 +17,16 @@ class Passenger {
         'gender': gender,
         'dateBirth': dateBirth,
       };
+
+  factory Passenger.fromJson(dynamic json) => Passenger(
+        firstName: json['firstName'],
+        lastName: json['lastName'],
+        gender: json['gender'],
+        dateBirth: json['dateBirth'],
+      );
+
+  @override
+  String toString() {
+    return "$firstName $lastName";
+  }
 }

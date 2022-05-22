@@ -20,25 +20,25 @@ class CustomButton extends StatelessWidget {
         onPressed: onTap as void Function()?,
         child: Row(
           children: [
-            Container(
-              height: 40,
-              width: 220,
-              padding: const EdgeInsets.all(
-                8,
-              ),
-              decoration: BoxDecoration(
-                color: backgroundColor,
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(
-                    100,
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.all(
+                  8,
+                ),
+                decoration: BoxDecoration(
+                  color: backgroundColor,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(
+                      100,
+                    ),
                   ),
                 ),
-              ),
-              child: Text(
-                text,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: Colors.black,
+                child: Text(
+                  text,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: Colors.black,
+                  ),
                 ),
               ),
             ),

@@ -48,43 +48,37 @@ class LoginScreen extends GetView<LoginController> {
                         const SizedBox(
                           height: 50.0,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                          child: InputField(
-                            textCapitalization: TextCapitalization.sentences,
-                            textInputAction: TextInputAction.next,
-                            labelText: 'Email',
-                            textInputType: TextInputType.text,
-                            onInputFieldChanged: controller.onEmailInputChanged,
-                            validator: isValidEmail,
-                            textEditingController:
-                                controller.emailTextController,
-                            controller: Get.put(
-                              InputFieldController(),
-                              tag: "register_screen_email",
-                            ),
+                        InputField(
+                          textCapitalization: TextCapitalization.sentences,
+                          textInputAction: TextInputAction.next,
+                          labelText: 'Email',
+                          textInputType: TextInputType.text,
+                          onInputFieldChanged: controller.onEmailInputChanged,
+                          validator: isValidEmail,
+                          textEditingController:
+                              controller.emailTextController,
+                          controller: Get.put(
+                            InputFieldController(),
+                            tag: "register_screen_email",
                           ),
                         ),
                         const SizedBox(
                           height: 16,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                          child: InputField(
-                              textCapitalization: TextCapitalization.sentences,
-                              controller: Get.put(
-                                InputFieldController(),
-                                tag: "register_screen_password",
-                              ),
-                              textInputAction: TextInputAction.done,
-                              validator: isValidPassword,
-                              textInputType: TextInputType.visiblePassword,
-                              onInputFieldChanged:
-                                  controller.onPasswordInputChanged,
-                              labelText: 'Password',
-                              textEditingController:
-                                  controller.passwordTextController),
-                        ),
+                        InputField(
+                            textCapitalization: TextCapitalization.sentences,
+                            controller: Get.put(
+                              InputFieldController(),
+                              tag: "register_screen_password",
+                            ),
+                            textInputAction: TextInputAction.done,
+                            validator: isValidPassword,
+                            textInputType: TextInputType.visiblePassword,
+                            onInputFieldChanged:
+                                controller.onPasswordInputChanged,
+                            labelText: 'Password',
+                            textEditingController:
+                                controller.passwordTextController),
                         const SizedBox(
                           height: 30,
                         ),
@@ -106,21 +100,15 @@ class LoginScreen extends GetView<LoginController> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                        bottom: 50.0,
-                        left: 70.0,
-                      ),
-                      child: Obx(
-                        () => CustomButton(
-                          onTap: controller.isButtonEnabled.value
-                              ? controller.printText
-                              : null,
-                          text: controller.loginText,
-                          backgroundColor: controller.isButtonEnabled.value
-                              ? const Color(0xFF7B94FF)
-                              : kGeneralColor.withOpacity(0.5),
-                        ),
+                    child: Obx(
+                      () => CustomButton(
+                        onTap: controller.isButtonEnabled.value
+                            ? controller.printText
+                            : null,
+                        text: controller.loginText,
+                        backgroundColor: controller.isButtonEnabled.value
+                            ? const Color(0xFF7B94FF)
+                            : kGeneralColor.withOpacity(0.5),
                       ),
                     ),
                   ),
