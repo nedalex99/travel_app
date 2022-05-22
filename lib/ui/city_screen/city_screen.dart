@@ -74,10 +74,10 @@ class ChooseCity extends StatelessWidget {
                     widthContainer: 100,
                   ),
                   CityWidget(
-                    cityName: "ggg",
+                    cityName: "Nice",
                     controller: Get.put(
                       CityWidgetController(),
-                      tag: "ggg_container",
+                      tag: "nice_container",
                     ),
                     heightSizedbox: 170,
                     widthSizedbox: 190,
@@ -104,10 +104,10 @@ class ChooseCity extends StatelessWidget {
                     widthContainer: 120,
                   ),
                   CityWidget(
-                    cityName: "Cvea",
+                    cityName: "Tunis",
                     controller: Get.put(
                       CityWidgetController(),
-                      tag: "cvea_container",
+                      tag: "tunis_container",
                     ),
                     heightSizedbox: 140,
                     widthSizedbox: 100,
@@ -134,10 +134,10 @@ class ChooseCity extends StatelessWidget {
               Row(
                 children: [
                   CityWidget(
-                    cityName: "ede",
+                    cityName: "Madrid",
                     controller: Get.put(
                       CityWidgetController(),
-                      tag: "ede_container",
+                      tag: "madrid_container",
                     ),
                     heightSizedbox: 110,
                     widthSizedbox: 90,
@@ -160,10 +160,10 @@ class ChooseCity extends StatelessWidget {
                     widthContainer: 130,
                   ),
                   CityWidget(
-                    cityName: "Sofia",
+                    cityName: "Barcelona",
                     controller: Get.put(
                       CityWidgetController(),
-                      tag: "sofia_container",
+                      tag: "barcelona_container",
                     ),
                     heightSizedbox: 100,
                     widthSizedbox: 90,
@@ -177,10 +177,10 @@ class ChooseCity extends StatelessWidget {
               Row(
                 children: [
                   CityWidget(
-                    cityName: "PS",
+                    cityName: "Athens",
                     controller: Get.put(
                       CityWidgetController(),
-                      tag: "ps_container",
+                      tag: "athens_container",
                     ),
                     heightSizedbox: 100,
                     widthSizedbox: 100,
@@ -203,10 +203,10 @@ class ChooseCity extends StatelessWidget {
                     widthContainer: 90,
                   ),
                   CityWidget(
-                    cityName: "Berlin",
+                    cityName: "Amsterdam",
                     controller: Get.put(
                       CityWidgetController(),
-                      tag: "berlin_container",
+                      tag: "amsterdam_container",
                     ),
                     heightSizedbox: 135,
                     widthSizedbox: 140,

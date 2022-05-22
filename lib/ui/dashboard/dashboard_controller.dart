@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:travel_app/model/recommendation_model.dart';
 import 'package:travel_app/model/user_data.dart';
 import 'package:travel_app/ui/widgets/dialogs/loading_dialog.dart';
+import 'package:travel_app/utils/constants/values.dart';
 import 'package:travel_app/utils/network/amadeus_api/recommendation_search/get_recommendation_response.dart';
 import 'package:travel_app/utils/network/amadeus_api/recommendation_search/recommendation_search.dart';
 
@@ -36,6 +37,9 @@ class DashboardController extends GetxController {
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
       getRecommendation();
     });
+    print(handleIataCodes(cityOne));
+    print(handleIataCodes(cityTwo));
+    print(handleIataCodes(cityThree));
     super.onInit();
   }
 
@@ -71,7 +75,7 @@ class DashboardController extends GetxController {
     try {
       RecommendationSearch()
           .getRecommendationSearch(
-        cityCode: 'PAR',
+        cityCode: handleIataCodes(cityOne),
       )
           .then((value) {
         if (value.statusCode == 200) {
@@ -79,7 +83,7 @@ class DashboardController extends GetxController {
               (value as GetRecommendationResponse).recommendationModelList;
           RecommendationSearch()
               .getRecommendationSearch(
-            cityCode: 'OPO',
+            cityCode: handleIataCodes(cityTwo),
           )
               .then(
             (value) {
@@ -88,7 +92,7 @@ class DashboardController extends GetxController {
                     .recommendationModelList;
                 RecommendationSearch()
                     .getRecommendationSearch(
-                  cityCode: 'NCE',
+                  cityCode: handleIataCodes(cityThree),
                 )
                     .then(
                   (value) {
