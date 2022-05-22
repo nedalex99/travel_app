@@ -5,10 +5,11 @@ import 'package:travel_app/ui/city_screen/components/city_widget_controller.dart
 import 'package:travel_app/ui/dashboard/dashboard_screen.dart';
 import 'package:travel_app/utils/constants/colors.dart';
 import 'package:travel_app/utils/constants/styles.dart';
+import 'city_screen_controller.dart';
 
 class ChooseCity extends StatelessWidget {
   ChooseCity({Key? key}) : super(key: key);
-  CityWidgetController controllerWidget = CityWidgetController();
+  final CityScreenController controller = Get.put(CityScreenController());
 
   @override
   Widget build(BuildContext context) {
@@ -23,20 +24,20 @@ class ChooseCity extends StatelessWidget {
           actions: [
             TextButton(
               onPressed: () => {
-                if (controllerWidget.cityList.length >= 3)
+                if (controller.cityList.length >= 3)
                   {
                     Get.to(
                       () => DashboardScreen(
-                        cityOne: controllerWidget.cityList.elementAt(0),
-                        cityTwo: controllerWidget.cityList.elementAt(1),
-                        cityThree: controllerWidget.cityList.elementAt(2),
+                        cityOne: controller.cityList[0],
+                        cityTwo: controller.cityList[1],
+                        cityThree: controller.cityList[2],
                       ),
                     )
                   }
                 else
                   {
-                    print(controllerWidget.cityList.length),
-                  }
+                    print(controller.cityList.length),
+                  },
               },
               child: const Text(
                 "Next",

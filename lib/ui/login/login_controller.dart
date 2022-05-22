@@ -80,6 +80,9 @@ class LoginController extends GetxController {
                               else
                                 {
                                   Get.back(),
+                                  Get.to(
+                                        () => UserProfile(),
+                                  ),
                                   // Get.to(
                                   //   () => DashboardScreen(),
                                   // ),

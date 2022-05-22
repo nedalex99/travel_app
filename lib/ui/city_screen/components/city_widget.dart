@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:travel_app/ui/city_screen/city_screen_controller.dart';
 import 'package:travel_app/ui/city_screen/components/city_widget_controller.dart';
 
 class CityWidget extends StatelessWidget {
-  String cityName;
-  double? heightSizedbox;
-  double? widthSizedbox;
-  double? positionedTop;
-  double? positionedLeft;
-  double? heightContainer;
-  double? widthContainer;
+  final String cityName;
+  final double heightSizedbox;
+  final double widthSizedbox;
+  final double positionedTop;
+  final double positionedLeft;
+  final double heightContainer;
+  final double widthContainer;
+  CityScreenController cityScreenController = Get.find();
 
   CityWidgetController controller;
 
@@ -41,11 +43,12 @@ class CityWidget extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   controller.isSelected.value = !controller.isSelected.value;
-                  controller.doCityList(cityName);
-                   print(controller.cityList[0]);
-                   print(controller.cityList[1]);
-                   print(controller.cityList[2]);
-                   print(controller.cityList.length);
+                  if (controller.isSelected.value) {
+                    cityScreenController.doCityList(cityName);
+                  } else {
+                    cityScreenController.cityList
+                        .removeWhere((element) => element == cityName);
+                  }
                 },
                 child: Container(
                   decoration: controller.isSelected.value == false
