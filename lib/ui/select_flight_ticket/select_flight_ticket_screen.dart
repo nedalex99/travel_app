@@ -7,6 +7,7 @@ import 'package:travel_app/ui/widgets/buttons/custom_button.dart';
 import 'package:travel_app/ui/widgets/input_fields/input_field.dart';
 import 'package:travel_app/ui/widgets/input_fields/input_field_custom_picker/input_field_custom_picker.dart';
 import 'package:travel_app/ui/widgets/input_fields/input_field_date_picker/input_field_date_picker.dart';
+import 'package:travel_app/utils/constants/colors.dart';
 import 'package:travel_app/utils/constants/validator.dart';
 
 class SelectFlightTicketScreen extends StatelessWidget {
@@ -206,17 +207,6 @@ class SelectFlightTicketScreen extends StatelessWidget {
             ),
             SliverFillRemaining(
               hasScrollBody: false,
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  left: 70.0,
-                ),
-                child: CustomButton(
-                  backgroundColor: Colors.blueAccent,
-                  onTap: () => _controller.addFlightTicket(
-                    flightCardDetails: flightCardDetails,
-                  ),
-                  text: 'Create ticket',
-                ),
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Padding(
