@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:travel_app/ui/city_screen/city_screen.dart';
 import 'package:travel_app/ui/dashboard/dashboard_screen.dart';
 import 'package:travel_app/ui/widgets/buttons/custom_button.dart';
 import 'package:image_picker/image_picker.dart';
@@ -82,15 +83,17 @@ class _UserProfileState extends State<UserProfile> {
                     child: CustomButton(
                       backgroundColor: kGeneralColor,
                       onTap: () {
-                        Get.to(() => DashboardScreen());
+                        Get.to(
+                          () =>  ChooseCity(),
+                        );
                       },
-                      text: 'Go to dashboard',
+                      text: 'Next',
                     ),
                   )
                 : Padding(
                     padding: const EdgeInsets.only(
                       right: 300,
-                      top: 140,
+                      top: 70,
                     ),
                     child: Image.asset(
                       kPlane,

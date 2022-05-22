@@ -1,4 +1,5 @@
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,16 +11,31 @@ import 'package:travel_app/utils/network/amadeus_api/recommendation_search/recom
 
 class DashboardController extends GetxController {
   DocumentSnapshot? documentSnapshot;
+  final String cityOne;
+  final String cityTwo;
+  final String cityThree;
   final String? uid = FirebaseAuth.instance.currentUser?.uid;
   RxString img = "".obs;
   Rx<UserData> userData =
       UserData(firstName: "", lastName: "", userName: "").obs;
   RxString cityRecommendation = "".obs;
+  RxList<RecommendationModel> recommendationList = <RecommendationModel>[].obs;
+  RxList<RecommendationModel> recommendationList2 = <RecommendationModel>[].obs;
+  RxList<RecommendationModel> recommendationList3 = <RecommendationModel>[].obs;
+
+  DashboardController({
+    required this.cityOne,
+    required this.cityTwo,
+    required this.cityThree,
+  });
 
   @override
   void onInit() {
-    getUserData();
-    getImage();
+    // getUserData();
+    // getImage();
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      getRecommendation();
+    });
     super.onInit();
   }
 
@@ -46,10 +62,8 @@ class DashboardController extends GetxController {
     print(img.value);
   }
 
-
-
   //API RECOMM
-  Future<void> getRecommendation(RxList<RecommendationModel> list) async {
+  Future<void> getRecommendation() async {
     Get.dialog(
       const LoadingDialog(),
       barrierDismissible: false,
@@ -57,14 +71,38 @@ class DashboardController extends GetxController {
     try {
       RecommendationSearch()
           .getRecommendationSearch(
-        cityCode: cityRecommendation.value,
+        cityCode: 'PAR',
       )
           .then((value) {
-        Get.back();
         if (value.statusCode == 200) {
-          list.value =
+          recommendationList.value =
               (value as GetRecommendationResponse).recommendationModelList;
-          print(list.toString());
+          RecommendationSearch()
+              .getRecommendationSearch(
+            cityCode: 'OPO',
+          )
+              .then(
+            (value) {
+              if (value.statusCode == 200) {
+                recommendationList2.value = (value as GetRecommendationResponse)
+                    .recommendationModelList;
+                RecommendationSearch()
+                    .getRecommendationSearch(
+                  cityCode: 'NCE',
+                )
+                    .then(
+                  (value) {
+                    if (value.statusCode == 200) {
+                      Get.back();
+                      recommendationList3.value =
+                          (value as GetRecommendationResponse)
+                              .recommendationModelList;
+                    }
+                  },
+                );
+              }
+            },
+          );
         } else {
           print(value.statusCode!);
         }

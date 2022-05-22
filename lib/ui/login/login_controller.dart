@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:travel_app/ui/city_screen/city_screen.dart';
 import 'package:travel_app/ui/dashboard/dashboard_screen.dart';
 import 'package:travel_app/ui/profile/user_profile.dart';
 import 'package:travel_app/ui/register/register_screen.dart';
@@ -80,8 +81,11 @@ class LoginController extends GetxController {
                                 {
                                   Get.back(),
                                   Get.to(
-                                    () => DashboardScreen(),
+                                        () => ChooseCity(),
                                   ),
+                                  // Get.to(
+                                  //   () => DashboardScreen(),
+                                  // ),
                                 }
                             }
                         },

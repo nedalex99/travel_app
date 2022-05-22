@@ -5,19 +5,35 @@ import 'package:get/get.dart';
 import 'package:travel_app/model/recommendation_model.dart';
 import 'package:travel_app/ui/base_scaffold.dart';
 import 'package:travel_app/ui/dashboard/dashboard_controller.dart';
+import 'package:travel_app/ui/to_do_list_screen/to_do_list_screen.dart';
 import 'package:travel_app/ui/widgets/bottom_navigation_bar/bottom_navigation_bar.dart';
+import 'package:travel_app/utils/constants/colors.dart';
 import 'package:travel_app/utils/constants/styles.dart';
 
 import 'components/button_recommendation_controller.dart';
 import 'components/recomandation_card.dart';
 
 class DashboardScreen extends StatelessWidget {
-  DashboardScreen({Key? key}) : super(key: key);
-  final controller = Get.put(DashboardController());
-  final buttonCitiesController = Get.put(ButtonRecommendationController());
-  RxList<RecommendationModel> recommendationList = <RecommendationModel>[].obs;
-  RxList<RecommendationModel> recommendationList2 = <RecommendationModel>[].obs;
-  RxList<RecommendationModel> recommendationList3 = <RecommendationModel>[].obs;
+  final String cityOne;
+  final String cityTwo;
+  final String cityThree;
+
+  DashboardScreen({
+    Key? key,
+    required this.cityOne,
+    required this.cityTwo,
+    required this.cityThree,
+  }) : super(key: key) {
+    controller = Get.put(
+      DashboardController(
+        cityOne: cityOne,
+        cityTwo: cityTwo,
+        cityThree: cityThree,
+      ),
+    );
+  }
+
+  late final DashboardController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +89,38 @@ class DashboardScreen extends StatelessWidget {
                 ],
               ),
             ),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: GestureDetector(
+                onTap: () {
+                  Get.to(() => ToDoListScreen());
+                },
+                child: Container(
+                  height: 45,
+                  width: 140,
+                  decoration: const BoxDecoration(
+                    color: kGeneralColor,
+                    boxShadow: [
+                      BoxShadow(
+                        spreadRadius: 1,
+                        blurRadius: 2,
+                        color: kDark2Color,
+                      ),
+                    ],
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(40.0),
+                      bottomLeft: Radius.circular(40.0),
+                    ),
+                  ),
+                  child: const Center(
+                    child: Text(
+                      "To Do List",
+                      style: kLittleTextStyle,
+                    ),
+                  ),
+                ),
+              ),
+            ),
             const SizedBox(
               height: 50.0,
             ),
@@ -83,23 +131,17 @@ class DashboardScreen extends StatelessWidget {
             const SizedBox(
               height: 5.0,
             ),
-            TextButton(
-              onPressed: () => {
-                controller.cityRecommendation = 'PAR'.obs,
-                controller.getRecommendation(recommendationList),
-              },
-              child: const Text('PAR'),
-            ),
+            Text(cityOne),
             const SizedBox(
               height: 5.0,
             ),
             Obx(
               () => CarouselSlider.builder(
-                itemCount: recommendationList.length,
+                itemCount: controller.recommendationList.value.length,
                 itemBuilder: (context, index, realIndex) {
                   RecommendationModel recommendationModel = RecommendationModel(
-                    name: recommendationList[index].name,
-                    relevance: recommendationList[index].relevance,
+                    name: controller.recommendationList[index].name,
+                    relevance: controller.recommendationList[index].relevance,
                   );
                   return CardRecommendation(
                     recommendationModel: recommendationModel,
@@ -112,20 +154,17 @@ class DashboardScreen extends StatelessWidget {
                 ),
               ),
             ),
-            TextButton(
-              onPressed: () => {
-                controller.cityRecommendation = 'OPO'.obs,
-                controller.getRecommendation(recommendationList2),
-              },
-              child: const Text('OPO'),
+            const SizedBox(
+              height: 8.0,
             ),
+            Text(cityTwo),
             Obx(
               () => CarouselSlider.builder(
-                itemCount: recommendationList2.length,
+                itemCount: controller.recommendationList2.value.length,
                 itemBuilder: (context, index, realIndex) {
                   RecommendationModel recommendationModel = RecommendationModel(
-                    name: recommendationList2[index].name,
-                    relevance: recommendationList2[index].relevance,
+                    name: controller.recommendationList2[index].name,
+                    relevance: controller.recommendationList2[index].relevance,
                   );
                   return CardRecommendation(
                     recommendationModel: recommendationModel,
@@ -138,20 +177,17 @@ class DashboardScreen extends StatelessWidget {
                 ),
               ),
             ),
-            TextButton(
-              onPressed: () => {
-                controller.cityRecommendation = 'NCE'.obs,
-                controller.getRecommendation(recommendationList3),
-              },
-              child: const Text('NCE'),
+            const SizedBox(
+              height: 8.0,
             ),
+            Text(cityThree),
             Obx(
               () => CarouselSlider.builder(
-                itemCount: recommendationList3.length,
+                itemCount: controller.recommendationList3.value.length,
                 itemBuilder: (context, index, realIndex) {
                   RecommendationModel recommendationModel = RecommendationModel(
-                    name: recommendationList3[index].name,
-                    relevance: recommendationList3[index].relevance,
+                    name: controller.recommendationList3[index].name,
+                    relevance: controller.recommendationList3[index].relevance,
                   );
                   return CardRecommendation(
                     recommendationModel: recommendationModel,
