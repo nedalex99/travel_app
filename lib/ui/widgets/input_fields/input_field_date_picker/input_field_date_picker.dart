@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/ui/widgets/input_fields/input_field_date_picker/input_field_date_picker_controller.dart';
 import 'package:get/get.dart';
+import 'package:travel_app/utils/constants/colors.dart';
 
 class InputFieldDatePicker extends StatelessWidget {
   late final InputFieldDatePickerController _controller;
@@ -39,7 +40,7 @@ class InputFieldDatePicker extends StatelessWidget {
       onTap: _controller.getDate,
       controller: _controller.textController,
       decoration: InputDecoration(
-        fillColor: Colors.white,
+        fillColor: kGeneralColor.withOpacity(0.3),
         filled: true,
         contentPadding: const EdgeInsets.all(
           8,

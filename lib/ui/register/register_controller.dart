@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/model/user_model.dart';
-import 'package:travel_app/ui/login/login_screen.dart';
 import 'package:travel_app/ui/widgets/dialogs/loading_dialog.dart';
 import 'package:travel_app/utils/constants/validator.dart';
 import 'package:travel_app/utils/network/firebase/authentication/authentication.dart';
@@ -9,7 +8,7 @@ import 'package:travel_app/utils/network/firebase/authentication/sign_in_respons
 import 'package:travel_app/utils/network/firebase/firestore/users_collection.dart';
 
 class RegisterController extends GetxController {
-  String loginText = "Register";
+  String loginText = "REGISTER";
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController emailTextController = TextEditingController();
   final TextEditingController passwordTextController = TextEditingController();

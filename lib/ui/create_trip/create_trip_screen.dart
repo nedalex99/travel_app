@@ -8,6 +8,7 @@ import 'package:travel_app/ui/create_trip/create_trip_controller.dart';
 import 'package:travel_app/ui/widgets/buttons/custom_button.dart';
 import 'package:travel_app/ui/widgets/input_fields/input_field_date_picker/input_field_date_picker.dart';
 import 'package:travel_app/ui/widgets/input_fields/input_field_with_suggestions/input_field_with_suggestions.dart';
+import 'package:travel_app/utils/constants/colors.dart';
 
 class CreateTripScreen extends StatelessWidget {
   final CreateTripController controller = Get.put(CreateTripController());
@@ -21,13 +22,16 @@ class CreateTripScreen extends StatelessWidget {
           child: Text(
             "Create your trip",
             style: TextStyle(
-              color: Colors.white,
+              color: Colors.black,
             ),
           ),
         ),
         elevation: 3,
-        backgroundColor: Colors.grey,
+        backgroundColor: kGeneralColor,
         centerTitle: true,
+        leading: const BackButton(
+          color: Colors.black,
+        ),
       ),
       body: CustomScrollView(
         slivers: [
@@ -251,11 +255,12 @@ class CreateTripScreen extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(
                                 top: 8.0,
+                                left: 70.0,
                               ),
                               child: CustomButton(
                                 onTap: controller.getFlights,
                                 text: 'Search Flights',
-                                backgroundColor: Colors.blueGrey,
+                                backgroundColor: kPaleColor,
                               ),
                             ),
                             const SizedBox(

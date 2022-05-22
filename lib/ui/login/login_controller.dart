@@ -19,12 +19,6 @@ class LoginController extends GetxController {
 
   RxBool isButtonEnabled = false.obs;
 
-  @override
-  void onInit() {
-    printText();
-    super.onInit();
-  }
-
   void onEmailInputChanged(String value) {
     isButtonEnabled.value = isValidEmail(emailTextController.text) == null &&
         isValidPassword(passwordTextController.text) == null;
@@ -53,40 +47,51 @@ class LoginController extends GetxController {
     //           });
     // }
 
-    // if (formKey.currentState!.validate()) {
-    // Get.dialog(
-    //   const LoadingDialog(),
-    //   barrierDismissible: false,
-    // );
-    Authentication()
-        .signInWithEmailAndPassword(
-          // email: emailTextController.text,
-          // password: passwordTextController.text)
-          email: 'alexandru991999@gmail.com', password: '123456',
-        )
-        .then(
-          (value) => {
-            if (value.statusCode == 200)
-              {
-                userLoggedIn = (value as SignInResponse).user,
-                Authorization().authorize().then(
-                      (value) => {
-                        if (value.statusCode == 200)
-                          {
-                            amadeusAccessToken =
-                                (value as AuthorizationResponse)
-                                    .authorizationResponseModel
-                                    .accessToken,
-                            // Get.back(),
-                            Get.to(
-                              () => const DashboardScreen(),
-                            ),
-                          }
-                      },
-                    )
-              },
-          },
-        );
-    // }
+    if (formKey.currentState!.validate()) {
+      Get.dialog(
+        const LoadingDialog(),
+        barrierDismissible: false,
+      );
+      Authentication()
+          .signInWithEmailAndPassword(
+              email: emailTextController.text,
+              password: passwordTextController.text)
+          .then(
+            (value) => {
+              if (value.statusCode == 200)
+                {
+                  userLoggedIn = (value as SignInResponse).user,
+                  Authorization().authorize().then(
+                        (value) => {
+                          if (value.statusCode == 200)
+                            {
+                              amadeusAccessToken =
+                                  (value as AuthorizationResponse)
+                                      .authorizationResponseModel
+                                      .accessToken,
+                              if (Authentication().findNewUser())
+                                {
+                                  Get.back(),
+                                  Get.to(
+                                    () => UserProfile(),
+                                  ),
+                                }
+                              else
+                                {
+                                  Get.back(),
+                                  Get.to(
+                                        () => ChooseCity(),
+                                  ),
+                                  // Get.to(
+                                  //   () => DashboardScreen(),
+                                  // ),
+                                }
+                            }
+                        },
+                      )
+                },
+            },
+          );
+    }
   }
 }

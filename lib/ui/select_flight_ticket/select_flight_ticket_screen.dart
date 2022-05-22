@@ -191,16 +191,32 @@ class SelectFlightTicketScreen extends StatelessWidget {
                   const SizedBox(
                     height: 16.0,
                   ),
-                  CustomButton(
-                    onTap: _controller.addPassenger,
-                    text: "Add passenger",
-                    backgroundColor: Colors.brown,
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 70.0,
+                    ),
+                    child: CustomButton(
+                      onTap: _controller.addPassenger,
+                      text: "Add passenger",
+                      backgroundColor: kPaleColor,
+                    ),
                   ),
                 ],
               ),
             ),
             SliverFillRemaining(
               hasScrollBody: false,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: 70.0,
+                ),
+                child: CustomButton(
+                  backgroundColor: Colors.blueAccent,
+                  onTap: () => _controller.addFlightTicket(
+                    flightCardDetails: flightCardDetails,
+                  ),
+                  text: 'Create ticket',
+                ),
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Padding(
