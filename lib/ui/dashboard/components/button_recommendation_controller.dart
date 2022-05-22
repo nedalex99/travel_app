@@ -8,8 +8,6 @@ class ButtonRecommendationController extends GetxController {
   RxBool isSelected = true.obs;
   RxString cityRecommendation = "".obs;
 
-  //late RecommendationModel citiesRecommendations;
-  //late RecommendationModel countryRecommendations;
   RxList<RecommendationModel> recommendationList = <RecommendationModel>[].obs;
 
   //API RECOMM

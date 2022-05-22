@@ -1,4 +1,5 @@
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -30,9 +31,11 @@ class DashboardController extends GetxController {
 
   @override
   void onInit() {
-    getUserData();
-    getImage();
-    getRecommendation();
+    // getUserData();
+    // getImage();
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      getRecommendation();
+    });
     super.onInit();
   }
 
@@ -68,7 +71,7 @@ class DashboardController extends GetxController {
     try {
       RecommendationSearch()
           .getRecommendationSearch(
-        cityCode: cityOne,
+        cityCode: 'PAR',
       )
           .then((value) {
         if (value.statusCode == 200) {
@@ -76,7 +79,7 @@ class DashboardController extends GetxController {
               (value as GetRecommendationResponse).recommendationModelList;
           RecommendationSearch()
               .getRecommendationSearch(
-            cityCode: cityTwo,
+            cityCode: 'OPO',
           )
               .then(
             (value) {
@@ -85,7 +88,7 @@ class DashboardController extends GetxController {
                     .recommendationModelList;
                 RecommendationSearch()
                     .getRecommendationSearch(
-                  cityCode: cityThree,
+                  cityCode: 'NCE',
                 )
                     .then(
                   (value) {

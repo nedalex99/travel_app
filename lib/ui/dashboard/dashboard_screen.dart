@@ -34,7 +34,6 @@ class DashboardScreen extends StatelessWidget {
   }
 
   late final DashboardController controller;
-  final buttonCitiesController = Get.put(ButtonRecommendationController());
 
   @override
   Widget build(BuildContext context) {
@@ -132,13 +131,7 @@ class DashboardScreen extends StatelessWidget {
             const SizedBox(
               height: 5.0,
             ),
-            TextButton(
-              onPressed: () => {
-                controller.cityRecommendation = 'PAR'.obs,
-                controller.getRecommendation(),
-              },
-              child: Text(cityOne),
-            ),
+            Text(cityOne),
             const SizedBox(
               height: 5.0,
             ),
@@ -161,13 +154,10 @@ class DashboardScreen extends StatelessWidget {
                 ),
               ),
             ),
-            TextButton(
-              onPressed: () => {
-                controller.cityRecommendation = 'OPO'.obs,
-                controller.getRecommendation(),
-              },
-              child: Text(cityTwo),
+            const SizedBox(
+              height: 8.0,
             ),
+            Text(cityTwo),
             Obx(
               () => CarouselSlider.builder(
                 itemCount: controller.recommendationList2.value.length,
@@ -187,13 +177,10 @@ class DashboardScreen extends StatelessWidget {
                 ),
               ),
             ),
-            TextButton(
-              onPressed: () => {
-                controller.cityRecommendation = 'NCE'.obs,
-                controller.getRecommendation(),
-              },
-              child: Text(cityThree),
+            const SizedBox(
+              height: 8.0,
             ),
+            Text(cityThree),
             Obx(
               () => CarouselSlider.builder(
                 itemCount: controller.recommendationList3.value.length,

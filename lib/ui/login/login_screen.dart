@@ -30,9 +30,6 @@ class LoginScreen extends GetView<LoginController> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const SizedBox(
-                          height: 130.0,
-                        ),
                         RichText(
                           text: const TextSpan(
                               text: kApplicationName,
@@ -52,16 +49,13 @@ class LoginScreen extends GetView<LoginController> {
                           height: 50.0,
                         ),
                         Padding(
-                          padding:
-                              const EdgeInsets.symmetric(horizontal: 24.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 24.0),
                           child: InputField(
-                            textCapitalization:
-                                TextCapitalization.sentences,
+                            textCapitalization: TextCapitalization.sentences,
                             textInputAction: TextInputAction.next,
                             labelText: 'Email',
                             textInputType: TextInputType.text,
-                            onInputFieldChanged:
-                                controller.onEmailInputChanged,
+                            onInputFieldChanged: controller.onEmailInputChanged,
                             validator: isValidEmail,
                             textEditingController:
                                 controller.emailTextController,
@@ -75,11 +69,9 @@ class LoginScreen extends GetView<LoginController> {
                           height: 16,
                         ),
                         Padding(
-                          padding:
-                              const EdgeInsets.symmetric(horizontal: 24.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 24.0),
                           child: InputField(
-                              textCapitalization:
-                                  TextCapitalization.sentences,
+                              textCapitalization: TextCapitalization.sentences,
                               controller: Get.put(
                                 InputFieldController(),
                                 tag: "register_screen_password",

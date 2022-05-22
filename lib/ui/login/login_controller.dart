@@ -81,7 +81,7 @@ class LoginController extends GetxController {
                                 {
                                   Get.back(),
                                   Get.to(
-                                        () => UserProfile(),
+                                        () => ChooseCity(),
                                   ),
                                   // Get.to(
                                   //   () => DashboardScreen(),

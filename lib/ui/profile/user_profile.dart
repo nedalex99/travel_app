@@ -93,7 +93,7 @@ class _UserProfileState extends State<UserProfile> {
                 : Padding(
                     padding: const EdgeInsets.only(
                       right: 300,
-                      top: 140,
+                      top: 70,
                     ),
                     child: Image.asset(
                       kPlane,
