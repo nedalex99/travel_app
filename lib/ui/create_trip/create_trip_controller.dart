@@ -6,10 +6,19 @@ import 'package:flutter_material_pickers/flutter_material_pickers.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:travel_app/model/airport_model.dart';
+import 'package:travel_app/model/flight_card_details.dart';
+import 'package:travel_app/model/flight_ticket.dart';
 import 'package:travel_app/model/flights_model.dart';
+import 'package:travel_app/model/hotel_model.dart';
+import 'package:travel_app/model/passenger_model.dart';
+import 'package:travel_app/ui/create_trip/components/hotel_card_controller.dart';
+import 'package:travel_app/ui/widgets/buttons/custom_button.dart';
 import 'package:travel_app/ui/widgets/dialogs/loading_dialog.dart';
 import 'package:travel_app/utils/network/amadeus_api/flight_offer_search/flight_offer_search.dart';
 import 'package:travel_app/utils/network/amadeus_api/flight_offer_search/get_flight_offer_response.dart';
+import 'package:travel_app/utils/network/amadeus_api/hotel_search/get_hotels_response.dart';
+import 'package:travel_app/utils/network/amadeus_api/hotel_search/hotel_search.dart';
+import 'package:travel_app/utils/network/firebase/firestore/flight_tickets_collection.dart';
 
 class CreateTripController extends GetxController {
   Rx<DateTime> selectedDepartureDate = DateTime(DateTime.now().year - 1).obs;
@@ -25,9 +34,17 @@ class CreateTripController extends GetxController {
   TextEditingController arrivalZoneController = TextEditingController();
   TextEditingController dateOfDeparture = TextEditingController();
   TextEditingController dateOfArrival = TextEditingController();
+
   List<AirportModel> airportsList = [];
   RxBool didSearchFlights = false.obs;
   Rx<FlightsModel> flightList = FlightsModel().obs;
+  RxList<Passenger> passengersList = <Passenger>[].obs;
+  Rx<FlightCardDetails?> selectedFlight = FlightCardDetails().obs;
+
+  RxList<HotelModel> hotelsList = <HotelModel>[].obs;
+  Rx<HotelModel> hotelSelected = HotelModel().obs;
+
+  RxBool textShowMoreFlag = false.obs;
 
   @override
   void onInit() {
@@ -105,5 +122,115 @@ class CreateTripController extends GetxController {
         }
       },
     );
+  }
+
+  Future<void> getHotels() async {
+    Get.dialog(const LoadingDialog());
+    await HotelSearch()
+        .getHotels(
+          cityCode: selectedArrivalAirport.code!,
+        )
+        .then(
+          (value) => {
+            Get.back(),
+            if (value.statusCode == 200)
+              {
+                hotelsList.value = (value as GetHotelsResponse).hotelsList,
+              }
+            else
+              {
+                print("error"),
+              }
+          },
+        );
+  }
+
+  void onHotelSelected(int index) {
+    if (hotelSelected.value.hotel != null) {
+      var oldSelectedController = Get.find<HotelCardController>(
+          tag: hotelSelected.value.hotel!.hotelId!);
+      oldSelectedController.isSelected.value = false;
+
+      var newSelectedController = Get.find<HotelCardController>(
+        tag: hotelsList[index].hotel!.hotelId!,
+      );
+
+      if (hotelSelected.value.hotel!.hotelId! !=
+          hotelsList[index].hotel!.hotelId!) {
+        newSelectedController.isSelected.value = true;
+
+        hotelSelected.value = hotelsList[index];
+      }
+    } else {
+      var newSelectedController = Get.find<HotelCardController>(
+        tag: hotelsList[index].hotel!.hotelId!,
+      );
+      newSelectedController.isSelected.value = true;
+      hotelSelected.value = hotelsList[index];
+    }
+  }
+
+  Future<void> onSaveTrip() async {
+    Get.dialog(LoadingDialog());
+    await FlightTicketsCollection()
+        .addFlightTicket(
+          flightTicket: FlightTicket(
+            passengers: passengersList,
+            flightCardDetails: selectedFlight.value!,
+            selectedHotel: hotelSelected.value,
+          ),
+        )
+        .then(
+          (value) => {
+            Get.back(),
+            Get.dialog(
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Wrap(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(
+                            6.0,
+                          ),
+                        ),
+                        padding: const EdgeInsets.all(
+                          16.0,
+                        ),
+                        child: Column(
+                          children: [
+                            const DefaultTextStyle(
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18.0,
+                              ),
+                              child: Text(
+                                'Great, find the best points of interest in the Trips screen. See you soon!',
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 16.0,
+                            ),
+                            CustomButton(
+                              onTap: () {
+                                Get.back();
+                                Get.back();
+                              },
+                              text: 'Finish',
+                              backgroundColor: Colors.blue,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          },
+        );
   }
 }

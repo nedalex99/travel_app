@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:travel_app/model/flight_card_details.dart';
 import 'package:travel_app/ui/create_trip/components/flight_card.dart';
+import 'package:travel_app/ui/create_trip/components/hotel_card.dart';
 import 'package:travel_app/ui/create_trip/create_trip_controller.dart';
 import 'package:travel_app/ui/widgets/buttons/custom_button.dart';
 import 'package:travel_app/ui/widgets/input_fields/input_field_date_picker/input_field_date_picker.dart';
@@ -293,50 +294,130 @@ class CreateTripScreen extends StatelessWidget {
                               ),
                             )
                           : Container(),
-                      ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          List<String> duration = [];
-                          List<String> departureCode = [];
-                          List<String> departureTime = [];
-                          List<String> arrivalCode = [];
-                          List<String> arrivalTime = [];
-                          for (var itinerary in controller
-                              .flightList.value.data![index].itineraries!) {
-                            for (var segment in itinerary.segments!) {
-                              duration.add(segment.duration!);
-                              departureCode.add(segment.departure!.iataCode!);
-                              departureTime.add(segment.departure!.at!);
-                              arrivalCode.add(segment.arrival!.iataCode!);
-                              arrivalTime.add(segment.arrival!.at!);
-                            }
-                          }
-                          FlightCardDetails flightCardDetails =
-                              FlightCardDetails(
-                            departureCode: departureCode,
-                            arrivalCode: arrivalCode,
-                            departureTime: departureTime,
-                            arrivalTime: arrivalTime,
-                            flightDuration: duration,
-                            price: controller
-                                .flightList.value.data![index].price!.total!,
-                          );
-                          return Padding(
-                            padding: const EdgeInsets.only(
-                              bottom: 16.0,
-                            ),
-                            child: FlightCard(
-                              flightCardDetails: flightCardDetails,
-                            ),
-                          );
-                        },
-                        itemCount: controller.flightList.value.data!.length,
+                      Obx(
+                        () => controller.selectedFlight.value?.departureCode !=
+                                null
+                            ? FlightCard(
+                                flightCardDetails:
+                                    controller.selectedFlight.value!,
+                              )
+                            : Container(),
+                      ),
+                      Obx(
+                        () => controller.selectedFlight.value?.departureCode ==
+                                null
+                            ? ListView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) {
+                                  List<String> duration = [];
+                                  List<String> departureCode = [];
+                                  List<String> departureTime = [];
+                                  List<String> arrivalCode = [];
+                                  List<String> arrivalTime = [];
+                                  for (var itinerary in controller.flightList
+                                      .value.data![index].itineraries!) {
+                                    for (var segment in itinerary.segments!) {
+                                      duration.add(segment.duration!);
+                                      departureCode
+                                          .add(segment.departure!.iataCode!);
+                                      departureTime.add(segment.departure!.at!);
+                                      arrivalCode
+                                          .add(segment.arrival!.iataCode!);
+                                      arrivalTime.add(segment.arrival!.at!);
+                                    }
+                                  }
+                                  FlightCardDetails flightCardDetails =
+                                      FlightCardDetails(
+                                    departureCode: departureCode,
+                                    arrivalCode: arrivalCode,
+                                    departureTime: departureTime,
+                                    arrivalTime: arrivalTime,
+                                    flightDuration: duration,
+                                    price: controller.flightList.value
+                                        .data![index].price!.total!,
+                                  );
+                                  return Padding(
+                                    padding: const EdgeInsets.only(
+                                      bottom: 16.0,
+                                    ),
+                                    child: FlightCard(
+                                      flightCardDetails: flightCardDetails,
+                                    ),
+                                  );
+                                },
+                                itemCount:
+                                    controller.flightList.value.data!.length,
+                              )
+                            : Container(),
                       ),
                     ],
                   ),
                 ),
+                const SizedBox(
+                  height: 16.0,
+                ),
+                Obx(
+                  () => controller.hotelSelected.value.hotel != null
+                      ? Column(
+                          children: [
+                            const Align(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 16.0),
+                                child: Text(
+                                  'Selected hotel',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.blueAccent,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            HotelCard(
+                              hotelModel: controller.hotelSelected.value,
+                            ),
+                          ],
+                        )
+                      : Container(),
+                ),
+                const SizedBox(
+                  height: 16.0,
+                ),
+                Obx(
+                  () => controller.hotelsList.isNotEmpty &&
+                          controller.hotelSelected.value.hotel == null
+                      ? ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: controller.hotelsList.length,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () => controller.onHotelSelected(index),
+                              child: HotelCard(
+                                hotelModel: controller.hotelsList[index],
+                              ),
+                            );
+                          },
+                        )
+                      : Container(),
+                ),
+                // ListView.builder(
+                //   itemBuilder: (context, index) {},
+                // ),
               ],
+            ),
+          ),
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: CustomButton(
+                onTap: controller.onSaveTrip,
+                text: 'Save trip',
+                backgroundColor: Colors.blue,
+              ),
             ),
           ),
         ],

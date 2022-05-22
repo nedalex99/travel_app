@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:travel_app/model/bottom_app_bar_item.dart';
+import 'package:travel_app/ui/dashboard/dashboard_screen.dart';
+import 'package:travel_app/ui/settings/settings_screen.dart';
 import 'package:travel_app/ui/widgets/bottom_navigation_bar/bottom_app_bar_widget.dart';
 
 class BottomAppBarWidget extends StatelessWidget {
@@ -19,7 +22,22 @@ class BottomAppBarWidget extends StatelessWidget {
       color: Colors.blueGrey,
       selectedColor: Colors.red,
       notchedShape: const CircularNotchedRectangle(),
-      onTabSelected: (value) {},
+      onTabSelected: (value) {
+        switch (value) {
+          case 0:
+            Get.to(
+              () => DashboardScreen(),
+            );
+            break;
+          case 3:
+            Get.to(
+              () => SettingsScreen(),
+            );
+            break;
+          default:
+            break;
+        }
+      },
     );
   }
 }

@@ -6,8 +6,9 @@ import 'package:travel_app/utils/constants/bindings.dart';
 import 'package:travel_app/utils/constants/themes.dart';
 
 Future<void> main() async {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
