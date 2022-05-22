@@ -19,6 +19,7 @@ class RecommendationModel {
     _subtype = json['subtype'];
     _name = json['name'];
     _iataCode = json['iataCode'];
+    _relevance = json['relevance'];
   }
 
   String? _subtype;
