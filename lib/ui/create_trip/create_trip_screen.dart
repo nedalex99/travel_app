@@ -418,10 +418,13 @@ class CreateTripScreen extends StatelessWidget {
             hasScrollBody: false,
             child: Align(
               alignment: Alignment.bottomCenter,
-              child: CustomButton(
-                onTap: controller.onSaveTrip,
-                text: 'Save trip',
-                backgroundColor: Colors.blue,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 70),
+                child: CustomButton(
+                  onTap: controller.onSaveTrip,
+                  text: 'Save trip',
+                  backgroundColor: Colors.blue,
+                ),
               ),
             ),
           ),

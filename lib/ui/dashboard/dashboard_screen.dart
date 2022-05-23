@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:travel_app/model/location_score_model.dart';
 import 'package:travel_app/model/recommendation_model.dart';
 import 'package:travel_app/ui/base_scaffold.dart';
 import 'package:travel_app/ui/dashboard/components/recomandation_card.dart';
@@ -141,14 +142,19 @@ class DashboardScreen extends StatelessWidget {
                     name: controller.recommendationList[index].name,
                     relevance: controller.recommendationList[index].relevance,
                   );
+                  LocationScoreModel locationModel = LocationScoreModel(
+                    categoryScores:
+                        controller.locationScoreList[index].categoryScores,
+                  );
                   return CardRecommendation(
                     recommendationModel: recommendationModel,
+                    locationScoreModel: locationModel,
                   );
                 },
                 options: CarouselOptions(
-                  height: 90,
+                  height: 130,
                   enableInfiniteScroll: false,
-                  viewportFraction: 0.6,
+                  viewportFraction: 0.8,
                 ),
               ),
             ),
@@ -164,14 +170,18 @@ class DashboardScreen extends StatelessWidget {
                     name: controller.recommendationList2[index].name,
                     relevance: controller.recommendationList2[index].relevance,
                   );
+                  LocationScoreModel locationModel = LocationScoreModel(
+                      categoryScores:
+                          controller.locationScoreList[index].categoryScores);
                   return CardRecommendation(
                     recommendationModel: recommendationModel,
+                    locationScoreModel: locationModel,
                   );
                 },
                 options: CarouselOptions(
-                  height: 90,
+                  height: 130,
                   enableInfiniteScroll: false,
-                  viewportFraction: 0.6,
+                  viewportFraction: 0.8,
                 ),
               ),
             ),
@@ -187,14 +197,18 @@ class DashboardScreen extends StatelessWidget {
                     name: controller.recommendationList3[index].name,
                     relevance: controller.recommendationList3[index].relevance,
                   );
+                  LocationScoreModel locationModel = LocationScoreModel(
+                      categoryScores:
+                          controller.locationScoreList[index].categoryScores);
                   return CardRecommendation(
                     recommendationModel: recommendationModel,
+                    locationScoreModel: locationModel,
                   );
                 },
                 options: CarouselOptions(
-                  height: 90,
+                  height: 130,
                   enableInfiniteScroll: false,
-                  viewportFraction: 0.6,
+                  viewportFraction: 0.8,
                 ),
               ),
             ),

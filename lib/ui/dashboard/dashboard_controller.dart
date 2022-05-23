@@ -3,10 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:travel_app/model/location_score_model.dart';
 import 'package:travel_app/model/recommendation_model.dart';
 import 'package:travel_app/model/user_data.dart';
 import 'package:travel_app/ui/widgets/dialogs/loading_dialog.dart';
 import 'package:travel_app/utils/constants/values.dart';
+import 'package:travel_app/utils/network/amadeus_api/location_score_search/get_location_score_response.dart';
+import 'package:travel_app/utils/network/amadeus_api/location_score_search/location_score_search.dart';
 import 'package:travel_app/utils/network/amadeus_api/recommendation_search/get_recommendation_response.dart';
 import 'package:travel_app/utils/network/amadeus_api/recommendation_search/recommendation_search.dart';
 
@@ -23,6 +26,9 @@ class DashboardController extends GetxController {
   RxList<RecommendationModel> recommendationList = <RecommendationModel>[].obs;
   RxList<RecommendationModel> recommendationList2 = <RecommendationModel>[].obs;
   RxList<RecommendationModel> recommendationList3 = <RecommendationModel>[].obs;
+  RxList<LocationScoreModel> locationScoreList = <LocationScoreModel>[].obs;
+  List<LocationScoreModel> locationScoreList2 = <LocationScoreModel>[].obs;
+  List<LocationScoreModel> locationScoreList3 = <LocationScoreModel>[].obs;
 
   DashboardController({
     required this.cityOne,
@@ -36,6 +42,7 @@ class DashboardController extends GetxController {
     // getImage();
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
       getRecommendation();
+      getLocationScore();
     });
     print(handleIataCodes(cityOne));
     print(handleIataCodes(cityTwo));
@@ -114,5 +121,26 @@ class DashboardController extends GetxController {
     } catch (e) {
       print("Erroar +${e.toString()}");
     }
+  }
+
+  //API LOCATION SCORE
+  Future<void> getLocationScore() async {
+    Get.dialog(
+      const LoadingDialog(),
+      barrierDismissible: false,
+    );
+    await LocationScoreSearch()
+        .getLocationScore(latitude: 41.397158, longitude: 2.160873)
+        .then(
+      (value) {
+        Get.back();
+        if (value.statusCode == 200) {
+          locationScoreList.value =
+              (value as GetLocationScoreResponse).locationScoreModel;
+        } else {
+          print(value.statusCode);
+        }
+      },
+    );
   }
 }
