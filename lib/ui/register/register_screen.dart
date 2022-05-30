@@ -27,175 +27,277 @@ class RegisterScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: [
-                          const SizedBox(
-                            height: 40,
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: 40,
+                        ),
+                        const Text(
+                          "Let's get started",
+                          style: kTitleScreenTextStyle,
+                        ),
+                        const SizedBox(
+                          height: 16.0,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 85.0,
                           ),
-                          const Text(
-                            'REGISTER',
-                            style: kTitleScreenTextStyle,
+                          child: Text(
+                            'Fill out a few details to get signed up',
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.titleMedium,
                           ),
-                          const SizedBox(
-                            height: 20,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 18.0,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                            child: InputField(
-                              textCapitalization: TextCapitalization.sentences,
-                              controller: Get.put(
-                                InputFieldController(),
-                                tag: "register_screen_firstName",
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'First name',
+                                style: kHeaderFieldTextStyle,
                               ),
-                              textInputAction: TextInputAction.next,
-                              labelText: 'First Name',
-                              onInputFieldChanged: controller.onNameInputChanged,
-                              validator: isValidName,
-                              textInputType: TextInputType.text,
-                              textEditingController:
-                                  controller.firstNameTextController,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                            child: InputField(
-                              textCapitalization: TextCapitalization.sentences,
-                              controller: Get.put(
-                                InputFieldController(),
-                                tag: "register_screen_lastName",
+                              const SizedBox(
+                                height: 4.0,
                               ),
-                              textInputAction: TextInputAction.next,
-                              labelText: 'Last Name',
-                              onInputFieldChanged: controller.onNameInputChanged,
-                              validator: isValidName,
-                              textInputType: TextInputType.text,
-                              textEditingController:
-                                  controller.lastNameTextController,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                            child: InputField(
-                                textCapitalization: TextCapitalization.sentences,
+                              InputField(
+                                textCapitalization:
+                                    TextCapitalization.sentences,
                                 controller: Get.put(
                                   InputFieldController(),
-                                  tag: "register_screen_userName",
+                                  tag: "register_screen_firstName",
                                 ),
                                 textInputAction: TextInputAction.next,
-                                labelText: 'User Name',
-                                onInputFieldChanged: controller.onNameInputChanged,
+                                labelText: 'First Name',
+                                onInputFieldChanged:
+                                    controller.onNameInputChanged,
                                 validator: isValidName,
                                 textInputType: TextInputType.text,
                                 textEditingController:
-                                    controller.userNameTextController),
+                                    controller.firstNameTextController,
+                              ),
+                            ],
                           ),
-                          const SizedBox(
-                            height: 16,
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 18.0,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                            child: InputField(
-                                textCapitalization: TextCapitalization.sentences,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Last name',
+                                style: kHeaderFieldTextStyle,
+                              ),
+                              const SizedBox(
+                                height: 4.0,
+                              ),
+                              InputField(
+                                textCapitalization:
+                                    TextCapitalization.sentences,
                                 controller: Get.put(
                                   InputFieldController(),
-                                  tag: "register_screen_email",
+                                  tag: "register_screen_lastName",
                                 ),
                                 textInputAction: TextInputAction.next,
-                                labelText: 'Email',
-                                onInputFieldChanged: controller.onEmailInputChanged,
-                                validator: isValidEmail,
+                                labelText: 'Last Name',
+                                onInputFieldChanged:
+                                    controller.onNameInputChanged,
+                                validator: isValidName,
                                 textInputType: TextInputType.text,
                                 textEditingController:
-                                    controller.emailTextController),
+                                    controller.lastNameTextController,
+                              ),
+                            ],
                           ),
-                          const SizedBox(
-                            height: 16,
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Padding(
+                          padding:
+                              const EdgeInsets.symmetric(horizontal: 18.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Username',
+                                style: kHeaderFieldTextStyle,
+                              ),
+                              const SizedBox(
+                                height: 4.0,
+                              ),
+                              InputField(
+                                  textCapitalization:
+                                      TextCapitalization.sentences,
+                                  controller: Get.put(
+                                    InputFieldController(),
+                                    tag: "register_screen_userName",
+                                  ),
+                                  textInputAction: TextInputAction.next,
+                                  labelText: 'Username',
+                                  onInputFieldChanged:
+                                      controller.onNameInputChanged,
+                                  validator: isValidName,
+                                  textInputType: TextInputType.text,
+                                  textEditingController:
+                                      controller.userNameTextController),
+                            ],
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                            child: InputField(
-                                textCapitalization: TextCapitalization.sentences,
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 18.0,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Password',
+                                style: kHeaderFieldTextStyle,
+                              ),
+                              const SizedBox(
+                                height: 4.0,
+                              ),
+                              InputField(
+                                  textCapitalization:
+                                      TextCapitalization.sentences,
+                                  controller: Get.put(
+                                    InputFieldController(),
+                                    tag: "register_screen_email",
+                                  ),
+                                  textInputAction: TextInputAction.next,
+                                  labelText: 'Email',
+                                  onInputFieldChanged:
+                                      controller.onEmailInputChanged,
+                                  validator: isValidEmail,
+                                  textInputType: TextInputType.text,
+                                  textEditingController:
+                                      controller.emailTextController),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 18.0,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Password',
+                                style: kHeaderFieldTextStyle,
+                              ),
+                              const SizedBox(
+                                height: 4.0,
+                              ),
+                              InputField(
+                                  textCapitalization:
+                                      TextCapitalization.sentences,
+                                  controller: Get.put(
+                                    InputFieldController(),
+                                    tag: "register_screen_password",
+                                  ),
+                                  textInputAction: TextInputAction.next,
+                                  validator: isValidPassword,
+                                  textInputType:
+                                      TextInputType.visiblePassword,
+                                  onInputFieldChanged:
+                                      controller.onPasswordInputChanged,
+                                  labelText: 'Password',
+                                  textEditingController:
+                                      controller.passwordTextController),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Padding(
+                          padding:
+                              const EdgeInsets.symmetric(horizontal: 18.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Confirm password',
+                                style: kHeaderFieldTextStyle,
+                              ),
+                              const SizedBox(
+                                height: 4.0,
+                              ),
+                              InputField(
+                                textCapitalization:
+                                    TextCapitalization.sentences,
                                 controller: Get.put(
                                   InputFieldController(),
-                                  tag: "register_screen_password",
+                                  tag: "register_screen_confirm_password",
                                 ),
-                                textInputAction: TextInputAction.next,
-                                validator: isValidPassword,
+                                textInputAction: TextInputAction.done,
                                 textInputType: TextInputType.visiblePassword,
                                 onInputFieldChanged:
-                                    controller.onPasswordInputChanged,
-                                labelText: 'Password',
+                                    controller.onConfirmPasswordInputChange,
+                                labelText: 'Confirm Password',
                                 textEditingController:
-                                    controller.passwordTextController),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                            child: InputField(
-                              textCapitalization: TextCapitalization.sentences,
-                              controller: Get.put(
-                                InputFieldController(),
-                                tag: "register_screen_confirm_password",
+                                    controller.confirmPasswordTextController,
+                                validator: isValidPassword,
                               ),
-                              textInputAction: TextInputAction.done,
-                              textInputType: TextInputType.visiblePassword,
-                              onInputFieldChanged:
-                                  controller.onConfirmPasswordInputChange,
-                              labelText: 'Confirm Password',
-                              textEditingController:
-                                  controller.confirmPasswordTextController,
-                              validator: isValidPassword,
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Stack(
+                  children: [
+                    Image.asset(
+                      kPlane,
+                      height: 50,
+                      width: 50,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                              bottom: 10.0,
+                            ),
+                            child: Obx(
+                              () => CustomButton(
+                                onTap: controller.isButtonEnabled.value
+                                    ? controller.registerUser
+                                    : null,
+                                text: controller.loginText,
+                                backgroundColor:
+                                    controller.isButtonEnabled.value
+                                        ? const Color(0xFF7B94FF)
+                                        : kGeneralColor.withOpacity(0.5),
+                              ),
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                          bottom: 10.0,
-                          left: 70.0,
                         ),
-                        child: Obx(
-                          () => CustomButton(
-                            onTap: controller.isButtonEnabled.value
-                                ? controller.registerUser
-                                : null,
-                            text: controller.loginText,
-                            backgroundColor: controller.isButtonEnabled.value
-                                ? const Color(0xFF7B94FF)
-                                : kGeneralColor.withOpacity(0.5),
-                          ),
-                        ),
-                      ),
+                      ],
                     ),
                   ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    right: 300,
-                  ),
-                  child: Image.asset(
-                    kPlane,
-                    height: 100,
-                    width: 200,
-                  ),
                 ),
               ],
             ),

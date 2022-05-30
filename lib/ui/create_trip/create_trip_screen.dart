@@ -339,6 +339,10 @@ class CreateTripScreen extends StatelessWidget {
                                     departureTime: departureTime,
                                     arrivalTime: arrivalTime,
                                     flightDuration: duration,
+                                    arrivalLong:
+                                        controller.selectedArrivalAirport.lon!,
+                                    arrivalLat:
+                                        controller.selectedArrivalAirport.lat!,
                                     price: controller.flightList.value
                                         .data![index].price!.total!,
                                   );

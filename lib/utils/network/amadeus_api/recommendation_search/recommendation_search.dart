@@ -12,31 +12,43 @@ class RecommendationSearch extends GetConnect {
   Future<DefaultResponse> getRecommendationSearch({
     required String cityCode,
   }) async {
-    var headers = {
-      'Authorization': 'Bearer $amadeusAccessToken',
-    };
-    var request = http.Request(
-      'GET',
-      Uri.parse(
-        'https://test.api.amadeus.com/v1/reference-data/recommended-locations?cityCodes=$cityCode',
-      ),
-    );
-    request.headers.addAll(headers);
-
-    http.StreamedResponse response = await request.send();
-    var json = jsonDecode(
-      await response.stream.bytesToString(),
-    );
-
-    if (response.statusCode == 200) {
-      return GetRecommendationResponse(
-        statusCode: 200,
-        status: "success",
-        recommendationModelList:
-            (json['data'] as List).map((e) => RecommendationModel.fromJson(e)).toList(),
+    try {
+      var headers = {
+        'Authorization': 'Bearer $amadeusAccessToken',
+      };
+      var request = http.Request(
+        'GET',
+        Uri.parse(
+          'https://test.api.amadeus.com/v1/reference-data/recommended-locations?cityCodes=$cityCode',
+        ),
       );
-    } else {
-      return ErrorResponse(status: "error", statusCode: response.statusCode);
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send().timeout(
+            Duration(
+              seconds: 10,
+            ),
+          );
+      var json = jsonDecode(
+        await response.stream.bytesToString(),
+      );
+
+      if (response.statusCode == 200) {
+        return GetRecommendationResponse(
+          statusCode: 200,
+          status: "success",
+          recommendationModelList: (json['data'] as List)
+              .map((e) => RecommendationModel.fromJson(e))
+              .toList(),
+        );
+      } else {
+        return ErrorResponse(status: "error", statusCode: response.statusCode);
+      }
+    } catch (e) {
+      return ErrorResponse(
+        status: "error",
+        statusCode: 500,
+      );
     }
   }
 }

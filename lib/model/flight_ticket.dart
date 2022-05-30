@@ -20,4 +20,12 @@ class FlightTicket {
         'passenger': passengers.map((e) => e.toJson()).toList(),
         'selectedHotel': selectedHotel.toJson(),
       };
+
+  // factory FlightTicket.fromJson(dynamic json) {
+  //   return FlightTicket(
+  //     flightCardDetails: FlightCardDetails,
+  //     passengers: passengers,
+  //     selectedHotel: selectedHotel,
+  //   );
+  // }
 }

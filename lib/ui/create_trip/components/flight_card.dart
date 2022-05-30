@@ -12,7 +12,7 @@ class FlightCard extends StatelessWidget {
     required this.flightCardDetails,
   }) : super(key: key);
 
-  CreateTripController tripController = Get.find();
+  final CreateTripController tripController = Get.find();
   final FlightCardDetails flightCardDetails;
 
   @override

@@ -171,7 +171,10 @@ class CreateTripController extends GetxController {
   }
 
   Future<void> onSaveTrip() async {
-    Get.dialog(LoadingDialog());
+    Get.dialog(
+      const LoadingDialog(),
+      barrierDismissible: false,
+    );
     await FlightTicketsCollection()
         .addFlightTicket(
           flightTicket: FlightTicket(

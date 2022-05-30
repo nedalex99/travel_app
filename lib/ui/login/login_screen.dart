@@ -32,58 +32,73 @@ class LoginScreen extends GetView<LoginController> {
                       children: [
                         RichText(
                           text: const TextSpan(
-                              text: kApplicationName,
-                              style: kTitleTextStyle,
-                              children: [
-                                TextSpan(
-                                  text: kApplicationNameTwo,
-                                  style: kTitleColoredTextStyle,
-                                ),
-                                TextSpan(
-                                  text: kApplicationNameThree,
-                                  style: kTitleTextStyle,
-                                ),
-                              ]),
+                            text: kApplicationName,
+                            style: kTitleTextStyle,
+                            children: [
+                              TextSpan(
+                                text: kApplicationNameTwo,
+                                style: kTitleColoredTextStyle,
+                              ),
+                              TextSpan(
+                                text: kApplicationNameThree,
+                                style: kTitleTextStyle,
+                              ),
+                            ],
+                          ),
                         ),
                         const SizedBox(
                           height: 50.0,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                          child: InputField(
-                            textCapitalization: TextCapitalization.sentences,
-                            textInputAction: TextInputAction.next,
-                            labelText: 'Email',
-                            textInputType: TextInputType.text,
-                            onInputFieldChanged: controller.onEmailInputChanged,
-                            validator: isValidEmail,
-                            textEditingController:
-                                controller.emailTextController,
-                            controller: Get.put(
-                              InputFieldController(),
-                              tag: "register_screen_email",
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Email',
+                              style: kHeaderFieldTextStyle,
                             ),
-                          ),
+                            InputField(
+                              textCapitalization: TextCapitalization.sentences,
+                              textInputAction: TextInputAction.next,
+                              labelText: 'Enter your email',
+                              textInputType: TextInputType.text,
+                              onInputFieldChanged:
+                                  controller.onEmailInputChanged,
+                              validator: isValidEmail,
+                              textEditingController:
+                                  controller.emailTextController,
+                              controller: Get.put(
+                                InputFieldController(),
+                                tag: "register_screen_email",
+                              ),
+                            ),
+                          ],
                         ),
                         const SizedBox(
                           height: 16,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                          child: InputField(
-                              textCapitalization: TextCapitalization.sentences,
-                              controller: Get.put(
-                                InputFieldController(),
-                                tag: "register_screen_password",
-                              ),
-                              textInputAction: TextInputAction.done,
-                              validator: isValidPassword,
-                              textInputType: TextInputType.visiblePassword,
-                              onInputFieldChanged:
-                                  controller.onPasswordInputChanged,
-                              labelText: 'Password',
-                              textEditingController:
-                                  controller.passwordTextController),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Password',
+                              style: kHeaderFieldTextStyle,
+                            ),
+                            InputField(
+                                textCapitalization:
+                                    TextCapitalization.sentences,
+                                controller: Get.put(
+                                  InputFieldController(),
+                                  tag: "register_screen_password",
+                                ),
+                                textInputAction: TextInputAction.done,
+                                validator: isValidPassword,
+                                textInputType: TextInputType.visiblePassword,
+                                onInputFieldChanged:
+                                    controller.onPasswordInputChanged,
+                                labelText: 'Enter your password',
+                                textEditingController:
+                                    controller.passwordTextController),
+                          ],
                         ),
                         const SizedBox(
                           height: 30,
@@ -101,40 +116,38 @@ class LoginScreen extends GetView<LoginController> {
                   ),
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
+              Stack(
                 children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                        bottom: 50.0,
-                        left: 70.0,
-                      ),
-                      child: Obx(
-                        () => CustomButton(
-                          onTap: controller.isButtonEnabled.value
-                              ? controller.printText
-                              : null,
-                          text: controller.loginText,
-                          backgroundColor: controller.isButtonEnabled.value
-                              ? const Color(0xFF7B94FF)
-                              : kGeneralColor.withOpacity(0.5),
+                  Image.asset(
+                    kPlane,
+                    height: 150,
+                    width: 150,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Obx(
+                          () => Padding(
+                            padding: const EdgeInsets.only(
+                              bottom: 24.0,
+                            ),
+                            child: CustomButton(
+                              onTap: controller.isButtonEnabled.value
+                                  ? controller.printText
+                                  : null,
+                              text: 'Sign In',
+                              backgroundColor: controller.isButtonEnabled.value
+                                  ? const Color(0xFF7B94FF)
+                                  : kGeneralColor.withOpacity(0.5),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
                 ],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  right: 200,
-                ),
-                child: Image.asset(
-                  kPlane,
-                  height: 200,
-                  width: 200,
-                ),
               ),
             ],
           ),

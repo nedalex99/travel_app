@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/ui/login/login_screen.dart';
+import 'package:travel_app/ui/welcome/welcome_screen.dart';
 import 'package:travel_app/utils/constants/bindings.dart';
 import 'package:travel_app/utils/constants/themes.dart';
 
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialBinding: DataBindings(),
       theme: kMainTheme,
-      home: LoginScreen(),
+      home: WelcomeScreen(),
     );
   }
 }
