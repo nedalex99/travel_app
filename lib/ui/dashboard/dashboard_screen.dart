@@ -36,6 +36,16 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // LocationScoreModel getLocationModel() {
+    //   LocationScoreModel locationModel;
+    //   for (var element in controller.locationScoreList) {
+    //     locationModel =
+    //         LocationScoreModel(categoryScores: element.categoryScores);
+    //   }
+    //
+    //   return locationModel;
+    // }
+
     return BaseScaffold(
       body: Padding(
         padding: const EdgeInsets.only(
@@ -144,7 +154,7 @@ class DashboardScreen extends StatelessWidget {
                   );
                   LocationScoreModel locationModel = LocationScoreModel(
                     categoryScores:
-                        controller.locationScoreList[index].categoryScores,
+                        controller.locationScoreList[1].categoryScores,
                   );
                   return CardRecommendation(
                     recommendationModel: recommendationModel,
@@ -172,7 +182,7 @@ class DashboardScreen extends StatelessWidget {
                   );
                   LocationScoreModel locationModel = LocationScoreModel(
                       categoryScores:
-                          controller.locationScoreList[index].categoryScores);
+                          controller.locationScoreList2[1].categoryScores);
                   return CardRecommendation(
                     recommendationModel: recommendationModel,
                     locationScoreModel: locationModel,
@@ -199,7 +209,7 @@ class DashboardScreen extends StatelessWidget {
                   );
                   LocationScoreModel locationModel = LocationScoreModel(
                       categoryScores:
-                          controller.locationScoreList[index].categoryScores);
+                          controller.locationScoreList[0].categoryScores);
                   return CardRecommendation(
                     recommendationModel: recommendationModel,
                     locationScoreModel: locationModel,

@@ -27,8 +27,8 @@ class DashboardController extends GetxController {
   RxList<RecommendationModel> recommendationList2 = <RecommendationModel>[].obs;
   RxList<RecommendationModel> recommendationList3 = <RecommendationModel>[].obs;
   RxList<LocationScoreModel> locationScoreList = <LocationScoreModel>[].obs;
-  List<LocationScoreModel> locationScoreList2 = <LocationScoreModel>[].obs;
-  List<LocationScoreModel> locationScoreList3 = <LocationScoreModel>[].obs;
+  RxList<LocationScoreModel> locationScoreList2 = <LocationScoreModel>[].obs;
+  RxList<LocationScoreModel> locationScoreList3 = <LocationScoreModel>[].obs;
 
   DashboardController({
     required this.cityOne,
@@ -56,10 +56,11 @@ class DashboardController extends GetxController {
         .collection('users')
         .doc(uid)
         .get()
-        .then((value) => {
-              userData.value = UserData.fromJson(value),
-              print(userData.value.userName),
-            });
+        .then((value) =>
+    {
+      userData.value = UserData.fromJson(value),
+      print(userData.value.userName),
+    });
   }
 
   Future<void> getImage() async {
@@ -67,9 +68,10 @@ class DashboardController extends GetxController {
         .ref(uid)
         .child("images/$uid")
         .getDownloadURL()
-        .then((value) => {
-              img.value = value,
-            });
+        .then((value) =>
+    {
+      img.value = value,
+    });
     print(img.value);
   }
 
@@ -93,7 +95,7 @@ class DashboardController extends GetxController {
             cityCode: handleIataCodes(cityTwo),
           )
               .then(
-            (value) {
+                (value) {
               if (value.statusCode == 200) {
                 recommendationList2.value = (value as GetRecommendationResponse)
                     .recommendationModelList;
@@ -102,7 +104,7 @@ class DashboardController extends GetxController {
                   cityCode: handleIataCodes(cityThree),
                 )
                     .then(
-                  (value) {
+                      (value) {
                     if (value.statusCode == 200) {
                       Get.back();
                       recommendationList3.value =
@@ -132,11 +134,36 @@ class DashboardController extends GetxController {
     await LocationScoreSearch()
         .getLocationScore(latitude: 41.397158, longitude: 2.160873)
         .then(
-      (value) {
+          (value) {
         Get.back();
         if (value.statusCode == 200) {
           locationScoreList.value =
               (value as GetLocationScoreResponse).locationScoreModel;
+          LocationScoreSearch()
+              .getLocationScore(
+              latitude: 41.397158, longitude: 2.160873
+          )
+              .then(
+                (value) {
+              if (value.statusCode == 200) {
+                locationScoreList2.value =
+                    (value as GetLocationScoreResponse).locationScoreModel;
+                LocationScoreSearch()
+                    .getLocationScore(
+                    latitude: 41.397158, longitude: 2.160873
+                )
+                    .then(
+                      (value) {
+                    if (value.statusCode == 200) {
+                      locationScoreList3.value =
+                          (value as GetLocationScoreResponse)
+                              .locationScoreModel;
+                    }
+                  },
+                );
+              }
+            },
+          );
         } else {
           print(value.statusCode);
         }
