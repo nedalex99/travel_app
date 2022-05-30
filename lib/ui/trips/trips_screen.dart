@@ -53,7 +53,7 @@ class TripsScreen extends StatelessWidget {
                         Text(
                           'You will be leaving at ${DateFormat('E, d MMM yyyy HH:mm:ss').format(DateTime.parse(tripsScreenController.trips[index].flightCardDetails.departureTime![0]))}',
                           style: const TextStyle(
-                            color: Colors.black,
+                            color: Colors.blue,
                           ),
                         ),
                         Text(

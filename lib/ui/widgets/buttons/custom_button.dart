@@ -29,15 +29,20 @@ class CustomButton extends StatelessWidget {
                   color: backgroundColor,
                   borderRadius: const BorderRadius.all(
                     Radius.circular(
-                      100,
+                      6,
                     ),
                   ),
                 ),
-                child: Text(
-                  text,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: Colors.black,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 4.0,
+                  ),
+                  child: Text(
+                    text,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: Colors.black,
+                    ),
                   ),
                 ),
               ),

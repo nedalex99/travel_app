@@ -28,6 +28,10 @@ class TravelInsightsController extends GetxController {
   }
 
   Future<void> getToursAndActivitiesByCity() async {
+    Get.dialog(
+      LoadingDialog(),
+      barrierDismissible: false,
+    );
     ToursAndActivitiesSearch()
         .getToursAndActivitiesByLocation(
           latitude:
@@ -54,9 +58,7 @@ class TravelInsightsController extends GetxController {
         .getPointsOfInterest(latitude: "48.8647", longitude: "2.349")
         .then(
           (value) => {
-            if (value.statusCode == 200) {
-
-            },
+            if (value.statusCode == 200) {},
           },
         );
   }

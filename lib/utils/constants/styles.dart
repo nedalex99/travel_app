@@ -22,7 +22,6 @@ const kSelectedTextStyle = TextStyle(
   color: kSelectedContainerRecommendation,
 );
 
-
 const kTitleTextStyle = TextStyle(
   fontFamily: "Quicksand",
   fontWeight: FontWeight.w600,
@@ -47,4 +46,9 @@ const kLittleTextStyle = TextStyle(
   fontWeight: FontWeight.w600,
   fontSize: 16.0,
   color: Colors.black,
+);
+const kHeaderFieldTextStyle = TextStyle(
+  fontSize: 14.0,
+  color: Colors.black,
+  fontWeight: FontWeight.w500,
 );
