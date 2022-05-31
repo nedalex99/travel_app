@@ -26,8 +26,6 @@ class HotelSearch extends GetConnect {
       await response.stream.bytesToString(),
     );
 
-    print(json);
-
     if (response.statusCode == 200) {
       return GetHotelsResponse(
         statusCode: 200,

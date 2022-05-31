@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:travel_app/model/bottom_app_bar_item.dart';
 import 'package:travel_app/ui/dashboard/dashboard_screen.dart';
 import 'package:travel_app/ui/settings/settings_screen.dart';
+import 'package:travel_app/ui/trips/trips_screen.dart';
 import 'package:travel_app/ui/widgets/bottom_navigation_bar/bottom_app_bar_widget.dart';
 import 'package:travel_app/utils/constants/colors.dart';
 
@@ -26,13 +27,21 @@ class BottomAppBarWidget extends StatelessWidget {
       onTabSelected: (value) {
         switch (value) {
           case 0:
-            Get.to(
+            Get.off(
               () => DashboardScreen(),
+              transition: Transition.noTransition,
+            );
+            break;
+          case 1:
+            Get.off(
+              () => TripsScreen(),
+              transition: Transition.noTransition,
             );
             break;
           case 3:
-            Get.to(
+            Get.off(
               () => SettingsScreen(),
+              transition: Transition.noTransition,
             );
             break;
           default:

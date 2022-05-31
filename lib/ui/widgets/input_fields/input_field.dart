@@ -39,45 +39,33 @@ class InputField extends StatelessWidget {
           : false,
       onChanged: onInputFieldChanged,
       validator: validator,
+      style: TextStyle(
+        color: Colors.black.withOpacity(0.75),
+        fontSize: 14.0,
+      ),
       decoration: InputDecoration(
-        filled: true,
-        fillColor: kGeneralColor.withOpacity(0.4),
-        contentPadding: const EdgeInsets.all(
-          8,
-        ),
-        border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(
-              6,
-            ),
-          ),
-        ),
-        errorBorder: const OutlineInputBorder(
-          borderSide: BorderSide(
-            width: 1,
-            color: kRedErrorField,
-          ),
-          borderRadius: BorderRadius.all(
-            Radius.circular(
-              6,
-            ),
-          ),
-        ),
-        focusedErrorBorder: const OutlineInputBorder(
-          borderSide: BorderSide(
-            width: 1,
-            color: kRedErrorField,
-          ),
-          borderRadius: BorderRadius.all(
-            Radius.circular(
-              6,
-            ),
-          ),
-        ),
         errorStyle: const TextStyle(
           color: kRedErrorField,
         ),
-        labelText: labelText,
+        hintText: labelText,
+        hintStyle: TextStyle(
+          color: Colors.black.withOpacity(0.4),
+        ),
+        border: const UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.black26,
+          ),
+        ),
+        focusedBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.black54,
+          ),
+        ),
+        disabledBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.black54,
+          ),
+        ),
         suffixIcon: textInputType == TextInputType.visiblePassword
             ? Obx(
                 () => GestureDetector(

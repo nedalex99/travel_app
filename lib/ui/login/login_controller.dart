@@ -13,7 +13,6 @@ import 'package:travel_app/utils/network/firebase/authentication/sign_in_respons
 import 'package:travel_app/utils/session_temp.dart';
 
 class LoginController extends GetxController {
-  String loginText = "In Login screen";
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController emailTextController = TextEditingController();
   final TextEditingController passwordTextController = TextEditingController();
@@ -80,8 +79,8 @@ class LoginController extends GetxController {
                               else
                                 {
                                   Get.back(),
-                                  Get.to(
-                                        () => ChooseCity(),
+                                  Get.off(
+                                    () => ChooseCity(),
                                   ),
                                   // Get.to(
                                   //   () => DashboardScreen(),
