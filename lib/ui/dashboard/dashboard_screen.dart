@@ -2,7 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:travel_app/model/location_score_model.dart';
 import 'package:travel_app/model/recommendation_model.dart';
 import 'package:travel_app/ui/base_scaffold.dart';
 import 'package:travel_app/ui/dashboard/components/recomandation_card.dart';
@@ -36,16 +35,6 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // LocationScoreModel getLocationModel() {
-    //   LocationScoreModel locationModel;
-    //   for (var element in controller.locationScoreList) {
-    //     locationModel =
-    //         LocationScoreModel(categoryScores: element.categoryScores);
-    //   }
-    //
-    //   return locationModel;
-    // }
-
     return BaseScaffold(
       body: Padding(
         padding: const EdgeInsets.only(
@@ -131,96 +120,57 @@ class DashboardScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 50.0,
+              height: 30.0,
             ),
             const Text(
-              'Because you visit:',
+              'Suggestions for:',
               style: kDefaultHeaderTextStyle,
             ),
             const SizedBox(
-              height: 5.0,
+              height: 10.0,
             ),
-            Text(controller.cityOne),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                TextButton(
+                  onPressed: () => {controller.getRecommendation()},
+                  child: Text(controller.cityOne),
+                ),
+                TextButton(
+                  onPressed: () => {
+                    controller.getRecommendationButton2(),
+                  },
+                  child: Text(controller.cityTwo),
+                ),
+                TextButton(
+                  onPressed: () => {
+                    controller.getRecommendationButton3(),
+                  },
+                  child: Text(controller.cityThree),
+                ),
+              ],
+            ),
             const SizedBox(
-              height: 5.0,
+              height: 10.0,
             ),
             Obx(
               () => CarouselSlider.builder(
-                itemCount: controller.recommendationList.value.length,
-                itemBuilder: (context, index, realIndex) {
-                  RecommendationModel recommendationModel = RecommendationModel(
-                    name: controller.recommendationList[index].name,
-                    relevance: controller.recommendationList[index].relevance,
-                  );
-                  LocationScoreModel locationModel = LocationScoreModel(
-                    categoryScores:
-                        controller.locationScoreList[1].categoryScores,
-                  );
-                  return CardRecommendation(
-                    recommendationModel: recommendationModel,
-                    locationScoreModel: locationModel,
-                  );
-                },
-                options: CarouselOptions(
-                  height: 130,
-                  enableInfiniteScroll: false,
-                  viewportFraction: 0.8,
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 8.0,
-            ),
-            Text(controller.cityTwo),
-            Obx(
-              () => CarouselSlider.builder(
-                itemCount: controller.recommendationList2.value.length,
-                itemBuilder: (context, index, realIndex) {
-                  RecommendationModel recommendationModel = RecommendationModel(
-                    name: controller.recommendationList2[index].name,
-                    relevance: controller.recommendationList2[index].relevance,
-                  );
-                  LocationScoreModel locationModel = LocationScoreModel(
-                      categoryScores:
-                          controller.locationScoreList2[1].categoryScores);
-                  return CardRecommendation(
-                    recommendationModel: recommendationModel,
-                    locationScoreModel: locationModel,
-                  );
-                },
-                options: CarouselOptions(
-                  height: 130,
-                  enableInfiniteScroll: false,
-                  viewportFraction: 0.8,
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 8.0,
-            ),
-            Text(controller.cityThree),
-            Obx(
-              () => CarouselSlider.builder(
-                itemCount: controller.recommendationList3.value.length,
-                itemBuilder: (context, index, realIndex) {
-                  RecommendationModel recommendationModel = RecommendationModel(
-                    name: controller.recommendationList3[index].name,
-                    relevance: controller.recommendationList3[index].relevance,
-                  );
-                  LocationScoreModel locationModel = LocationScoreModel(
-                      categoryScores:
-                          controller.locationScoreList[0].categoryScores);
-                  return CardRecommendation(
-                    recommendationModel: recommendationModel,
-                    locationScoreModel: locationModel,
-                  );
-                },
-                options: CarouselOptions(
-                  height: 130,
-                  enableInfiniteScroll: false,
-                  viewportFraction: 0.8,
-                ),
-              ),
+                  itemCount: controller.recommendationList.value.length,
+                  itemBuilder: (context, index, realIndex) {
+                    RecommendationModel recommendationModel =
+                        RecommendationModel(
+                      name: controller.recommendationList[index].name,
+                      relevance: controller.recommendationList[index].relevance,
+                    );
+                    return CardRecommendation(
+                      recommendationModel: recommendationModel,
+                    );
+                  },
+                  options: CarouselOptions(
+                    height: 130,
+                    enableInfiniteScroll: false,
+                    viewportFraction: 0.7,
+                  )),
             ),
           ],
         ),

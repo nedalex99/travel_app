@@ -3,19 +3,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:travel_app/model/location_score_model.dart';
 import 'package:travel_app/model/recommendation_model.dart';
 import 'package:travel_app/model/user_data.dart';
 import 'package:travel_app/ui/widgets/dialogs/loading_dialog.dart';
 import 'package:travel_app/utils/constants/values.dart';
-import 'package:travel_app/utils/network/amadeus_api/location_score_search/get_location_score_response.dart';
-import 'package:travel_app/utils/network/amadeus_api/location_score_search/location_score_search.dart';
 import 'package:travel_app/utils/network/amadeus_api/recommendation_search/get_recommendation_response.dart';
 import 'package:travel_app/utils/network/amadeus_api/recommendation_search/recommendation_search.dart';
 
 class DashboardController extends GetxController {
   DocumentSnapshot? documentSnapshot;
-  final String cityOne;
+   final String cityOne;
   final String cityTwo;
   final String cityThree;
   final String? uid = FirebaseAuth.instance.currentUser?.uid;
@@ -26,9 +23,6 @@ class DashboardController extends GetxController {
   RxList<RecommendationModel> recommendationList = <RecommendationModel>[].obs;
   RxList<RecommendationModel> recommendationList2 = <RecommendationModel>[].obs;
   RxList<RecommendationModel> recommendationList3 = <RecommendationModel>[].obs;
-  RxList<LocationScoreModel> locationScoreList = <LocationScoreModel>[].obs;
-  RxList<LocationScoreModel> locationScoreList2 = <LocationScoreModel>[].obs;
-  RxList<LocationScoreModel> locationScoreList3 = <LocationScoreModel>[].obs;
 
   DashboardController({
     required this.cityOne,
@@ -42,7 +36,6 @@ class DashboardController extends GetxController {
     // getImage();
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
       getRecommendation();
-      getLocationScore();
     });
     print(handleIataCodes(cityOne));
     print(handleIataCodes(cityTwo));
@@ -56,11 +49,10 @@ class DashboardController extends GetxController {
         .collection('users')
         .doc(uid)
         .get()
-        .then((value) =>
-    {
-      userData.value = UserData.fromJson(value),
-      print(userData.value.userName),
-    });
+        .then((value) => {
+              userData.value = UserData.fromJson(value),
+              print(userData.value.userName),
+            });
   }
 
   Future<void> getImage() async {
@@ -68,10 +60,9 @@ class DashboardController extends GetxController {
         .ref(uid)
         .child("images/$uid")
         .getDownloadURL()
-        .then((value) =>
-    {
-      img.value = value,
-    });
+        .then((value) => {
+              img.value = value,
+            });
     print(img.value);
   }
 
@@ -88,34 +79,9 @@ class DashboardController extends GetxController {
       )
           .then((value) {
         if (value.statusCode == 200) {
+          Get.back();
           recommendationList.value =
               (value as GetRecommendationResponse).recommendationModelList;
-          RecommendationSearch()
-              .getRecommendationSearch(
-            cityCode: handleIataCodes(cityTwo),
-          )
-              .then(
-                (value) {
-              if (value.statusCode == 200) {
-                recommendationList2.value = (value as GetRecommendationResponse)
-                    .recommendationModelList;
-                RecommendationSearch()
-                    .getRecommendationSearch(
-                  cityCode: handleIataCodes(cityThree),
-                )
-                    .then(
-                      (value) {
-                    if (value.statusCode == 200) {
-                      Get.back();
-                      recommendationList3.value =
-                          (value as GetRecommendationResponse)
-                              .recommendationModelList;
-                    }
-                  },
-                );
-              }
-            },
-          );
         } else {
           print(value.statusCode!);
         }
@@ -125,49 +91,51 @@ class DashboardController extends GetxController {
     }
   }
 
-  //API LOCATION SCORE
-  Future<void> getLocationScore() async {
+  Future<void> getRecommendationButton2() async {
     Get.dialog(
       const LoadingDialog(),
       barrierDismissible: false,
     );
-    await LocationScoreSearch()
-        .getLocationScore(latitude: 41.397158, longitude: 2.160873)
-        .then(
-          (value) {
-        Get.back();
+    try {
+      RecommendationSearch()
+          .getRecommendationSearch(
+        cityCode: handleIataCodes(cityTwo),
+      )
+          .then((value) {
         if (value.statusCode == 200) {
-          locationScoreList.value =
-              (value as GetLocationScoreResponse).locationScoreModel;
-          LocationScoreSearch()
-              .getLocationScore(
-              latitude: 41.397158, longitude: 2.160873
-          )
-              .then(
-                (value) {
-              if (value.statusCode == 200) {
-                locationScoreList2.value =
-                    (value as GetLocationScoreResponse).locationScoreModel;
-                LocationScoreSearch()
-                    .getLocationScore(
-                    latitude: 41.397158, longitude: 2.160873
-                )
-                    .then(
-                      (value) {
-                    if (value.statusCode == 200) {
-                      locationScoreList3.value =
-                          (value as GetLocationScoreResponse)
-                              .locationScoreModel;
-                    }
-                  },
-                );
-              }
-            },
-          );
+          Get.back();
+          recommendationList.value =
+              (value as GetRecommendationResponse).recommendationModelList;
         } else {
-          print(value.statusCode);
+          print(value.statusCode!);
         }
-      },
+      });
+    } catch (e) {
+      print("Erroar +${e.toString()}");
+    }
+  }
+
+  Future<void> getRecommendationButton3() async {
+    Get.dialog(
+      const LoadingDialog(),
+      barrierDismissible: false,
     );
+    try {
+      RecommendationSearch()
+          .getRecommendationSearch(
+        cityCode: handleIataCodes(cityThree),
+      )
+          .then((value) {
+        if (value.statusCode == 200) {
+          Get.back();
+          recommendationList.value =
+              (value as GetRecommendationResponse).recommendationModelList;
+        } else {
+          print(value.statusCode!);
+        }
+      });
+    } catch (e) {
+      print("Erroar +${e.toString()}");
+    }
   }
 }

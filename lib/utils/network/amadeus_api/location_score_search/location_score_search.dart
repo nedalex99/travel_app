@@ -13,34 +13,45 @@ class LocationScoreSearch extends GetConnect {
     required double latitude,
     required double longitude,
   }) async {
-    var headers = {
-      'Authorization': 'Bearer $amadeusAccessToken',
-    };
-    var request = http.Request(
-      'GET',
-      Uri.parse(
-        'https://test.api.amadeus.com/v1/location/analytics/category-rated-areas?latitude=$latitude&longitude=$longitude',
-      ),
-    );
-    request.headers.addAll(headers);
-
-    http.StreamedResponse response = await request.send();
-    var json = jsonDecode(
-      await response.stream.bytesToString(),
-    );
-
-    if (response.statusCode == 200) {
-      return GetLocationScoreResponse(
-        statusCode: 200,
-        status: "success",
-        locationScoreModel: (json['data'] as List)
-            .map(
-              (e) => LocationScoreModel.fromJson(e),
-            )
-            .toList(),
+    try {
+      var headers = {
+        'Authorization': 'Bearer $amadeusAccessToken',
+      };
+      var request = http.Request(
+        'GET',
+        Uri.parse(
+          'https://test.api.amadeus.com/v1/location/analytics/category-rated-areas?latitude=$latitude&longitude=$longitude',
+        ),
       );
-    } else {
-      return ErrorResponse(status: "error", statusCode: response.statusCode);
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send().timeout(
+            Duration(
+              seconds: 10,
+            ),
+          );
+      var json = jsonDecode(
+        await response.stream.bytesToString(),
+      );
+
+      if (response.statusCode == 200) {
+        return GetLocationScoreResponse(
+          statusCode: 200,
+          status: "success",
+          locationScoreModel: (json['data'] as List)
+              .map(
+                (e) => LocationScoreModel.fromJson(e),
+              )
+              .toList(),
+        );
+      } else {
+        return ErrorResponse(status: "error", statusCode: response.statusCode);
+      }
+    } catch (e) {
+      return ErrorResponse(
+        status: "error",
+        statusCode: 500,
+      );
     }
   }
 }
