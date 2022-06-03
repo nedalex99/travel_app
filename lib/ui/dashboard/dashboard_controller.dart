@@ -6,12 +6,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:travel_app/model/recommendation_model.dart';
 import 'package:travel_app/model/user_data.dart';
 import 'package:travel_app/ui/widgets/dialogs/loading_dialog.dart';
+import 'package:travel_app/utils/constants/values.dart';
 import 'package:travel_app/utils/network/amadeus_api/recommendation_search/get_recommendation_response.dart';
 import 'package:travel_app/utils/network/amadeus_api/recommendation_search/recommendation_search.dart';
 
 class DashboardController extends GetxController {
   DocumentSnapshot? documentSnapshot;
-  final String cityOne;
+   final String cityOne;
   final String cityTwo;
   final String cityThree;
   final String? uid = FirebaseAuth.instance.currentUser?.uid;
@@ -36,6 +37,9 @@ class DashboardController extends GetxController {
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
       getRecommendation();
     });
+    print(handleIataCodes(cityOne));
+    print(handleIataCodes(cityTwo));
+    print(handleIataCodes(cityThree));
     super.onInit();
   }
 
@@ -71,38 +75,61 @@ class DashboardController extends GetxController {
     try {
       RecommendationSearch()
           .getRecommendationSearch(
-        cityCode: 'PAR',
+        cityCode: handleIataCodes(cityOne),
       )
           .then((value) {
         if (value.statusCode == 200) {
+          Get.back();
           recommendationList.value =
               (value as GetRecommendationResponse).recommendationModelList;
-          RecommendationSearch()
-              .getRecommendationSearch(
-            cityCode: 'OPO',
-          )
-              .then(
-            (value) {
-              if (value.statusCode == 200) {
-                recommendationList2.value = (value as GetRecommendationResponse)
-                    .recommendationModelList;
-                RecommendationSearch()
-                    .getRecommendationSearch(
-                  cityCode: 'NCE',
-                )
-                    .then(
-                  (value) {
-                    if (value.statusCode == 200) {
-                      Get.back();
-                      recommendationList3.value =
-                          (value as GetRecommendationResponse)
-                              .recommendationModelList;
-                    }
-                  },
-                );
-              }
-            },
-          );
+        } else {
+          print(value.statusCode!);
+        }
+      });
+    } catch (e) {
+      print("Erroar +${e.toString()}");
+    }
+  }
+
+  Future<void> getRecommendationButton2() async {
+    Get.dialog(
+      const LoadingDialog(),
+      barrierDismissible: false,
+    );
+    try {
+      RecommendationSearch()
+          .getRecommendationSearch(
+        cityCode: handleIataCodes(cityTwo),
+      )
+          .then((value) {
+        if (value.statusCode == 200) {
+          Get.back();
+          recommendationList.value =
+              (value as GetRecommendationResponse).recommendationModelList;
+        } else {
+          print(value.statusCode!);
+        }
+      });
+    } catch (e) {
+      print("Erroar +${e.toString()}");
+    }
+  }
+
+  Future<void> getRecommendationButton3() async {
+    Get.dialog(
+      const LoadingDialog(),
+      barrierDismissible: false,
+    );
+    try {
+      RecommendationSearch()
+          .getRecommendationSearch(
+        cityCode: handleIataCodes(cityThree),
+      )
+          .then((value) {
+        if (value.statusCode == 200) {
+          Get.back();
+          recommendationList.value =
+              (value as GetRecommendationResponse).recommendationModelList;
         } else {
           print(value.statusCode!);
         }

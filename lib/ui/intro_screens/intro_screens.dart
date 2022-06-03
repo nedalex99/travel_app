@@ -121,7 +121,7 @@ class IntroScreens extends StatelessWidget {
                             ),
                             child: CustomButton(
                               onTap: () => Get.to(
-                                () => LoginScreen(),
+                                () => const LoginScreen(),
                               ),
                               text: 'Next',
                               backgroundColor: kGeneralColor,

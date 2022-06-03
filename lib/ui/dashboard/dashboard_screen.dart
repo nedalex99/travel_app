@@ -120,83 +120,57 @@ class DashboardScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 50.0,
+              height: 30.0,
             ),
             const Text(
-              'Because you visit:',
+              'Suggestions for:',
               style: kDefaultHeaderTextStyle,
             ),
             const SizedBox(
-              height: 5.0,
+              height: 10.0,
             ),
-            Text(controller.cityOne),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                TextButton(
+                  onPressed: () => {controller.getRecommendation()},
+                  child: Text(controller.cityOne),
+                ),
+                TextButton(
+                  onPressed: () => {
+                    controller.getRecommendationButton2(),
+                  },
+                  child: Text(controller.cityTwo),
+                ),
+                TextButton(
+                  onPressed: () => {
+                    controller.getRecommendationButton3(),
+                  },
+                  child: Text(controller.cityThree),
+                ),
+              ],
+            ),
             const SizedBox(
-              height: 5.0,
+              height: 10.0,
             ),
             Obx(
               () => CarouselSlider.builder(
-                itemCount: controller.recommendationList.value.length,
-                itemBuilder: (context, index, realIndex) {
-                  RecommendationModel recommendationModel = RecommendationModel(
-                    name: controller.recommendationList[index].name,
-                    relevance: controller.recommendationList[index].relevance,
-                  );
-                  return CardRecommendation(
-                    recommendationModel: recommendationModel,
-                  );
-                },
-                options: CarouselOptions(
-                  height: 90,
-                  enableInfiniteScroll: false,
-                  viewportFraction: 0.6,
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 8.0,
-            ),
-            Text(controller.cityTwo),
-            Obx(
-              () => CarouselSlider.builder(
-                itemCount: controller.recommendationList2.value.length,
-                itemBuilder: (context, index, realIndex) {
-                  RecommendationModel recommendationModel = RecommendationModel(
-                    name: controller.recommendationList2[index].name,
-                    relevance: controller.recommendationList2[index].relevance,
-                  );
-                  return CardRecommendation(
-                    recommendationModel: recommendationModel,
-                  );
-                },
-                options: CarouselOptions(
-                  height: 90,
-                  enableInfiniteScroll: false,
-                  viewportFraction: 0.6,
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 8.0,
-            ),
-            Text(controller.cityThree),
-            Obx(
-              () => CarouselSlider.builder(
-                itemCount: controller.recommendationList3.value.length,
-                itemBuilder: (context, index, realIndex) {
-                  RecommendationModel recommendationModel = RecommendationModel(
-                    name: controller.recommendationList3[index].name,
-                    relevance: controller.recommendationList3[index].relevance,
-                  );
-                  return CardRecommendation(
-                    recommendationModel: recommendationModel,
-                  );
-                },
-                options: CarouselOptions(
-                  height: 90,
-                  enableInfiniteScroll: false,
-                  viewportFraction: 0.6,
-                ),
-              ),
+                  itemCount: controller.recommendationList.value.length,
+                  itemBuilder: (context, index, realIndex) {
+                    RecommendationModel recommendationModel =
+                        RecommendationModel(
+                      name: controller.recommendationList[index].name,
+                      relevance: controller.recommendationList[index].relevance,
+                    );
+                    return CardRecommendation(
+                      recommendationModel: recommendationModel,
+                    );
+                  },
+                  options: CarouselOptions(
+                    height: 130,
+                    enableInfiniteScroll: false,
+                    viewportFraction: 0.7,
+                  )),
             ),
           ],
         ),
