@@ -99,7 +99,7 @@ class TripsScreen extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: const BottomAppBarWidget(),
+      bottomNavigationBar:  BottomAppBarWidget(),
     );
   }
 }

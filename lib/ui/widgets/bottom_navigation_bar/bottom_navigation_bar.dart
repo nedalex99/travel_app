@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/model/bottom_app_bar_item.dart';
 import 'package:travel_app/ui/dashboard/dashboard_screen.dart';
+import 'package:travel_app/ui/login/login_controller.dart';
 import 'package:travel_app/ui/settings/settings_screen.dart';
 import 'package:travel_app/ui/trips/trips_screen.dart';
 import 'package:travel_app/ui/widgets/bottom_navigation_bar/bottom_app_bar_widget.dart';
 import 'package:travel_app/utils/constants/colors.dart';
 
 class BottomAppBarWidget extends StatelessWidget {
-  const BottomAppBarWidget({Key? key}) : super(key: key);
+  BottomAppBarWidget({Key? key}) : super(key: key);
+  LoginController loginController = LoginController();
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +29,16 @@ class BottomAppBarWidget extends StatelessWidget {
       onTabSelected: (value) {
         switch (value) {
           case 0:
-            Get.off(
-              () => DashboardScreen(),
-              transition: Transition.noTransition,
-            );
+            loginController.getCitiesForUser().then(
+                  (value) => Get.off(
+                    () => DashboardScreen(
+                      cityOne: loginController.data['city1'],
+                      cityTwo: loginController.data['city2'],
+                      cityThree: loginController.data['city3'],
+                    ),
+                    transition: Transition.noTransition,
+                  ),
+                );
             break;
           case 1:
             Get.off(

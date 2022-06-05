@@ -22,7 +22,7 @@ class SettingsScreen extends StatelessWidget {
             ),
           ],
         ),
-        bottomNavigationBar: const BottomAppBarWidget(),
+        bottomNavigationBar:  BottomAppBarWidget(),
       ),
     );
   }

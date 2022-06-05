@@ -87,3 +87,27 @@ String returnIcon(String cityName) {
       return kCityWidgetImage;
   }
 }
+
+String getWeatherImage(int condition) {
+  if (condition < 300) {
+    // thunderstorm
+    return 'images/thunderstorm.png';
+  } else if (condition < 400) {
+    // drizzle
+    return 'images/drizzle.png';
+  } else if (condition < 600) {
+    // rain
+    return 'images/rain.png';
+  } else if (condition < 700) {
+    // snow
+    return 'images/snow.png';
+  } else if (condition < 800) {
+    // clear
+    return 'images/clear.png';
+  } else if (condition < 804) {
+    // cloudy
+    return 'images/cloudy.png';
+  } else {
+    return 'images/stars.png';
+  }
+}

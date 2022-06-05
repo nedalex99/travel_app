@@ -3,8 +3,10 @@ import 'package:get/get.dart';
 import 'package:travel_app/model/recommendation_model.dart';
 import 'package:travel_app/ui/city_details/city_details_controller.dart';
 import 'package:travel_app/ui/travel_insights/components/travel_insight_card.dart';
+import 'package:travel_app/ui/weather/weather_widget.dart';
 import 'package:travel_app/utils/constants/colors.dart';
 import 'package:travel_app/utils/constants/styles.dart';
+import 'package:travel_app/utils/constants/values.dart';
 
 class CityDetails extends StatelessWidget {
   RecommendationModel recommendationModel;
@@ -72,6 +74,29 @@ class CityDetails extends StatelessWidget {
                         fontWeight: FontWeight.w700,
                       ),
                     ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(
+                    8.0,
+                  ),
+                  child: SizedBox(
+                    height: 100,
+                    child: controller.weather.value != null
+                        ? Obx(
+                            () => WeatherWidget(
+                              iconUrl: getWeatherImage(
+                                controller.weather.value.condition!.toInt(),
+                              ),
+                              description:
+                                  controller.weather.value.description!,
+                              temp: controller.weather.value.temperature!,
+                            ),
+                          )
+                        : Container(
+                            height: 90,
+                            color: kGeneralColor,
+                          ),
                   ),
                 ),
                 const Align(
