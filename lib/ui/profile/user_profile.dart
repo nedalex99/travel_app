@@ -51,45 +51,35 @@ class _UserProfileState extends State<UserProfile> {
             const SizedBox(
               height: 60.0,
             ),
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 80.0,
-              ),
-              child: CustomButton(
-                backgroundColor: kGeneralColor,
-                onTap: () {
-                  showModalBottomSheet(
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(20),
-                      ),
+            CustomButton(
+              backgroundColor: kGeneralColor,
+              onTap: () {
+                showModalBottomSheet(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(20),
                     ),
-                    backgroundColor: kGeneralColor,
-                    context: context,
-                    builder: ((bulder) => bottomSheet()),
-                  );
-                },
-                text: 'Set profile picture',
-              ),
+                  ),
+                  backgroundColor: kGeneralColor,
+                  context: context,
+                  builder: ((bulder) => bottomSheet()),
+                );
+              },
+              text: 'Set profile picture',
             ),
             const SizedBox(
               height: 80.0,
             ),
             widget.done == true
-                ? Padding(
-                    padding: const EdgeInsets.only(
-                      left: 80.0,
-                    ),
-                    child: CustomButton(
-                      backgroundColor: kGeneralColor,
-                      onTap: () {
-                        Get.to(
-                          () =>  ChooseCity(),
-                        );
-                      },
-                      text: 'Next',
-                    ),
-                  )
+                ? CustomButton(
+                  backgroundColor: kGeneralColor,
+                  onTap: () {
+                    Get.to(
+                      () =>  ChooseCity(),
+                    );
+                  },
+                  text: 'Next',
+                )
                 : Padding(
                     padding: const EdgeInsets.only(
                       right: 300,

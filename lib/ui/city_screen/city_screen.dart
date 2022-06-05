@@ -27,6 +27,7 @@ class ChooseCity extends StatelessWidget {
                 onPressed: () => {
                   if (controller.cityList.length >= 3)
                     {
+                      controller.addCity(cityList: controller.cityList),
                       Get.off(
                         () => DashboardScreen(
                           cityOne: controller.cityList[0],
