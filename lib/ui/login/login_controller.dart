@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/ui/city_screen/city_screen.dart';
@@ -16,6 +17,7 @@ class LoginController extends GetxController {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController emailTextController = TextEditingController();
   final TextEditingController passwordTextController = TextEditingController();
+  dynamic data;
 
   RxBool isButtonEnabled = false.obs;
 
@@ -33,6 +35,16 @@ class LoginController extends GetxController {
     Get.to(
       () => RegisterScreen(),
     );
+  }
+
+  Future<void> getCitiesForUser() async {
+    await FirebaseFirestore.instance
+        .collection('selected-cities')
+        .doc(userLoggedIn.uid)
+        .get()
+        .then<dynamic>((DocumentSnapshot snapshot) async {
+      data = snapshot.data();
+    });
   }
 
   void printText() {
@@ -79,12 +91,27 @@ class LoginController extends GetxController {
                               else
                                 {
                                   Get.back(),
-                                  Get.off(
-                                    () => ChooseCity(),
-                                  ),
-                                  // Get.to(
-                                  //   () => DashboardScreen(),
-                                  // ),
+                                  if (FirebaseFirestore.instance
+                                          .collection('selected-cities')
+                                          .doc(userLoggedIn.uid) !=
+                                      null)
+                                    {
+                                      getCitiesForUser().then(
+                                        (value) => Get.to(
+                                          () => DashboardScreen(
+                                            cityOne: data['city1'],
+                                            cityTwo: data['city2'],
+                                            cityThree:data['city3'],
+                                          ),
+                                        ),
+                                      )
+                                    }
+                                  else
+                                    {
+                                      Get.off(
+                                        () => ChooseCity(),
+                                      ),
+                                    }
                                 }
                             }
                         },
