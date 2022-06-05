@@ -55,34 +55,38 @@ class DashboardScreen extends StatelessWidget {
                   CircleAvatar(
                     radius: 25,
                     backgroundColor: Colors.blue,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(
-                        50.0,
-                      ),
-                      child: controller.img.value == ''
-                          ? Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(
-                                  50.0,
+                    child: Obx(
+                      () => ClipRRect(
+                        borderRadius: BorderRadius.circular(
+                          50.0,
+                        ),
+                        child: controller.img.value == ''
+                            ? Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(
+                                    50.0,
+                                  ),
                                 ),
+                                width: 25,
+                                height: 25,
+                              )
+                            : Image.network(
+                                controller.img.value,
+                                width: 50,
+                                height: 50,
+                                fit: BoxFit.fill,
                               ),
-                              width: 25,
-                              height: 25,
-                            )
-                          : Image.network(
-                              "https://${controller.img.value}",
-                              width: 20,
-                              height: 20,
-                              fit: BoxFit.fill,
-                            ),
+                      ),
                     ),
                   ),
                   const SizedBox(
                     width: 10,
                   ),
-                  Text(
-                    "Hello  ${controller.userData.value.userName!}!",
-                    style: kNormalTextStyle,
+                  Obx(
+                    () => Text(
+                      "Hello ${controller.userData.value.userName!}!",
+                      style: kNormalTextStyle,
+                    ),
                   ),
                 ],
               ),
@@ -172,10 +176,17 @@ class DashboardScreen extends StatelessWidget {
                     viewportFraction: 0.7,
                   )),
             ),
+            const SizedBox(
+              height: 40.0,
+            ),
+            const Text(
+              'Most Wanted:',
+              style: kDefaultHeaderTextStyle,
+            ),
           ],
         ),
       ),
-      bottomNavigationBar: const BottomAppBarWidget(),
+      bottomNavigationBar: BottomAppBarWidget(),
     );
   }
 }

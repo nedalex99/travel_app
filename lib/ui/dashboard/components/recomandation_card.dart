@@ -35,78 +35,75 @@ class CardRecommendation extends StatelessWidget {
             10,
           ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.only(
-            right: 15,
-          ),
-          child: Row(
-            children: [
-              Container(
-                height: 365,
-                width: 15,
-                decoration: BoxDecoration(
-                  color: kDarkColor,
-                  borderRadius: BorderRadius.circular(
-                    10,
-                  ),
+        child: Row(
+          children: [
+            Container(
+              height: 365,
+              width: 15,
+              decoration: BoxDecoration(
+                color: kDarkColor,
+                borderRadius: BorderRadius.circular(
+                  10,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 10,
-                  top: 10,
-                  bottom: 10,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      recommendationModel.name!,
-                      style: kLittleTextStyle,
-                    ),
-                    RatingBarIndicator(
-                      rating: recommendationModel.relevance! * 10,
-                      itemCount: 5,
-                      itemSize: 20,
-                      direction: Axis.horizontal,
-                      itemBuilder: (context, index) => const Icon(
-                        Icons.star,
-                        color: Colors.amberAccent,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 10,
+                top: 10,
+                bottom: 10,
+              ),
+              child: Stack(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        recommendationModel.name!,
+                        style: kLittleTextStyle,
                       ),
-                    ),
-                    const Divider(
-                      color: Colors.black,
-                      height: 10.0,
-                      thickness: 3,
-                      indent: 90,
-                      endIndent: 90,
-                    ),
-                    Row(
-                      children: [
-                        Image.asset(
-                          returnIcon(recommendationModel.name!),
-                          scale: 0.9,
-                          width: 30,
-                          height: 30,
+                      RatingBarIndicator(
+                        rating: recommendationModel.relevance! * 10,
+                        itemCount: 5,
+                        itemSize: 20,
+                        direction: Axis.horizontal,
+                        itemBuilder: (context, index) => const Icon(
+                          Icons.star,
+                          color: Colors.amberAccent,
                         ),
-                        const SizedBox(
-                          width: 30,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          top: 16,
                         ),
-                        Text(
-                            "General note: ${(recommendationModel.relevance! * 10).toStringAsFixed(2)} ",
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              returnIcon(recommendationModel.name!),
+                              scale: 0.9,
+                              width: 30,
+                              height: 30,
+                            ),
+                            const SizedBox(
+                              width: 30,
+                            ),
+                            Text(
+                              "General note: ${(recommendationModel.relevance! * 10).toStringAsFixed(2)} ",
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                    Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Image.asset(kDots),
-                    ),
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
+                  Positioned(
+                    top: 0,
+                    right: 0,
+                    child: Image.asset(kDots),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

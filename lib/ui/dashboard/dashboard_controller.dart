@@ -12,7 +12,7 @@ import 'package:travel_app/utils/network/amadeus_api/recommendation_search/recom
 
 class DashboardController extends GetxController {
   DocumentSnapshot? documentSnapshot;
-   final String cityOne;
+  final String cityOne;
   final String cityTwo;
   final String cityThree;
   final String? uid = FirebaseAuth.instance.currentUser?.uid;
@@ -32,8 +32,8 @@ class DashboardController extends GetxController {
 
   @override
   void onInit() {
-    // getUserData();
-    // getImage();
+    getUserData();
+    getImage();
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
       getRecommendation();
     });
