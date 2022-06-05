@@ -52,3 +52,10 @@ const kHeaderFieldTextStyle = TextStyle(
   color: Colors.black,
   fontWeight: FontWeight.w500,
 );
+
+const kLittleTextColoredStyle = TextStyle(
+  fontFamily: "Quicksand",
+  fontWeight: FontWeight.w600,
+  fontSize: 16.0,
+  color: Color(0xFF7B94FF),
+);

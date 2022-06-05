@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/model/recommendation_model.dart';
 import 'package:travel_app/ui/city_details/city_details_controller.dart';
+import 'package:travel_app/ui/travel_insights/components/travel_insight_card.dart';
 import 'package:travel_app/utils/constants/colors.dart';
 import 'package:travel_app/utils/constants/styles.dart';
 
@@ -25,20 +26,21 @@ class CityDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: kGeneralColor.withOpacity(0.5),
-            elevation: 3,
-            leading: const BackButton(
+        appBar: AppBar(
+          backgroundColor: kGeneralColor.withOpacity(0.5),
+          elevation: 3,
+          leading: const BackButton(
+            color: Colors.black,
+          ),
+          title: Text(
+            recommendationModel.name!,
+            style: const TextStyle(
               color: Colors.black,
             ),
-            title: Text(
-              recommendationModel.name!,
-              style: const TextStyle(
-                color: Colors.black,
-              ),
-            ),
           ),
-          body: Padding(
+        ),
+        body: SingleChildScrollView(
+          child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(
               children: [
@@ -75,31 +77,37 @@ class CityDetails extends StatelessWidget {
                 const Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Location Score",
+                    "Location Score:",
                     style: kLittleTextStyle,
                   ),
                 ),
-                Expanded(
+                SizedBox(
+                  height: 150,
                   child: Obx(
                     () => ListView.builder(
                         itemCount: controller.locationScoreList.length,
                         itemBuilder: (context, index) {
-                          int? notaShopping = controller
-                              .locationScoreList[index]
-                              .categoryScores!
-                              .shopping!
-                              .overall;
-                          int? notaNightLife = controller
-                              .locationScoreList[index]
-                              .categoryScores!
-                              .nightLife!
-                              .overall;
-                          int? notaRestaurant = controller
-                              .locationScoreList[index]
-                              .categoryScores!
-                              .restaurant!
-                              .overall;
+                          double notaShopping = controller
+                                  .locationScoreList[index]
+                                  .categoryScores!
+                                  .shopping!
+                                  .overall! /
+                              10;
+                          double notaNightLife = controller
+                                  .locationScoreList[index]
+                                  .categoryScores!
+                                  .nightLife!
+                                  .overall! /
+                              10;
+                          double notaRestaurant = controller
+                                  .locationScoreList[index]
+                                  .categoryScores!
+                                  .restaurant!
+                                  .overall! /
+                              10;
                           return DataTable(
+                            dataRowHeight: 40,
+                            headingRowHeight: 45,
                             columns: const [
                               DataColumn(
                                 label: Text('Category'),
@@ -150,9 +158,50 @@ class CityDetails extends StatelessWidget {
                         }),
                   ),
                 ),
+                const Padding(
+                  padding: EdgeInsets.all(40.0),
+                  child: Divider(
+                    color: kDark2Color,
+                    height: 10.0,
+                    thickness: 2,
+                    indent: 90,
+                    endIndent: 90,
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 20.0),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      "What you can do here?",
+                      style: kLittleTextColoredStyle,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 300,
+                  child: Obx(
+                    () => ListView.builder(
+                        itemCount: controller.toursAndActivitiesList.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 4.0,
+                              vertical: 8.0,
+                            ),
+                            child: TravelInsightCard(
+                              toursAndActivitiesModel:
+                                  controller.toursAndActivitiesList[index],
+                            ),
+                          );
+                        }),
+                  ),
+                ),
               ],
             ),
-          )),
+          ),
+        ),
+      ),
     );
   }
 }
