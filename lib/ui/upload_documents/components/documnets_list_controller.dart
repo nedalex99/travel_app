@@ -1,11 +1,12 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/ui/widgets/dialogs/loading_dialog.dart';
+import 'package:travel_app/utils/session_temp.dart';
 
 class DocumentsListController extends GetxController {
   String title;
   RxString img = "".obs;
+  dynamic data;
 
   DocumentsListController({
     required this.title,
@@ -21,14 +22,14 @@ class DocumentsListController extends GetxController {
       Get.dialog(
         const LoadingDialog(),
       );
-      await FirebaseStorage.instance
-          .ref(FirebaseAuth.instance.currentUser?.uid)
-          .child(
-              "documents/$title/almeu/${FirebaseAuth.instance.currentUser?.uid}")
-          .getDownloadURL()
-          .then((value) => {
-                img.value = value,
-              });
+      await FirebaseFirestore.instance
+          .collection('documents')
+          .doc('${userLoggedIn.uid}ceva')
+          .get()
+          .then<dynamic>((DocumentSnapshot snapshot) async {
+        data = snapshot.data();
+        img.value = data['url'];
+      });
     } catch (e) {
       print(e.toString());
     }

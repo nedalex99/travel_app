@@ -65,4 +65,21 @@ class UsersCollection extends GetConnect {
         .putFile(imageFile);
     taskSnapshot.ref.getDownloadURL();
   }
+
+  Future<void> saveDocumentsInFirebase({
+    required String photoURL,
+    required String nameOfDocument,
+    required String typeOfDocument,
+  }) async {
+    FirebaseFirestore.instance
+        .collection("documents")
+        .doc("${userLoggedIn.uid}$nameOfDocument")
+        .set(
+      {
+        'type': typeOfDocument,
+        'name': nameOfDocument,
+        'url': photoURL,
+      },
+    );
+  }
 }

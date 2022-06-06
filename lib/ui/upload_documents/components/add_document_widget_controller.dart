@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -38,6 +40,19 @@ class AddDocumentWidgetController extends GetxController {
           )
           .then((value) => {
                 Get.back(),
+                FirebaseStorage.instance
+                    .ref(FirebaseAuth.instance.currentUser?.uid)
+                    .child(
+                        "documents/${typeOfDocumentTextController.text}/${nameDocumentTextController.text}/${FirebaseAuth.instance.currentUser?.uid}")
+                    .getDownloadURL()
+                    .then((value) => {
+                          img.value = value,
+                          UsersCollection().saveDocumentsInFirebase(
+                            photoURL: img.value,
+                            nameOfDocument: nameDocumentTextController.text,
+                            typeOfDocument: typeOfDocumentTextController.text,
+                          ),
+                        }),
                 Get.defaultDialog(
                   title: "Success!",
                   middleText: "Your document has been uploaded!",
