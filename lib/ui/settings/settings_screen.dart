@@ -60,17 +60,22 @@ class SettingsScreen extends StatelessWidget {
                     ),
                     SettingsCard(
                       text: 'Change Password',
+                      onClick: settingsController.redirectChangePasswordScreen,
                       rightIcon: IconButton(
                         icon: Image.asset(
                           kSettingsArrow,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          settingsController.redirectChangePasswordScreen();
+                        },
                       ),
                       leftIcon: IconButton(
                         icon: Image.asset(
                           kChangePassword,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          settingsController.redirectChangePasswordScreen();
+                        },
                       ),
                     ),
                     SettingsCard(
