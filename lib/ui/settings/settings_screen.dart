@@ -108,6 +108,26 @@ class SettingsScreen extends StatelessWidget {
                         onPressed: () {},
                       ),
                     ),
+                    SettingsCard(
+                      text: 'Documents',
+                      onClick: settingsController.redirectDocumentsScreen,
+                      rightIcon: IconButton(
+                        icon: Image.asset(
+                          kSettingsArrow,
+                        ),
+                        onPressed: () {
+                          settingsController.redirectDocumentsScreen();
+                        },
+                      ),
+                      leftIcon: IconButton(
+                        icon: Image.asset(
+                          kDocuments,
+                        ),
+                        onPressed: () {
+                          settingsController.redirectDocumentsScreen();
+                        },
+                      ),
+                    ),
                   ],
                 ),
               ),

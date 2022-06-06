@@ -7,15 +7,18 @@ class InputFieldCustomPicker extends StatelessWidget {
   late final InputFieldCustomPickerController _controller;
   final String text;
   final TextEditingController textEditingController;
+  List<String> list;
 
   InputFieldCustomPicker({
     Key? key,
     required this.text,
     required this.textEditingController,
+    required this.list,
   }) : super(key: key) {
     _controller = Get.put(
       InputFieldCustomPickerController(
         textController: textEditingController,
+        items: list,
       ),
       tag: text,
     );

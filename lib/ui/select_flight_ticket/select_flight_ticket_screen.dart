@@ -173,6 +173,7 @@ class SelectFlightTicketScreen extends StatelessWidget {
                     ),
                     child: InputFieldCustomPicker(
                       text: 'Gender',
+                      list: ['Male','Female'],
                       textEditingController: _controller.genderTextController,
                     ),
                   ),

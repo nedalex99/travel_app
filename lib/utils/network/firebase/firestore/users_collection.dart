@@ -47,4 +47,22 @@ class UsersCollection extends GetConnect {
   Future<void> updatePassword({required String newPass}) async {
     userLoggedIn.updatePassword(newPass);
   }
+
+  Future<void> updateDocumentsUser({
+    required String photoURL,
+    required String nameOfDocument,
+    required String uid,
+    required String typeOfDocument,
+    required File? imageFile,
+    required ImageSource imageSource,
+  }) async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? pickedFile = await picker.pickImage(source: imageSource);
+    imageFile = File(pickedFile!.path);
+    TaskSnapshot taskSnapshot = await FirebaseStorage.instance
+        .ref(uid)
+        .child('documents/$typeOfDocument/$nameOfDocument/$uid')
+        .putFile(imageFile);
+    taskSnapshot.ref.getDownloadURL();
+  }
 }
