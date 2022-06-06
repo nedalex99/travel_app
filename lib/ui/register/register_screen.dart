@@ -166,7 +166,7 @@ class RegisterScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text(
-                                'Password',
+                                'Email',
                                 style: kHeaderFieldTextStyle,
                               ),
                               const SizedBox(

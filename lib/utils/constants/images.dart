@@ -24,3 +24,9 @@ const kIstanbulImage = "images/istanbul.png";
 const kDubaiImage = "images/dubai.png";
 const kCityWidgetImage = "images/city_widget.png";
 const kDots = "images/menu.png";
+const kSettingsArrow = "images/ic_settings_arrow.png";
+const kAccountInformation = "images/account_information.png";
+const kChangePassword = "images/forgot.png";
+const kBudget= "images/budget.png";
+const kAlbum= "images/album.png";
+
