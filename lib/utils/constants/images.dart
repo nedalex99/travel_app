@@ -29,4 +29,5 @@ const kAccountInformation = "images/account_information.png";
 const kChangePassword = "images/forgot.png";
 const kBudget= "images/budget.png";
 const kAlbum= "images/album.png";
+const kTraveling= "images/traveling.png";
 

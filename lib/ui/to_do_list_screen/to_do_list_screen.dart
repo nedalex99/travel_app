@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:travel_app/ui/to_do_list_screen/components/trips_card_to_do.dart';
 import 'package:travel_app/ui/to_do_list_screen/to_do_list_controller.dart';
 import 'package:travel_app/utils/constants/colors.dart';
 
@@ -23,7 +25,22 @@ class ToDoListScreen extends StatelessWidget {
             ),
           ),
         ),
-        body: Container(),
+        body: CustomScrollView(
+          slivers: [
+            SliverList(
+              delegate: SliverChildBuilderDelegate((context, index) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TripsCard(
+                      text: "Calatorie ",
+                    ),
+                  ],
+                );
+              }),
+            )
+          ],
+        ),
       ),
     );
   }
