@@ -4,6 +4,7 @@ import 'package:travel_app/model/flight_ticket.dart';
 import 'package:travel_app/model/hotel_model.dart';
 import 'package:travel_app/model/passenger_model.dart';
 import 'package:travel_app/utils/network/firebase/firestore/trips_collection.dart';
+import 'package:travel_app/utils/session_temp.dart';
 
 class TripsScreenController extends GetxController {
   RxList<FlightTicket> trips = <FlightTicket>[].obs;
@@ -37,7 +38,9 @@ class TripsScreenController extends GetxController {
           selectedHotel: hotelModel,
           usersUid: usersUid,
         );
-        trips.add(flightTicket);
+        if (flightTicket.usersUid.contains(userLoggedIn.uid)) {
+          trips.add(flightTicket);
+        }
       });
     });
   }

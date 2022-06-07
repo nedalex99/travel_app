@@ -73,14 +73,6 @@ class CreateTripController extends GetxController {
     }
   }
 
-  void getDepartureZone() {
-    showMaterialScrollPicker<AirportModel>(
-      context: Get.context!,
-      items: airportsList,
-      selectedItem: airportsList[0],
-    );
-  }
-
   List<AirportModel> getSuggestionsOfZoneByPattern({
     required String pattern,
   }) {

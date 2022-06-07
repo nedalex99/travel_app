@@ -105,13 +105,13 @@ class BottomNavBar extends StatelessWidget {
           break;
         case 1:
           Get.offAll(
-            TripsScreen(),
+            () => TripsScreen(),
             transition: Transition.noTransition,
           );
           break;
         case 3:
           Get.offAll(
-            SettingsScreen(),
+            () => SettingsScreen(),
             transition: Transition.noTransition,
           );
           break;

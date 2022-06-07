@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:travel_app/ui/create_trip/components/flight_card.dart';
 import 'package:travel_app/ui/create_trip/create_trip_screen.dart';
 import 'package:travel_app/ui/travel_insights/travel_insights_screen.dart';
+import 'package:travel_app/ui/trips/trip_card.dart';
+import 'package:travel_app/ui/trips/trips_card_widget.dart';
 import 'package:travel_app/ui/trips/trips_screen_controller.dart';
 import 'package:travel_app/ui/widgets/bottom_navigation_bar/bottom_nav_bar.dart';
-import 'package:travel_app/ui/widgets/bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'package:travel_app/utils/constants/colors.dart';
 
 class TripsScreen extends StatelessWidget {
@@ -54,68 +56,80 @@ class TripsScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(
                         4.0,
                       ),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(
-                            2.0,
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              blurRadius: 3,
-                              spreadRadius: 1,
-                              color: Colors.grey,
-                            )
-                          ],
-                        ),
-                        padding: const EdgeInsets.all(
-                          8.0,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'You will be leaving at ${DateFormat('E, d MMM yyyy HH:mm:ss').format(DateTime.parse(tripsScreenController.trips[index].flightCardDetails.departureTime![0]))}',
-                              style: const TextStyle(
-                                color: Colors.blue,
-                              ),
-                            ),
-                            Text(
-                              'Start: ${tripsScreenController.trips[index].flightCardDetails.departureCode![0]}',
-                              style: TextStyle(
-                                color: Colors.black,
-                              ),
-                            ),
-                            Text(
-                              'You will be staying at ${tripsScreenController.trips[index].selectedHotel.hotel!.name!}',
-                              style: TextStyle(
-                                color: Colors.black87,
-                              ),
-                            ),
-                            Text(
-                              'You will be travelling with ${tripsScreenController.trips[index].passengers.join(", ")}',
-                              style: TextStyle(
-                                color: Colors.black,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 16.0,
-                            ),
-                            Align(
-                              alignment: Alignment.center,
-                              child: GestureDetector(
-                                onTap: () {},
-                                child: const Text(
-                                  'Tap to see more travel insights!',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                      child: TripCard(
+                        flightTicket: tripsScreenController.trips[index],
                       ),
+                      // child: TripCard(
+                      //   flightTicket: tripsScreenController.trips[index],
+                      // ),
+                      // child: Container(
+                      //   decoration: BoxDecoration(
+                      //     color: Colors.white,
+                      //     borderRadius: BorderRadius.circular(
+                      //       2.0,
+                      //     ),
+                      //     boxShadow: const [
+                      //       BoxShadow(
+                      //         blurRadius: 3,
+                      //         spreadRadius: 1,
+                      //         color: Colors.grey,
+                      //       )
+                      //     ],
+                      //   ),
+                      //   padding: const EdgeInsets.all(
+                      //     8.0,
+                      //   ),
+                      //   child: Column(
+                      //     crossAxisAlignment: CrossAxisAlignment.start,
+                      //     children: [
+                      //       Text(
+                      //         'You will be leaving at ${DateFormat('E, d MMM yyyy HH:mm:ss').format(DateTime.parse(tripsScreenController.trips[index].flightCardDetails.departureTime![0]))}',
+                      //         style: const TextStyle(
+                      //           color: Colors.blue,
+                      //         ),
+                      //       ),
+                      //       Text(
+                      //         'Start: ${tripsScreenController.trips[index].flightCardDetails.departureCity!}',
+                      //         style: const TextStyle(
+                      //           color: Colors.black,
+                      //         ),
+                      //       ),
+                      //       Text(
+                      //         'Arrival: ${tripsScreenController.trips[index].flightCardDetails.arrivalCity!}',
+                      //         style: const TextStyle(
+                      //           color: Colors.black,
+                      //         ),
+                      //       ),
+                      //       Text(
+                      //         'You will be staying at ${tripsScreenController.trips[index].selectedHotel.hotel!.name!}',
+                      //         style: const TextStyle(
+                      //           color: Colors.black87,
+                      //         ),
+                      //       ),
+                      //       Text(
+                      //         'You will be travelling with ${tripsScreenController.trips[index].passengers.join(", ")}',
+                      //         style: const TextStyle(
+                      //           color: Colors.black,
+                      //         ),
+                      //       ),
+                      //       const SizedBox(
+                      //         height: 16.0,
+                      //       ),
+                      //       Align(
+                      //         alignment: Alignment.center,
+                      //         child: GestureDetector(
+                      //           onTap: () {},
+                      //           child: const Text(
+                      //             'Tap to see more travel insights!',
+                      //             style: TextStyle(
+                      //               color: Colors.black,
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                     ),
                   );
                 },

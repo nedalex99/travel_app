@@ -7,6 +7,8 @@ class FlightCardDetails {
   String? arrivalLat;
   String? arrivalLong;
   String? price;
+  String? departureCity;
+  String? arrivalCity;
 
   FlightCardDetails({
     this.departureCode,
@@ -17,6 +19,8 @@ class FlightCardDetails {
     this.arrivalLat,
     this.arrivalLong,
     this.price,
+    this.departureCity,
+    this.arrivalCity,
   });
 
   Map<String, dynamic> toJson() => {
@@ -28,6 +32,8 @@ class FlightCardDetails {
         'arrivalLat': arrivalLat,
         'arrivalLong': arrivalLong,
         'price': price,
+        'departureCity': departureCity,
+        'arrivalCity': arrivalCity,
       };
 
   factory FlightCardDetails.fromJson(dynamic json) {
@@ -45,6 +51,8 @@ class FlightCardDetails {
       arrivalLat: json['arrivalLat'],
       arrivalLong: json['arrivalLong'],
       price: json['price'],
+      departureCity: json['departureCity'],
+      arrivalCity: json['arrivalCity'],
     );
   }
 }
