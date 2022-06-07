@@ -13,6 +13,8 @@ import 'package:travel_app/utils/constants/colors.dart';
 class CreateTripScreen extends StatelessWidget {
   final CreateTripController controller = Get.put(CreateTripController());
 
+  CreateTripScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -156,21 +158,18 @@ class CreateTripScreen extends StatelessWidget {
                           controller.selectedArrival.value == "" &&
                           controller.selectedArrivalDate.value !=
                               DateTime(DateTime.now().year - 1)
-                      ? Padding(
-                          padding: const EdgeInsets.all(
+                      ? const Padding(
+                          padding: EdgeInsets.all(
                             16.0,
                           ),
                           child: Align(
                             alignment: Alignment.centerLeft,
-                            child: GestureDetector(
-                              onTap: controller.getDepartureZone,
-                              child: const Text(
-                                "Select a departure zone",
-                                style: TextStyle(
-                                  color: Colors.blueGrey,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16.0,
-                                ),
+                            child: Text(
+                              "Select a departure zone",
+                              style: TextStyle(
+                                color: Colors.blueGrey,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16.0,
                               ),
                             ),
                           ),
@@ -203,21 +202,18 @@ class CreateTripScreen extends StatelessWidget {
                           controller.selectedArrival.value == "" &&
                           controller.selectedArrivalDate.value !=
                               DateTime(DateTime.now().year - 1)
-                      ? Padding(
-                          padding: const EdgeInsets.all(
+                      ? const Padding(
+                          padding: EdgeInsets.all(
                             16.0,
                           ),
                           child: Align(
                             alignment: Alignment.centerLeft,
-                            child: GestureDetector(
-                              onTap: controller.getDepartureZone,
-                              child: const Text(
-                                "Select an arrival zone",
-                                style: TextStyle(
-                                  color: Colors.blueGrey,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16.0,
-                                ),
+                            child: Text(
+                              "Select an arrival zone",
+                              style: TextStyle(
+                                color: Colors.blueGrey,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16.0,
                               ),
                             ),
                           ),
@@ -345,6 +341,10 @@ class CreateTripScreen extends StatelessWidget {
                                         controller.selectedArrivalAirport.lat!,
                                     price: controller.flightList.value
                                         .data![index].price!.total!,
+                                    departureCity: controller
+                                        .selectedDepartureAirport.city!,
+                                    arrivalCity:
+                                        controller.selectedArrivalAirport.city!,
                                   );
                                   return Padding(
                                     padding: const EdgeInsets.only(
@@ -386,6 +386,10 @@ class CreateTripScreen extends StatelessWidget {
                             ),
                             HotelCard(
                               hotelModel: controller.hotelSelected.value,
+                              checkIn: controller.selectedDepartureDate.value
+                                  .toString(),
+                              checkOut: controller.selectedDepartureDate.value
+                                  .toString(),
                             ),
                           ],
                         )
@@ -406,6 +410,10 @@ class CreateTripScreen extends StatelessWidget {
                               onTap: () => controller.onHotelSelected(index),
                               child: HotelCard(
                                 hotelModel: controller.hotelsList[index],
+                                checkIn: controller.selectedDepartureDate.value
+                                    .toString(),
+                                checkOut: controller.selectedDepartureDate.value
+                                    .toString(),
                               ),
                             );
                           },

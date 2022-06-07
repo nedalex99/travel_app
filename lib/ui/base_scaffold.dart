@@ -5,11 +5,13 @@ import 'package:travel_app/ui/create_trip/create_trip_screen.dart';
 class BaseScaffold extends StatelessWidget {
   final Widget body;
   final Widget? bottomNavigationBar;
+  final AppBar? appBar;
 
   const BaseScaffold({
     Key? key,
     required this.body,
     this.bottomNavigationBar,
+    this.appBar,
   }) : super(key: key);
 
   @override
@@ -28,6 +30,7 @@ class BaseScaffold extends StatelessWidget {
       ),
       body: body,
       bottomNavigationBar: bottomNavigationBar,
+      appBar: appBar,
     );
   }
 }

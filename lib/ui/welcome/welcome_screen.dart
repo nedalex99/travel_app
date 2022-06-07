@@ -14,46 +14,47 @@ class WelcomeScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: kWithe,
-        body: Column(
-          children: [
-            const SizedBox(
-              height: 128,
-            ),
-            const Center(
-              child: Text(
-                'Welcome to Plan&Go',
-                style: TextStyle(
-                  color: kGeneralColor,
-                  fontSize: 32.0,
-                  fontWeight: FontWeight.w700,
-                ),
+        body: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 50.0,
+                  ),
+                  const Text(
+                    'Welcome to Plan&Go',
+                    style: TextStyle(
+                      color: kGeneralColor,
+                      fontSize: 32.0,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 32.0,
+                  ),
+                  const Text(
+                    'Plan your trip and explore your favourite destinations with us.',
+                    style: TextStyle(
+                      color: kDark2Color,
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      height: 400,
+                      child: Lottie.asset('assets/lottie/travel-world.json'),
+                    ),
+                  ),
+                ],
               ),
             ),
-            const SizedBox(
-              height: 32.0,
-            ),
-            const Center(
-              child: Text(
-                'Plan your trip and explore your favourite destinations with us.',
-                style: TextStyle(
-                  color: kDark2Color,
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.w700,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  height: 400,
-                  width: 400,
-                  child: Lottie.asset('assets/lottie/travel-world.json'),
-                ),
-              ),
-            ),
-            Expanded(
+            SliverFillRemaining(
+              fillOverscroll: false,
+              hasScrollBody: false,
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Padding(
@@ -69,7 +70,7 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
+            )
           ],
         ),
       ),
