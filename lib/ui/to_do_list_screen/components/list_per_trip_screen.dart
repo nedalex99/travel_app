@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:travel_app/ui/to_do_list_screen/components/list_to_do_controller.dart';
+import 'package:travel_app/ui/to_do_list_screen/components/list_per_trip_controller.dart';
 import 'package:travel_app/ui/widgets/bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'package:travel_app/ui/widgets/buttons/custom_button.dart';
 import 'package:travel_app/utils/constants/colors.dart';
@@ -38,7 +38,7 @@ class ListPerTripScreen extends StatelessWidget {
                   children: [
                     listPerTripController.list.length == 0
                         ? const Text("LIST TO DO")
-                        : const Text("AI TO DO"),
+                        : Obx(() => Text(listPerTripController.list[0].title!)),
                     Padding(
                       padding: const EdgeInsets.only(
                         left: 20,

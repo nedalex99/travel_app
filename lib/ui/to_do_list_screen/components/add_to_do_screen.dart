@@ -41,7 +41,7 @@ class AddToDoScreen extends StatelessWidget {
                     ),
                   ),
                   CustomButton(
-                    onTap: () {},
+                    onTap: controller.addNote,
                     text: "Add",
                     backgroundColor: kGeneralColor,
                   ),

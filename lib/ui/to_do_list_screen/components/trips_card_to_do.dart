@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:travel_app/model/flight_ticket.dart';
 import 'package:travel_app/utils/constants/images.dart';
 import 'package:travel_app/utils/constants/styles.dart';
 
-class TripsCard extends StatelessWidget {
+class TripCardToDo extends StatelessWidget {
   final String? text;
   final Function? onClick;
+  //final FlightTicket flightTicket;
 
-  TripsCard({
+  TripCardToDo({
     Key? key,
     this.text,
+    //required this.flightTicket,
     this.onClick,
   });
 
@@ -72,6 +75,7 @@ class TripsCard extends StatelessWidget {
                           flex: 4,
                           child: Text(
                             text!,
+                            // flightTicket.flightCardDetails.arrivalCity!,
                             style: kNormalTextStyle,
                           ),
                         ),

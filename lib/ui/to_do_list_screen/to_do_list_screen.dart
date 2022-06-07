@@ -6,42 +6,58 @@ import 'package:travel_app/utils/constants/colors.dart';
 
 class ToDoListScreen extends StatelessWidget {
   ToDoListScreen({Key? key}) : super(key: key);
-  final ToDoListController toDoListController = ToDoListController();
+  final ToDoListController toDoListController = Get.put(ToDoListController());
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: kGeneralColor.withOpacity(0.5),
-          elevation: 3,
-          leading: const BackButton(
-            color: Colors.black,
-          ),
-          title: const Text(
-            "TO DOS ",
-            style: TextStyle(
-              color: Colors.black,
+    return Scaffold(
+      // appBar: AppBar(
+      //   backgroundColor: kGeneralColor.withOpacity(0.5),
+      //   elevation: 3,
+      //   leading: const BackButton(
+      //     color: Colors.black,
+      //   ),
+      //   title: const Text(
+      //     "TO DOS ",
+      //     style: TextStyle(
+      //       color: Colors.black,
+      //     ),
+      //   ),
+      // ),
+      body: CustomScrollView(
+        slivers: [
+          const SliverAppBar(
+            title: Text(
+              "To dos",
+              style: TextStyle(
+                fontSize: 24.0,
+                color: Colors.black87,
+              ),
             ),
+            backgroundColor: kGeneralColor,
           ),
-        ),
-        body: CustomScrollView(
-          slivers: [
-            SliverList(
-              delegate: SliverChildBuilderDelegate((context, index) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+          SliverList(
+            delegate: SliverChildBuilderDelegate((context, index) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
                   children: [
-                    TripsCard(
+                    TripCardToDo(
+                      //flightTicket: toDoListController.trips[index],
+                      text: "Barcelona",
                       onClick: toDoListController.redirectListToDoScreen,
-                      text: "Calatorie ",
+                    ),
+                    TripCardToDo(
+                      //flightTicket: toDoListController.trips[index],
+                      text: "Paris",
+                      onClick: toDoListController.redirectListToDoScreen,
                     ),
                   ],
-                );
-              }),
-            )
-          ],
-        ),
+                ),
+              );
+            }),
+          )
+        ],
       ),
     );
   }
