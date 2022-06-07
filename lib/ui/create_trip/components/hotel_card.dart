@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:travel_app/model/flight_ticket.dart';
 import 'package:travel_app/model/hotel_model.dart';
 import 'package:travel_app/ui/create_trip/components/hotel_card_controller.dart';
 
@@ -7,7 +8,8 @@ class HotelCard extends StatelessWidget {
   HotelCard({
     Key? key,
     required this.hotelModel,
-    // required this.onHotelSelected,
+    required this.checkIn,
+    required this.checkOut,
   }) : super(key: key) {
     controller = Get.put(
       HotelCardController(),
@@ -16,157 +18,185 @@ class HotelCard extends StatelessWidget {
   }
 
   final HotelModel hotelModel;
+  final String checkIn;
+  final String checkOut;
   late final HotelCardController controller;
 
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: 4.0,
-          horizontal: 4.0,
+      () => ClipRRect(
+        borderRadius: BorderRadius.circular(
+          5.0,
         ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(
-            5.0,
+        child: Container(
+          margin: EdgeInsets.only(
+            bottom: controller.isSelected.value ? 6.0 : 0.0,
           ),
-          child: Container(
-            margin: EdgeInsets.only(
-              bottom: controller.isSelected.value ? 6.0 : 0.0,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(
+              2.0,
             ),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(
-                2.0,
+            boxShadow: const [
+              BoxShadow(
+                blurRadius: 3,
+                spreadRadius: 1,
+                offset: Offset(
+                  0,
+                  3,
+                ),
+                color: Colors.grey,
+              )
+            ],
+          ),
+          // padding: const EdgeInsets.all(
+          //   8.0,
+          // ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                hotelModel.hotel!.name!,
               ),
-              boxShadow: const [
-                BoxShadow(
-                  blurRadius: 3,
-                  spreadRadius: 1,
-                  offset: Offset(
-                    0,
-                    3,
-                  ),
-                  color: Colors.grey,
-                )
-              ],
-            ),
-            padding: const EdgeInsets.all(
-              8.0,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  hotelModel.hotel!.name!,
+              Row(
+                children: _createStars(
+                  rating: hotelModel.hotel!.rating!,
                 ),
-                Row(
-                  children: _createStars(
-                    rating: hotelModel.hotel!.rating!,
+              ),
+              Row(
+                children: [
+                  const Icon(
+                    Icons.location_on_outlined,
+                    size: 18,
                   ),
-                ),
-                Row(
+                  const SizedBox(
+                    width: 2.0,
+                  ),
+                  Text(
+                    hotelModel.hotel!.address!.lines![0],
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 4.0,
+              ),
+              Obx(
+                () => Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    const Icon(
-                      Icons.location_on_outlined,
-                      size: 18,
-                    ),
-                    const SizedBox(
-                      width: 2.0,
-                    ),
                     Text(
-                      hotelModel.hotel!.address!.lines![0],
+                      hotelModel.hotel!.description!.text ?? "",
+                      maxLines: controller.textShowMoreFlag.value ? null : 3,
+                      overflow: controller.textShowMoreFlag.value
+                          ? TextOverflow.visible
+                          : TextOverflow.ellipsis,
+                    ),
+                    GestureDetector(
+                      onTap: () => controller.textShowMoreFlag.value =
+                          !controller.textShowMoreFlag.value,
+                      child: Text(
+                        controller.textShowMoreFlag.value
+                            ? 'show less'
+                            : 'show more',
+                        style: const TextStyle(
+                          color: Colors.blue,
+                        ),
+                      ),
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 4.0,
+              ),
+              RichText(
+                text: TextSpan(
+                  children: [
+                    const TextSpan(
+                      text: 'Check in: ',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    TextSpan(
+                      text: checkIn,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ],
                 ),
-                Obx(
-                  () => Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        hotelModel.hotel!.description!.text!,
-                        maxLines: controller.textShowMoreFlag.value ? null : 3,
-                        overflow: controller.textShowMoreFlag.value
-                            ? TextOverflow.visible
-                            : TextOverflow.ellipsis,
+              ),
+              const SizedBox(
+                height: 2.0,
+              ),
+              RichText(
+                text: TextSpan(
+                  children: [
+                    const TextSpan(
+                      text: 'Check out: ',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w400,
                       ),
-                      GestureDetector(
-                        onTap: () => controller.textShowMoreFlag.value =
-                            !controller.textShowMoreFlag.value,
-                        child: Text(
-                          controller.textShowMoreFlag.value
-                              ? 'show less'
-                              : 'show more',
-                          style: TextStyle(
-                            color: Colors.blue,
-                          ),
-                        ),
+                    ),
+                    TextSpan(
+                      text: checkOut,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w700,
                       ),
-                    ],
+                    ),
+                  ],
+                ),
+              ),
+              const Text(
+                'Room available: ',
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 8.0,
+                ),
+                child: Text(
+                  hotelModel.offers![0].room!.typeEstimated!.category!,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 8.0,
+                ),
+                child: Text(
+                  hotelModel.offers![0].room!.description!.text!,
+                ),
+              ),
+              Text(
+                'Contact: ${hotelModel.hotel!.contact!.phone!}',
+              ),
+              GestureDetector(
+                onTap: () => controller.openLocation(
+                  latitude: hotelModel.hotel!.latitude!,
+                  longitude: hotelModel.hotel!.longitude!,
+                ),
+                child: const Text(
+                  "See location",
+                  style: TextStyle(
+                    color: Colors.blue,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
-                Text(
-                  'Check in: ',
-                  // '${controller.dateOfDeparture.text}',
-                ),
-                const SizedBox(
-                  height: 2.0,
-                ),
-                Text(
-                  'Check out: ',
-                  // '${controller.dateOfDeparture.text}',
-                ),
-                const Text(
-                  'Room available: ',
-                ),
-                Padding(
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: Padding(
                   padding: const EdgeInsets.only(
-                    left: 8.0,
+                    top: 8.0,
                   ),
                   child: Text(
-                    hotelModel.offers![0].room!.typeEstimated!.category!,
+                    '${hotelModel.offers![0].price!.total!} ${hotelModel.offers![0].price!.currency!}',
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    left: 8.0,
-                  ),
-                  child: Text(
-                    hotelModel.offers![0].room!.description!.text!,
-                  ),
-                ),
-                Text(
-                  'Contact: ${hotelModel.hotel!.contact!.phone!}',
-                ),
-                GestureDetector(
-                  onTap: () => controller.openLocation(
-                    latitude: hotelModel.hotel!.latitude!,
-                    longitude: hotelModel.hotel!.longitude!,
-                  ),
-                  child: const Text(
-                    "See location",
-                    style: TextStyle(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      top: 8.0,
-                    ),
-                    child: Text(
-                      '${hotelModel.offers![0].price!.total!} ${hotelModel.offers![0].price!.currency!}',
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

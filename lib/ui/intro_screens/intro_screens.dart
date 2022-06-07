@@ -8,6 +8,7 @@ import 'package:travel_app/utils/constants/colors.dart';
 import 'package:travel_app/utils/constants/images.dart';
 
 class IntroScreens extends StatelessWidget {
+  final PageController pageController = PageController();
   final List<IntroScreenModel> list = [
     IntroScreenModel(
       image: kFirstImage,
@@ -34,6 +35,7 @@ class IntroScreens extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: PageView.builder(
+        controller: pageController,
         itemBuilder: (context, index) {
           return SafeArea(
             child: Column(
@@ -111,25 +113,30 @@ class IntroScreens extends StatelessWidget {
                     ),
                   ],
                 ),
-                index == 2
-                    ? Expanded(
-                        child: Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                              bottom: 24.0,
-                            ),
-                            child: CustomButton(
-                              onTap: () => Get.to(
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        bottom: 24.0,
+                      ),
+                      child: CustomButton(
+                        onTap: () => index == 2
+                            ? Get.to(
                                 () => const LoginScreen(),
+                              )
+                            : pageController.nextPage(
+                                duration: Duration(
+                                  milliseconds: 600,
+                                ),
+                                curve: Curves.easeInOut,
                               ),
-                              text: 'Next',
-                              backgroundColor: kGeneralColor,
-                            ),
-                          ),
-                        ),
-                      )
-                    : Container(),
+                        text: 'Next',
+                        backgroundColor: kGeneralColor,
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           );

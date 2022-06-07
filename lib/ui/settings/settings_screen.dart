@@ -3,13 +3,14 @@ import 'package:get/get.dart';
 import 'package:travel_app/ui/base_scaffold.dart';
 import 'package:travel_app/ui/settings/components/settings_card.dart';
 import 'package:travel_app/ui/settings/settings_controller.dart';
+import 'package:travel_app/ui/widgets/bottom_navigation_bar/bottom_nav_bar.dart';
 import 'package:travel_app/ui/widgets/bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'package:travel_app/utils/constants/colors.dart';
 import 'package:travel_app/utils/constants/images.dart';
 
 class SettingsScreen extends StatelessWidget {
   SettingsScreen({Key? key}) : super(key: key);
-  SettingsController settingsController = Get.put(SettingsController());
+  final SettingsController settingsController = Get.put(SettingsController());
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +115,9 @@ class SettingsScreen extends StatelessWidget {
             ),
           ],
         ),
-        bottomNavigationBar: BottomAppBarWidget(),
+        bottomNavigationBar: BottomNavBar(
+          selectedIndex: 4,
+        ),
       ),
     );
   }

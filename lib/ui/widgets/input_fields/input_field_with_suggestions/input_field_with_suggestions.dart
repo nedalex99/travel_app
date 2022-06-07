@@ -51,8 +51,14 @@ class InputFieldWithSuggestions extends StatelessWidget {
                 : _inputController.errorText.value,
           ),
         ),
-        suggestionsCallback: (pattern) =>
-            tripController.getSuggestionsOfZoneByPattern(pattern: pattern),
+        suggestionsCallback: (pattern) {
+          if (pattern.length > 2) {
+            return tripController.getSuggestionsOfZoneByPattern(
+                pattern: pattern);
+          } else {
+            return List.empty();
+          }
+        },
         itemBuilder: (context, itemData) {
           return ListTile(
             title: Text(

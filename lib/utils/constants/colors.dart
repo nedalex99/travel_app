@@ -10,3 +10,4 @@ const kGeneralOpacityColor = Color(0x80C0CCFF);
 const kPaleColor = Color(0xFFFEE2C5);
 const kDarkColor = Color(0xFF7FB5FF);
 const kDark2Color = Color(0xFF001D6E);
+const kSelectedItemBackground = Color(0xFFFAD5D2);
