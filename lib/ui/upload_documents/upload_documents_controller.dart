@@ -10,8 +10,10 @@ class UploadDocumentsController extends GetxController {
   }
 
   void redirectDocumentsList(String title) {
-    Get.to(() => DocumentsScreen(
-          title: title,
-        ));
+    Get.to(
+      () => DocumentsListScreen(
+        title: title,
+      ),
+    );
   }
 }

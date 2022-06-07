@@ -45,23 +45,31 @@ class AddDocumentWidgetController extends GetxController {
                     .child(
                         "documents/${typeOfDocumentTextController.text}/${nameDocumentTextController.text}/${FirebaseAuth.instance.currentUser?.uid}")
                     .getDownloadURL()
-                    .then((value) => {
-                          img.value = value,
-                          UsersCollection().saveDocumentsInFirebase(
-                            photoURL: img.value,
-                            nameOfDocument: nameDocumentTextController.text,
-                            typeOfDocument: typeOfDocumentTextController.text,
-                          ),
-                        }),
-                Get.defaultDialog(
-                  title: "Success!",
-                  middleText: "Your document has been uploaded!",
-                  backgroundColor: kGeneralColor,
-                  titleStyle: kNormalTextStyle,
-                  radius: 10,
-                ).then(
-                  (value) => Get.back(),
-                ),
+                    .then(
+                      (value) async => {
+                        img.value = value,
+                        await UsersCollection()
+                            .saveDocumentsInFirebase(
+                              photoURL: img.value,
+                              nameOfDocument: nameDocumentTextController.text,
+                              typeOfDocument: typeOfDocumentTextController.text,
+                            )
+                            .then(
+                              (value) => {
+                                Get.defaultDialog(
+                                  title: "Success!",
+                                  middleText:
+                                      "Your document has been uploaded!",
+                                  backgroundColor: kGeneralColor,
+                                  titleStyle: kNormalTextStyle,
+                                  radius: 10,
+                                ).then(
+                                  (value) => Get.back(),
+                                ),
+                              },
+                            ),
+                      },
+                    ),
               });
     } catch (e) {
       print(e.toString());

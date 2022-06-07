@@ -71,14 +71,14 @@ class UsersCollection extends GetConnect {
     required String nameOfDocument,
     required String typeOfDocument,
   }) async {
-    FirebaseFirestore.instance
+    await FirebaseFirestore.instance
         .collection("documents")
         .doc(userLoggedIn.uid)
-        .update(
+        .collection(typeOfDocument)
+        .add(
       {
-        'type': typeOfDocument,
-        'name': FieldValue.arrayUnion([nameOfDocument]),
-        'url': FieldValue.arrayUnion([photoURL]),
+        'name': nameOfDocument,
+        'url': photoURL,
       },
     );
   }

@@ -4,10 +4,10 @@ import 'package:travel_app/ui/upload_documents/components/document_card.dart';
 import 'package:travel_app/ui/upload_documents/components/documnets_list_controller.dart';
 import 'package:travel_app/utils/constants/colors.dart';
 
-class DocumentsScreen extends StatelessWidget {
-  String title;
+class DocumentsListScreen extends StatelessWidget {
+  final String title;
 
-  DocumentsScreen({
+  DocumentsListScreen({
     Key? key,
     required this.title,
   }) : super(key: key) {
@@ -47,10 +47,17 @@ class DocumentsScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     Obx(
-                      () => DocumentCard(
-                        nameDocument: 'nameDocument',
-                        imgURL: controller.img.value,
-                      ),
+                      () => controller.imageList.isNotEmpty
+                          ? ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: controller.imageList.length,
+                              itemBuilder: (context, index) => DocumentCard(
+                                nameDocument: controller.imageList[index].name,
+                                imgURL: controller.imageList[index].url,
+                              ),
+                            )
+                          : Container(),
                     ),
                   ],
                 ),

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:travel_app/utils/constants/styles.dart';
 
 class DocumentCard extends StatelessWidget {
-  String nameDocument;
-  String imgURL;
+  final String nameDocument;
+  final String imgURL;
 
-  DocumentCard({
+  const DocumentCard({
     Key? key,
     required this.nameDocument,
     required this.imgURL,
