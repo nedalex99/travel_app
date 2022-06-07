@@ -3,6 +3,7 @@ import 'package:travel_app/model/flight_card_details.dart';
 import 'package:travel_app/model/flight_ticket.dart';
 import 'package:travel_app/model/hotel_model.dart';
 import 'package:travel_app/model/passenger_model.dart';
+import 'package:travel_app/ui/to_do_list_screen/components/list_per_trip_screen.dart';
 import 'package:travel_app/utils/network/firebase/firestore/trips_collection.dart';
 
 class ToDoListController extends GetxController {
@@ -14,6 +15,11 @@ class ToDoListController extends GetxController {
     super.onInit();
   }
 
+  void redirectListToDoScreen() {
+    Get.to(
+      () => ListPerTripScreen(),
+    );
+  }
 // Future<void> getTrips() async {
 //   await TripsCollection().getTrips().then((value) {
 //     value.docs.forEach((element) {

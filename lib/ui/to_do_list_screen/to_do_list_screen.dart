@@ -33,6 +33,7 @@ class ToDoListScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     TripsCard(
+                      onClick: toDoListController.redirectListToDoScreen,
                       text: "Calatorie ",
                     ),
                   ],
