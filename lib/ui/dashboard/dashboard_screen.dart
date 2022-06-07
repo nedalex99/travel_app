@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/model/recommendation_model.dart';
 import 'package:travel_app/ui/base_scaffold.dart';
+import 'package:travel_app/ui/create_trip/create_trip_screen.dart';
 import 'package:travel_app/ui/dashboard/components/recomandation_card.dart';
 import 'package:travel_app/ui/dashboard/dashboard_controller.dart';
 import 'package:travel_app/ui/to_do_list_screen/to_do_list_screen.dart';
+import 'package:travel_app/ui/widgets/bottom_navigation_bar/bottom_nav_bar.dart';
 import 'package:travel_app/ui/widgets/bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'package:travel_app/utils/constants/colors.dart';
 import 'package:travel_app/utils/constants/styles.dart';
@@ -35,7 +37,18 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseScaffold(
+    return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Get.to(
+          () => CreateTripScreen(),
+        ),
+        tooltip: 'Add trip',
+        child: const Icon(
+          Icons.add,
+        ),
+        elevation: 2.0,
+      ),
       body: Padding(
         padding: const EdgeInsets.only(
           left: 18.0,
@@ -186,7 +199,9 @@ class DashboardScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomAppBarWidget(),
+      bottomNavigationBar: BottomNavBar(
+        selectedIndex: 0,
+      ),
     );
   }
 }

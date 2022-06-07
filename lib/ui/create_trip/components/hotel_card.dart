@@ -86,13 +86,13 @@ class HotelCard extends StatelessWidget {
                   () => Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text(
-                        hotelModel.hotel!.description!.text!,
-                        maxLines: controller.textShowMoreFlag.value ? null : 3,
-                        overflow: controller.textShowMoreFlag.value
-                            ? TextOverflow.visible
-                            : TextOverflow.ellipsis,
-                      ),
+                      // Text(
+                      //   hotelModel.hotel!.description!.text ?? "",
+                      //   maxLines: controller.textShowMoreFlag.value ? null : 3,
+                      //   overflow: controller.textShowMoreFlag.value
+                      //       ? TextOverflow.visible
+                      //       : TextOverflow.ellipsis,
+                      // ),
                       GestureDetector(
                         onTap: () => controller.textShowMoreFlag.value =
                             !controller.textShowMoreFlag.value,

@@ -8,24 +8,27 @@ class FlightTicket {
   FlightCardDetails flightCardDetails;
   List<Passenger> passengers;
   HotelModel selectedHotel;
+  List<String> usersUid;
 
   FlightTicket({
     required this.flightCardDetails,
     required this.passengers,
     required this.selectedHotel,
+    required this.usersUid,
   });
 
   Map<String, dynamic> toJson() => {
         'flightCardDetails': flightCardDetails.toJson(),
         'passenger': passengers.map((e) => e.toJson()).toList(),
         'selectedHotel': selectedHotel.toJson(),
+        'usersUid': usersUid,
       };
 
-  // factory FlightTicket.fromJson(dynamic json) {
-  //   return FlightTicket(
-  //     flightCardDetails: FlightCardDetails,
-  //     passengers: passengers,
-  //     selectedHotel: selectedHotel,
-  //   );
-  // }
+// factory FlightTicket.fromJson(dynamic json) {
+//   return FlightTicket(
+//     flightCardDetails: FlightCardDetails,
+//     passengers: passengers,
+//     selectedHotel: selectedHotel,
+//   );
+// }
 }

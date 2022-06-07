@@ -19,6 +19,7 @@ import 'package:travel_app/utils/network/amadeus_api/flight_offer_search/get_fli
 import 'package:travel_app/utils/network/amadeus_api/hotel_search/get_hotels_response.dart';
 import 'package:travel_app/utils/network/amadeus_api/hotel_search/hotel_search.dart';
 import 'package:travel_app/utils/network/firebase/firestore/flight_tickets_collection.dart';
+import 'package:travel_app/utils/session_temp.dart';
 
 class CreateTripController extends GetxController {
   Rx<DateTime> selectedDepartureDate = DateTime(DateTime.now().year - 1).obs;
@@ -40,6 +41,7 @@ class CreateTripController extends GetxController {
   Rx<FlightsModel> flightList = FlightsModel().obs;
   RxList<Passenger> passengersList = <Passenger>[].obs;
   Rx<FlightCardDetails?> selectedFlight = FlightCardDetails().obs;
+  List<String> usersUid = [];
 
   RxList<HotelModel> hotelsList = <HotelModel>[].obs;
   Rx<HotelModel> hotelSelected = HotelModel().obs;
@@ -83,12 +85,16 @@ class CreateTripController extends GetxController {
     required String pattern,
   }) {
     return airportsList
-        .where((element) => element.name!.isCaseInsensitiveContains(pattern))
+        .where((element) =>
+            element.name!.isCaseInsensitiveContains(pattern) ||
+            element.tz!.isCaseInsensitiveContains(pattern) ||
+            element.country!.isCaseInsensitiveContains(pattern))
         .toList();
   }
 
   Future<void> readAirportsJson() async {
-    final String response = await rootBundle.loadString('assets/airports.json');
+    final String response =
+        await rootBundle.loadString('assets/europe_airports.json');
     final data = await json.decode(response);
     airportsList = (data as List).map((e) => AirportModel.fromJson(e)).toList();
   }
@@ -171,6 +177,7 @@ class CreateTripController extends GetxController {
   }
 
   Future<void> onSaveTrip() async {
+    usersUid.add(userLoggedIn.uid);
     Get.dialog(
       const LoadingDialog(),
       barrierDismissible: false,
@@ -181,6 +188,7 @@ class CreateTripController extends GetxController {
             passengers: passengersList,
             flightCardDetails: selectedFlight.value!,
             selectedHotel: hotelSelected.value,
+            usersUid: usersUid,
           ),
         )
         .then(

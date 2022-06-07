@@ -26,10 +26,16 @@ class TripsScreenController extends GetxController {
             .toList();
         final HotelModel hotelModel =
             HotelModel.fromJson(json['selectedHotel']);
+        final List<String> usersUid = (json['usersUid'] as List)
+            .map(
+              (e) => e.toString(),
+            )
+            .toList();
         final FlightTicket flightTicket = FlightTicket(
           flightCardDetails: flightCardDetails,
           passengers: passengersList,
           selectedHotel: hotelModel,
+          usersUid: usersUid,
         );
         trips.add(flightTicket);
       });
