@@ -12,6 +12,7 @@ class DocumentsListController extends GetxController {
     required this.title,
   });
 
+  @override
   onInit() {
     getDocuments();
     super.onInit();

@@ -9,7 +9,7 @@ import 'package:travel_app/utils/constants/styles.dart';
 import 'package:travel_app/utils/constants/values.dart';
 
 class CityDetails extends StatelessWidget {
-  RecommendationModel recommendationModel;
+  final RecommendationModel recommendationModel;
 
   CityDetails({
     Key? key,
