@@ -1,5 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:get/get.dart';
 import 'package:travel_app/model/flight_card_details.dart';
 import 'package:travel_app/model/flight_ticket.dart';
@@ -18,9 +17,12 @@ class ToDoListController extends GetxController {
     super.onInit();
   }
 
-  void redirectListToDoScreen() {
+  void redirectListToDoScreen(String name) {
     Get.to(
-          () => ListPerTripScreen(),
+          () =>
+          ListPerTripScreen(
+            nameTrip: name,
+          ),
     );
   }
 

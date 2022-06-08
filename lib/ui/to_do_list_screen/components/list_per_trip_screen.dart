@@ -1,14 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/ui/to_do_list_screen/components/list_per_trip_controller.dart';
+import 'package:travel_app/ui/to_do_list_screen/components/to_do_card.dart';
 import 'package:travel_app/ui/widgets/bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'package:travel_app/ui/widgets/buttons/custom_button.dart';
+import 'package:travel_app/ui/widgets/empty_widget.dart';
 import 'package:travel_app/utils/constants/colors.dart';
 
 class ListPerTripScreen extends StatelessWidget {
-  ListPerTripScreen({Key? key}) : super(key: key);
-  ListPerTripController listPerTripController =
-      Get.put(ListPerTripController());
+  String nameTrip;
+
+  ListPerTripScreen({
+    Key? key,
+    required this.nameTrip,
+  }) : super(key: key) {
+    listPerTripController = Get.put(ListPerTripController(
+      nameTrip: nameTrip,
+    ));
+  }
+
+  late final ListPerTripController listPerTripController;
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +31,9 @@ class ListPerTripScreen extends StatelessWidget {
           leading: const BackButton(
             color: Colors.black,
           ),
-          title: const Text(
-            "TO DOD FOR TITLE",
-            style: TextStyle(
+          title: Text(
+            "To dos for $nameTrip",
+            style: const TextStyle(
               color: Colors.black,
             ),
           ),
@@ -36,9 +47,20 @@ class ListPerTripScreen extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    listPerTripController.list.length == 0
-                        ? const Text("LIST TO DO")
-                        : Obx(() => Text(listPerTripController.list[0].title!)),
+                    Obx(
+                      () => listPerTripController.list.isEmpty
+                          ? const EmptyWidget()
+                          : ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: listPerTripController.list.length,
+                              itemBuilder: (context, index) => ToDoCard(
+                                titleToDo:
+                                    listPerTripController.list[index].title!,
+                                list: listPerTripController.list,
+                              ),
+                            ),
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(
                         left: 20,
@@ -47,7 +69,9 @@ class ListPerTripScreen extends StatelessWidget {
                         bottom: 20,
                       ),
                       child: CustomButton(
-                        onTap: listPerTripController.redirectAddToDoScreen,
+                        onTap: () {
+                          listPerTripController.redirectAddToDoScreen(nameTrip);
+                        },
                         text: "Create a note",
                         backgroundColor: kGeneralColor,
                       ),

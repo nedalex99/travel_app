@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:travel_app/model/flight_ticket.dart';
 import 'package:travel_app/utils/constants/images.dart';
 import 'package:travel_app/utils/constants/styles.dart';
+import 'package:travel_app/utils/constants/values.dart';
 
 class TripCardToDo extends StatelessWidget {
   final String? text;
   final Function? onClick;
-  //final FlightTicket flightTicket;
 
   TripCardToDo({
     Key? key,
     this.text,
-    //required this.flightTicket,
     this.onClick,
   });
 
@@ -62,7 +61,7 @@ class TripCardToDo extends StatelessWidget {
                           ),
                         ),
                         IconButton(
-                          icon: Image.asset(kTraveling),
+                          icon: Image.asset(returnIcon(text!)),
                           iconSize: 40,
                           onPressed: () {},
                         ),
@@ -75,7 +74,6 @@ class TripCardToDo extends StatelessWidget {
                           flex: 4,
                           child: Text(
                             text!,
-                            // flightTicket.flightCardDetails.arrivalCity!,
                             style: kNormalTextStyle,
                           ),
                         ),
@@ -83,7 +81,11 @@ class TripCardToDo extends StatelessWidget {
                           child: Align(
                             alignment: Alignment.centerRight,
                             child: IconButton(
-                              icon: Image.asset(kSettingsArrow),
+                              icon: Image.asset(
+                                kSettingsArrow,
+                                width: 20,
+                                height: 20,
+                              ),
                               onPressed: () {},
                             ),
                           ),

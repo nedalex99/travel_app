@@ -11,19 +11,6 @@ class ToDoListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: kGeneralColor.withOpacity(0.5),
-      //   elevation: 3,
-      //   leading: const BackButton(
-      //     color: Colors.black,
-      //   ),
-      //   title: const Text(
-      //     "TO DOS ",
-      //     style: TextStyle(
-      //       color: Colors.black,
-      //     ),
-      //   ),
-      // ),
       body: CustomScrollView(
         slivers: [
           const SliverAppBar(
@@ -36,26 +23,30 @@ class ToDoListScreen extends StatelessWidget {
             ),
             backgroundColor: kGeneralColor,
           ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate((context, index) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    TripCardToDo(
-                      //flightTicket: toDoListController.trips[index],
-                      text: "Barcelona",
-                      onClick: toDoListController.redirectListToDoScreen,
+          Obx(
+            () => SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        TripCardToDo(
+                          text: toDoListController
+                              .trips[index].flightCardDetails.arrivalCity!,
+                          onClick: () {
+                            toDoListController.redirectListToDoScreen(
+                                toDoListController.trips[index]
+                                    .flightCardDetails.arrivalCity!);
+                          },
+                        ),
+                      ],
                     ),
-                    TripCardToDo(
-                      //flightTicket: toDoListController.trips[index],
-                      text: "Paris",
-                      onClick: toDoListController.redirectListToDoScreen,
-                    ),
-                  ],
-                ),
-              );
-            }),
+                  );
+                },
+                childCount: toDoListController.trips.length,
+              ),
+            ),
           )
         ],
       ),

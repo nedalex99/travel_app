@@ -6,7 +6,11 @@ import 'package:travel_app/utils/constants/colors.dart';
 import 'package:travel_app/utils/constants/styles.dart';
 
 class AddToDoScreen extends StatelessWidget {
-  AddToDoScreen({Key? key}) : super(key: key);
+  AddToDoScreen({
+    Key? key,
+    required this.nameTrip,
+  }) : super(key: key);
+  String nameTrip;
   AddToDoController controller = AddToDoController();
 
   @override
@@ -41,7 +45,19 @@ class AddToDoScreen extends StatelessWidget {
                     ),
                   ),
                   CustomButton(
-                    onTap: controller.addNote,
+                    onTap: () {
+                      controller.addNote(nameTrip: nameTrip).then(
+                            (value) => Get.defaultDialog(
+                              title: "Success!",
+                              middleText: "Your note has been added!",
+                              backgroundColor: kGeneralColor,
+                              titleStyle: kNormalTextStyle,
+                              radius: 10,
+                            ).then(
+                              (value) => Get.back(),
+                            ),
+                          );
+                    },
                     text: "Add",
                     backgroundColor: kGeneralColor,
                   ),

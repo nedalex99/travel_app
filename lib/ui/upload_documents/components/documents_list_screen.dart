@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/ui/upload_documents/components/document_card.dart';
 import 'package:travel_app/ui/upload_documents/components/documnets_list_controller.dart';
+import 'package:travel_app/ui/widgets/empty_widget.dart';
 import 'package:travel_app/utils/constants/colors.dart';
 
 class DocumentsListScreen extends StatelessWidget {
@@ -57,7 +58,7 @@ class DocumentsListScreen extends StatelessWidget {
                                 imgURL: controller.imageList[index].url,
                               ),
                             )
-                          : Container(),
+                          : const EmptyWidget(),
                     ),
                   ],
                 ),
