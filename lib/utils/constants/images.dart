@@ -30,4 +30,7 @@ const kChangePassword = "images/forgot.png";
 const kBudget= "images/budget.png";
 const kAlbum= "images/album.png";
 const kTraveling= "images/traveling.png";
+const kDocuments= "images/documents.png";
+const kDocumentsCard= "images/documents_card.png";
+const kAdd= "images/plus.png";
 

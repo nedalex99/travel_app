@@ -174,13 +174,8 @@ class DashboardScreen extends StatelessWidget {
               () => CarouselSlider.builder(
                   itemCount: controller.recommendationList.value.length,
                   itemBuilder: (context, index, realIndex) {
-                    RecommendationModel recommendationModel =
-                        RecommendationModel(
-                      name: controller.recommendationList[index].name,
-                      relevance: controller.recommendationList[index].relevance,
-                    );
                     return CardRecommendation(
-                      recommendationModel: recommendationModel,
+                      recommendationModel: controller.recommendationList[index],
                     );
                   },
                   options: CarouselOptions(
