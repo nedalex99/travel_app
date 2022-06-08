@@ -39,10 +39,13 @@ class CityDetailsController extends GetxController {
       const LoadingDialog(),
       barrierDismissible: false,
     );
-    // print(recommendationModel.geoCode!.latitude!);
-    // print(recommendationModel.geoCode!.longitude!);
+    print(recommendationModel.geoCode!.latitude!);
+    print(recommendationModel.geoCode!.longitude!);
     await LocationScoreSearch()
-        .getLocationScore(latitude: 41.397158, longitude: 2.160873)
+        .getLocationScore(
+      latitude: recommendationModel.geoCode!.latitude!,
+      longitude: recommendationModel.geoCode!.longitude!,
+    )
         .then(
       (value) {
         if (value.statusCode == 200) {
@@ -53,7 +56,7 @@ class CityDetailsController extends GetxController {
               .toList();
           print(value.statusCode);
         } else {
-          print(value.statusCode);
+          print("eroare1 ${value.statusCode}");
         }
       },
     );
@@ -73,8 +76,8 @@ class CityDetailsController extends GetxController {
     );
     ToursAndActivitiesSearch()
         .getToursAndActivitiesByLocation(
-          latitude: 41.397158,
-          longitude: 2.160873,
+          latitude: recommendationModel.geoCode!.latitude!,
+          longitude: recommendationModel.geoCode!.longitude!,
           radius: 1,
         )
         .then(
@@ -110,7 +113,7 @@ class CityDetailsController extends GetxController {
                   }
                 else
                   {
-                    print(value.statusCode),
+                    print("eroare2 ${value.statusCode}"),
                   }
               });
     } catch (e) {
