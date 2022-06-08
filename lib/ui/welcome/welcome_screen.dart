@@ -19,8 +19,9 @@ class WelcomeScreen extends StatelessWidget {
             SliverToBoxAdapter(
               child: Column(
                 children: [
+                  Lottie.asset('assets/lottie/flying.json'),
                   SizedBox(
-                    height: 50.0,
+                    height: 60.0,
                   ),
                   const Text(
                     'Welcome to Plan&Go',
@@ -41,13 +42,6 @@ class WelcomeScreen extends StatelessWidget {
                       fontWeight: FontWeight.w700,
                     ),
                     textAlign: TextAlign.center,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      height: 400,
-                      child: Lottie.asset('assets/lottie/travel-world.json'),
-                    ),
                   ),
                 ],
               ),
