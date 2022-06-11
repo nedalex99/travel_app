@@ -75,55 +75,58 @@ class TripCard extends StatelessWidget {
                 shrinkWrap: true,
                 itemCount: flightTicket.flightCardDetails.departureCode!.length,
                 itemBuilder: (context, index) {
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '${flightTicket.flightCardDetails.departureCode![index]} : ${DateFormat("HH:mm").format(
-                          DateTime.parse(flightTicket
-                              .flightCardDetails.departureTime![index]),
-                        )}',
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      Column(
-                        children: [
-                          Image.asset(
-                            kFlight,
-                            height: 20,
-                            width: 20,
+                  return Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          '${flightTicket.flightCardDetails.departureCode![index]} : ${DateFormat("HH:mm").format(
+                            DateTime.parse(flightTicket
+                                .flightCardDetails.departureTime![index]),
+                          )}',
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w600,
                           ),
-                          Text(
-                            flightTicket
-                                .flightCardDetails.flightDuration![index]
-                                .replaceRange(
-                              0,
-                              2,
-                              "",
+                        ),
+                        Column(
+                          children: [
+                            Image.asset(
+                              kFlight,
+                              height: 20,
+                              width: 20,
                             ),
-                            style: const TextStyle(
-                              color: Color(
-                                0x80000000,
+                            Text(
+                              flightTicket
+                                  .flightCardDetails.flightDuration![index]
+                                  .replaceRange(
+                                0,
+                                2,
+                                "",
                               ),
-                              fontSize: 12.0,
+                              style: const TextStyle(
+                                color: Color(
+                                  0x80000000,
+                                ),
+                                fontSize: 12.0,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                      Text(
-                        '${flightTicket.flightCardDetails.arrivalCode![index]} : ${DateFormat("HH:mm").format(
-                          DateTime.parse(flightTicket
-                              .flightCardDetails.arrivalTime![index]),
-                        )}',
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w600,
+                          ],
                         ),
-                      ),
-                    ],
+                        Text(
+                          '${flightTicket.flightCardDetails.arrivalCode![index]} : ${DateFormat("HH:mm").format(
+                            DateTime.parse(flightTicket
+                                .flightCardDetails.arrivalTime![index]),
+                          )}',
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
                   );
                 },
               ),

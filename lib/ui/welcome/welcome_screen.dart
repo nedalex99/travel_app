@@ -3,7 +3,6 @@ import 'package:travel_app/ui/intro_screens/intro_screens.dart';
 import 'package:lottie/lottie.dart';
 import 'package:travel_app/ui/widgets/buttons/custom_button.dart';
 import 'package:travel_app/utils/constants/colors.dart';
-import 'package:travel_app/utils/constants/images.dart';
 import 'package:get/get.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -20,7 +19,7 @@ class WelcomeScreen extends StatelessWidget {
               child: Column(
                 children: [
                   Lottie.asset('assets/lottie/flying.json'),
-                  SizedBox(
+                  const SizedBox(
                     height: 60.0,
                   ),
                   const Text(
