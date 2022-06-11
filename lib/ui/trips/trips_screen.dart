@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-import 'package:travel_app/ui/create_trip/components/flight_card.dart';
 import 'package:travel_app/ui/create_trip/create_trip_screen.dart';
 import 'package:travel_app/ui/travel_insights/travel_insights_screen.dart';
 import 'package:travel_app/ui/trips/trip_card.dart';
-import 'package:travel_app/ui/trips/trips_card_widget.dart';
 import 'package:travel_app/ui/trips/trips_screen_controller.dart';
 import 'package:travel_app/ui/widgets/bottom_navigation_bar/bottom_nav_bar.dart';
 import 'package:travel_app/utils/constants/colors.dart';
