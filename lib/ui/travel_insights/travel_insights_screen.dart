@@ -78,25 +78,25 @@ class TravelInsightsScreen extends StatelessWidget {
                 ),
               ),
             ),
-            // Obx(
-            //   () => SliverList(
-            //     delegate: SliverChildBuilderDelegate(
-            //       (context, index) {
-            //         return Padding(
-            //           padding: const EdgeInsets.symmetric(
-            //             horizontal: 4.0,
-            //             vertical: 8.0,
-            //           ),
-            //           child: TravelInsightCard(
-            //             toursAndActivitiesModel:
-            //                 _controller.toursAndActivitiesList[index],
-            //           ),
-            //         );
-            //       },
-            //       childCount: _controller.toursAndActivitiesList.length,
-            //     ),
-            //   ),
-            // ),
+            Obx(
+              () => SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 4.0,
+                        vertical: 8.0,
+                      ),
+                      child: TravelInsightCard(
+                        toursAndActivitiesModel:
+                            _controller.toursAndActivitiesList[index],
+                      ),
+                    );
+                  },
+                  childCount: _controller.toursAndActivitiesList.length,
+                ),
+              ),
+            ),
           ],
         ),
       ),

@@ -48,6 +48,7 @@ class CityDetailsController extends GetxController {
     )
         .then(
       (value) {
+        print(value.statusCode);
         if (value.statusCode == 200) {
           Get.back();
           locationScoreList.value = (value as GetLocationScoreResponse)

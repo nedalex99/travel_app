@@ -85,10 +85,12 @@ class TravelInsightCard extends StatelessWidget {
               ],
             ),
           ),
-          Text(
-            'Rating: (${double.tryParse(toursAndActivitiesModel.rating!)?.toStringAsFixed(2)}/5)',
-            style: Theme.of(context).textTheme.bodySmall,
-          ),
+          toursAndActivitiesModel.rating != null
+              ? Text(
+                  'Rating: (${double.tryParse(toursAndActivitiesModel.rating!)?.toStringAsFixed(2)}/5)',
+                  style: Theme.of(context).textTheme.bodySmall,
+                )
+              : Container(),
           Text(
             'Price: ${toursAndActivitiesModel.price!.amount!} ${toursAndActivitiesModel.price!.currencyCode!}',
             style: Theme.of(context).textTheme.bodySmall,
