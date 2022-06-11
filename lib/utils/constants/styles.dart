@@ -65,3 +65,9 @@ const kNotificationTitleTextStyle = TextStyle(
   fontStyle: FontStyle.normal,
   fontWeight: FontWeight.bold,
 );
+const kTextColoredStyle = TextStyle(
+  fontFamily: "Quicksand",
+  fontWeight: FontWeight.w600,
+  fontSize: 20.0,
+  color: Color(0xFF7B94FF),
+);

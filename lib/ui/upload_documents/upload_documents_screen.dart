@@ -65,7 +65,7 @@ class UploadDocumentsScreen extends StatelessWidget {
                           },
                           leftIcon: IconButton(
                             icon: Image.asset(
-                              kDocumentsCard,
+                              kPassport,
                             ),
                             onPressed: () {
                               controller.redirectDocumentsList('Passport');
@@ -87,7 +87,7 @@ class UploadDocumentsScreen extends StatelessWidget {
                           },
                           leftIcon: IconButton(
                             icon: Image.asset(
-                              kDocumentsCard,
+                              kPlaneTicket,
                             ),
                             onPressed: () {
                               controller.redirectDocumentsList('Plane Tickets');
@@ -110,7 +110,7 @@ class UploadDocumentsScreen extends StatelessWidget {
                           },
                           leftIcon: IconButton(
                             icon: Image.asset(
-                              kDocumentsCard,
+                              kCar,
                             ),
                             onPressed: () {
                               controller
@@ -134,7 +134,7 @@ class UploadDocumentsScreen extends StatelessWidget {
                           },
                           leftIcon: IconButton(
                             icon: Image.asset(
-                              kDocumentsCard,
+                              kTicket,
                             ),
                             onPressed: () {
                               controller.redirectDocumentsList('Tickets');
@@ -156,7 +156,7 @@ class UploadDocumentsScreen extends StatelessWidget {
                           },
                           leftIcon: IconButton(
                             icon: Image.asset(
-                              kDocumentsCard,
+                              kOthers,
                             ),
                             onPressed: () {
                               controller.redirectDocumentsList('Others');

@@ -22,60 +22,83 @@ class TravelInsightsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: kBackgroundColor,
-      appBar: AppBar(
-        backgroundColor: kGeneralColor,
-        title: Text(
-          'Travel insights for ${flightTicket.flightCardDetails.arrivalCode![0]}',
-          style: const TextStyle(
-            color: Colors.black,
-          ),
-        ),
-      ),
-      body: CustomScrollView(
-        slivers: [
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {},
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        backgroundColor: kBackgroundColor,
+        appBar: AppBar(
+          backgroundColor: kGeneralColor,
+          title: Text(
+            'Trip to ${flightTicket.flightCardDetails.arrivalCity!}',
+            style: const TextStyle(
+              fontSize: 24.0,
+              color: Colors.black87,
             ),
           ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.only(
-                left: 4.0,
-                right: 4.0,
-                top: 8.0,
+          bottom: const TabBar(
+            tabs: [
+              Tab(
+                text: 'Flight',
               ),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Tours & Activities',
-                  style: Theme.of(context).textTheme.titleLarge,
+              Tab(
+                text: 'Hotels',
+              ),
+            ],
+          ),
+        ),
+        // AppBar(
+        //   backgroundColor: kGeneralColor,
+        //   title: Text(
+        //     'Travel insights for ${flightTicket.flightCardDetails.arrivalCode![0]}',
+        //     style: const TextStyle(
+        //       color: Colors.black,
+        //     ),
+        //   ),
+        // ),
+        body: CustomScrollView(
+          slivers: [
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {},
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: 4.0,
+                  right: 4.0,
+                  top: 8.0,
+                ),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Tours & Activities',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
                 ),
               ),
             ),
-          ),
-          Obx(
-            () => SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 4.0,
-                      vertical: 8.0,
-                    ),
-                    child: TravelInsightCard(
-                      toursAndActivitiesModel:
-                          _controller.toursAndActivitiesList[index],
-                    ),
-                  );
-                },
-                childCount: _controller.toursAndActivitiesList.length,
-              ),
-            ),
-          ),
-        ],
+            // Obx(
+            //   () => SliverList(
+            //     delegate: SliverChildBuilderDelegate(
+            //       (context, index) {
+            //         return Padding(
+            //           padding: const EdgeInsets.symmetric(
+            //             horizontal: 4.0,
+            //             vertical: 8.0,
+            //           ),
+            //           child: TravelInsightCard(
+            //             toursAndActivitiesModel:
+            //                 _controller.toursAndActivitiesList[index],
+            //           ),
+            //         );
+            //       },
+            //       childCount: _controller.toursAndActivitiesList.length,
+            //     ),
+            //   ),
+            // ),
+          ],
+        ),
       ),
     );
   }

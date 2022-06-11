@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:travel_app/model/flight_card_details.dart';
 import 'package:travel_app/ui/create_trip/components/flight_card.dart';
-import 'package:travel_app/ui/create_trip/components/hotel_card.dart';
+import 'package:travel_app/ui/create_trip/components/hotel_card_details.dart';
 import 'package:travel_app/ui/create_trip/create_trip_controller.dart';
 import 'package:travel_app/ui/widgets/buttons/custom_button.dart';
 import 'package:travel_app/ui/widgets/input_fields/input_field_date_picker/input_field_date_picker.dart';
@@ -375,7 +375,7 @@ class CreateTripScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            HotelCard(
+                            HotelCardDetails(
                               hotelModel: controller.hotelSelected.value,
                               checkIn: controller.selectedDepartureDate.value
                                   .toString(),
@@ -399,7 +399,7 @@ class CreateTripScreen extends StatelessWidget {
                           itemBuilder: (context, index) {
                             return GestureDetector(
                               onTap: () => controller.onHotelSelected(index),
-                              child: HotelCard(
+                              child: HotelCardDetails(
                                 hotelModel: controller.hotelsList[index],
                                 checkIn: controller.selectedDepartureDate.value
                                     .toString(),

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:travel_app/model/flight_ticket.dart';
 import 'package:travel_app/model/hotel_model.dart';
 import 'package:travel_app/ui/create_trip/components/hotel_card_controller.dart';
 
-class HotelCard extends StatelessWidget {
-  HotelCard({
+class HotelCardDetails extends StatelessWidget {
+  HotelCardDetails({
     Key? key,
     required this.hotelModel,
     required this.checkIn,
@@ -49,28 +50,14 @@ class HotelCard extends StatelessWidget {
               )
             ],
           ),
+          // padding: const EdgeInsets.all(
+          //   8.0,
+          // ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              RichText(
-                text: TextSpan(
-                  children: [
-                    const TextSpan(
-                      text: 'You will stay at: ',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    TextSpan(
-                      text: hotelModel.hotel!.name!,
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ],
-                ),
+              Text(
+                hotelModel.hotel!.name!,
               ),
               Row(
                 children: _createStars(
@@ -93,6 +80,32 @@ class HotelCard extends StatelessWidget {
               ),
               const SizedBox(
                 height: 4.0,
+              ),
+              Obx(
+                () => Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      hotelModel.hotel!.description!.text ?? "",
+                      maxLines: controller.textShowMoreFlag.value ? null : 3,
+                      overflow: controller.textShowMoreFlag.value
+                          ? TextOverflow.visible
+                          : TextOverflow.ellipsis,
+                    ),
+                    GestureDetector(
+                      onTap: () => controller.textShowMoreFlag.value =
+                          !controller.textShowMoreFlag.value,
+                      child: Text(
+                        controller.textShowMoreFlag.value
+                            ? 'show less'
+                            : 'show more',
+                        style: const TextStyle(
+                          color: Colors.blue,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               RichText(
                 text: TextSpan(
@@ -135,6 +148,52 @@ class HotelCard extends StatelessWidget {
                       ),
                     ),
                   ],
+                ),
+              ),
+              const Text(
+                'Room available: ',
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 8.0,
+                ),
+                child: Text(
+                  hotelModel.offers![0].room!.typeEstimated!.category!,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 8.0,
+                ),
+                child: Text(
+                  hotelModel.offers![0].room!.description!.text!,
+                ),
+              ),
+              Text(
+                'Contact: ${hotelModel.hotel!.contact!.phone!}',
+              ),
+              GestureDetector(
+                onTap: () => controller.openLocation(
+                  latitude: hotelModel.hotel!.latitude!,
+                  longitude: hotelModel.hotel!.longitude!,
+                ),
+                child: const Text(
+                  "See location",
+                  style: TextStyle(
+                    color: Colors.blue,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    top: 8.0,
+                  ),
+                  child: Text(
+                    '${hotelModel.offers![0].price!.total!} ${hotelModel.offers![0].price!.currency!}',
+                  ),
                 ),
               ),
             ],
