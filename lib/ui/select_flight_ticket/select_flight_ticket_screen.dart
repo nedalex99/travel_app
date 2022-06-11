@@ -173,7 +173,7 @@ class SelectFlightTicketScreen extends StatelessWidget {
                     ),
                     child: InputFieldCustomPicker(
                       text: 'Gender',
-                      list: ['Male','Female'],
+                      list: ['Male', 'Female'],
                       textEditingController: _controller.genderTextController,
                     ),
                   ),
@@ -193,14 +193,15 @@ class SelectFlightTicketScreen extends StatelessWidget {
                   const SizedBox(
                     height: 16.0,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 70.0,
-                    ),
-                    child: CustomButton(
-                      onTap: _controller.addPassenger,
-                      text: "Add passenger",
-                      backgroundColor: kPaleColor,
+                  CustomButton(
+                    onTap: _controller.addPassenger,
+                    text: "Add passenger",
+                    backgroundColor: kPaleColor,
+                  ),
+                  GestureDetector(
+                    onTap: _controller.findFriend,
+                    child: Text(
+                      'Find a friend',
                     ),
                   ),
                 ],

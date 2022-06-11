@@ -1,14 +1,19 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:travel_app/model/notification_data.dart';
 import 'package:travel_app/model/recommendation_model.dart';
 import 'package:travel_app/model/user_data.dart';
 import 'package:travel_app/ui/widgets/dialogs/loading_dialog.dart';
+import 'package:travel_app/utils/constants/enum.dart';
 import 'package:travel_app/utils/constants/values.dart';
 import 'package:travel_app/utils/network/amadeus_api/recommendation_search/get_recommendation_response.dart';
 import 'package:travel_app/utils/network/amadeus_api/recommendation_search/recommendation_search.dart';
+import 'package:travel_app/utils/session_temp.dart';
+import 'package:travel_app/utils/util_functions.dart';
 
 class DashboardController extends GetxController {
   DocumentSnapshot? documentSnapshot;
@@ -31,16 +36,67 @@ class DashboardController extends GetxController {
   });
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
     getUserData();
     getImage();
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
       getRecommendation();
     });
-    print(handleIataCodes(cityOne));
-    print(handleIataCodes(cityTwo));
-    print(handleIataCodes(cityThree));
+    await verifyInvite();
     super.onInit();
+  }
+
+  Future<void> verifyInvite() async {
+    print("In verify");
+    await FirebaseFirestore.instance
+        .collection('invites')
+        .get()
+        .then((QuerySnapshot snapshot) {
+      snapshot.docs.forEach((element) async {
+        List<String> invitedUsers = ((element.data() as Map)['invited'] as List)
+            .map(
+              (e) => e.toString(),
+            )
+            .toList();
+        String invitedBy = (element.data() as Map)['invitedBy'];
+        print("Invited users $invitedUsers");
+        print("User logged in ${userLoggedIn.uid}");
+        if (invitedUsers.contains(userLoggedIn.uid)) {
+          print("Has invite");
+          await FirebaseFirestore.instance
+              .collection('invites')
+              .doc(invitedBy)
+              .update({
+            'invited': FieldValue.arrayRemove(
+              [
+                userLoggedIn.uid,
+              ],
+            ),
+          }).then(
+            (value) => {
+              showNotification(
+                notificationData: NotificationData(
+                  notificationType: NotificationType.SUCCESS,
+                  title: 'Hey there,',
+                  description: RichText(
+                    text: const TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'Someone just invited you to join their trip.',
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            },
+          );
+        }
+      });
+    });
   }
 
   //FIREBASE
@@ -51,7 +107,6 @@ class DashboardController extends GetxController {
         .get()
         .then((value) => {
               userData.value = UserData.fromJson(value),
-              print(userData.value.userName),
             });
   }
 
@@ -63,7 +118,6 @@ class DashboardController extends GetxController {
         .then((value) => {
               img.value = value,
             });
-    print(img.value);
   }
 
   //API RECOMM
@@ -82,13 +136,9 @@ class DashboardController extends GetxController {
           Get.back();
           recommendationList.value =
               (value as GetRecommendationResponse).recommendationModelList;
-        } else {
-          print(value.statusCode!);
-        }
+        } else {}
       });
-    } catch (e) {
-      print("Erroar +${e.toString()}");
-    }
+    } catch (e) {}
   }
 
   Future<void> getRecommendationButton2() async {
@@ -106,13 +156,9 @@ class DashboardController extends GetxController {
           Get.back();
           recommendationList.value =
               (value as GetRecommendationResponse).recommendationModelList;
-        } else {
-          print(value.statusCode!);
-        }
+        } else {}
       });
-    } catch (e) {
-      print("Erroar +${e.toString()}");
-    }
+    } catch (e) {}
   }
 
   Future<void> getRecommendationButton3() async {
@@ -130,12 +176,8 @@ class DashboardController extends GetxController {
           Get.back();
           recommendationList.value =
               (value as GetRecommendationResponse).recommendationModelList;
-        } else {
-          print(value.statusCode!);
-        }
+        } else {}
       });
-    } catch (e) {
-      print("Erroar +${e.toString()}");
-    }
+    } catch (e) {}
   }
 }

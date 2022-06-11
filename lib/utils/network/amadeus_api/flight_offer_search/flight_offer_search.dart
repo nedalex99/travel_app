@@ -31,6 +31,8 @@ class FlightOfferSearch extends GetConnect {
       await response.stream.bytesToString(),
     );
 
+    print(json);
+
     if (response.statusCode == 200) {
       return GetFlightOfferResponse(
         statusCode: 200,
