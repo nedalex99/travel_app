@@ -19,8 +19,8 @@ class Authorization extends GetConnect {
       ),
     );
     request.bodyFields = {
-      'client_id': 'rIAi8hcBUd3uPLZQrdoPxMNZXr0J8pi1',
-      'client_secret': 'AkGnWVJcVGVNQ4k1',
+      'client_id': 'TY0LGMjhgGXxkzvANZisECuSPNbkw0fk',
+      'client_secret': 'g3lz1fD2yFA8lH7D',
       'grant_type': 'client_credentials'
     };
 

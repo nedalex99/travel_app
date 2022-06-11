@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,10 +18,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final botToastBuilder = BotToastInit();
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       initialBinding: DataBindings(),
       theme: kMainTheme,
+      navigatorObservers: [
+        BotToastNavigatorObserver(),
+      ],
+      builder: (context, child){
+        child = botToastBuilder(context, child);
+        return child;
+      },
       home: WelcomeScreen(),
     );
   }

@@ -36,3 +36,6 @@ const kAdd = "images/plus.png";
 const kEmpty = "images/content.png";
 const kEdit = "images/edit.png";
 const kDelete = "images/delete.png";
+const kNotificationError = "images/ic_overflow_budget.png";
+const kNotificationInfo = "images/ic_notification_info.png";
+const kNotificationSuccess = "images/ic_notification_success.png";

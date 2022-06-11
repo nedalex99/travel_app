@@ -59,3 +59,9 @@ const kLittleTextColoredStyle = TextStyle(
   fontSize: 16.0,
   color: Color(0xFF7B94FF),
 );
+const kNotificationTitleTextStyle = TextStyle(
+  fontSize: 15.0,
+  color: Color(0xff282828),
+  fontStyle: FontStyle.normal,
+  fontWeight: FontWeight.bold,
+);

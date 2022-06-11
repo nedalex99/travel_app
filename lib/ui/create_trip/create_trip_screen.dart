@@ -251,7 +251,6 @@ class CreateTripScreen extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(
                                 top: 8.0,
-                                left: 70.0,
                               ),
                               child: CustomButton(
                                 onTap: controller.getFlights,
@@ -262,9 +261,6 @@ class CreateTripScreen extends StatelessWidget {
                             const SizedBox(
                               height: 8,
                             ),
-                            const Text(
-                              'Skip',
-                            )
                           ],
                         )
                       : Container(),
@@ -272,12 +268,7 @@ class CreateTripScreen extends StatelessWidget {
                 Obx(
                   () => Column(
                     children: [
-                      controller.selectedDeparture.value == "" &&
-                              controller.selectedDepartureDate.value !=
-                                  DateTime(DateTime.now().year - 1) &&
-                              controller.selectedArrival.value == "" &&
-                              controller.selectedArrivalDate.value !=
-                                  DateTime(DateTime.now().year - 1)
+                      controller.flightList.value.data!.isNotEmpty
                           ? const Align(
                               alignment: Alignment.centerLeft,
                               child: Padding(
@@ -428,16 +419,22 @@ class CreateTripScreen extends StatelessWidget {
           ),
           SliverFillRemaining(
             hasScrollBody: false,
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 70),
-                child: CustomButton(
-                  onTap: controller.onSaveTrip,
-                  text: 'Save trip',
-                  backgroundColor: Colors.blue,
-                ),
-              ),
+            child: Obx(
+              () => controller.hotelSelected.value.hotel != null
+                  ? Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          bottom: 24,
+                        ),
+                        child: CustomButton(
+                          onTap: controller.onSaveTrip,
+                          text: 'Save trip',
+                          backgroundColor: Colors.blue,
+                        ),
+                      ),
+                    )
+                  : Container(),
             ),
           ),
         ],
