@@ -4,6 +4,7 @@ import 'package:travel_app/model/flight_ticket.dart';
 import 'package:travel_app/ui/travel_insights/components/travel_insight_card.dart';
 import 'package:travel_app/ui/travel_insights/travel_insights_controller.dart';
 import 'package:travel_app/utils/constants/colors.dart';
+import 'package:travel_app/utils/constants/images.dart';
 
 class TravelInsightsScreen extends StatelessWidget {
   final FlightTicket flightTicket;
