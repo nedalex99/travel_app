@@ -9,8 +9,12 @@ import 'package:travel_app/utils/responses/error_response.dart';
 import 'package:travel_app/utils/session_temp.dart';
 
 class HotelSearch extends GetConnect {
-  Future<DefaultResponse> getHotels({required String cityCode}) async {
-    var headers = {'Authorization': 'Bearer $amadeusAccessToken'};
+  Future<DefaultResponse> getHotels({
+    required String cityCode,
+  }) async {
+    var headers = {
+      'Authorization': 'Bearer $amadeusAccessToken',
+    };
     var request = http.Request(
       'GET',
       Uri.parse(
@@ -25,6 +29,7 @@ class HotelSearch extends GetConnect {
     var json = jsonDecode(
       await response.stream.bytesToString(),
     );
+    print(json);
 
     if (response.statusCode == 200) {
       return GetHotelsResponse(

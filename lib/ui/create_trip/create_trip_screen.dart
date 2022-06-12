@@ -411,9 +411,6 @@ class CreateTripScreen extends StatelessWidget {
                         )
                       : Container(),
                 ),
-                // ListView.builder(
-                //   itemBuilder: (context, index) {},
-                // ),
               ],
             ),
           ),
