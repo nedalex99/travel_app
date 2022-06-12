@@ -4,6 +4,7 @@ import 'package:travel_app/model/flight_ticket.dart';
 import 'package:travel_app/ui/travel_insights/components/travel_insight_card.dart';
 import 'package:travel_app/ui/travel_insights/travel_insights_controller.dart';
 import 'package:travel_app/utils/constants/colors.dart';
+import 'package:travel_app/utils/constants/images.dart';
 
 class TravelInsightsScreen extends StatelessWidget {
   final FlightTicket flightTicket;
@@ -27,12 +28,46 @@ class TravelInsightsScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: kBackgroundColor,
         appBar: AppBar(
-          backgroundColor: kGeneralColor,
-          title: Text(
-            'Trip to ${flightTicket.flightCardDetails.arrivalCity!}',
-            style: const TextStyle(
-              fontSize: 24.0,
-              color: Colors.black87,
+          backgroundColor: kContainerRecommendation,
+          leading: const BackButton(
+            color: Colors.black,
+          ),
+          title: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Container(
+              decoration: BoxDecoration(
+                color: kWithe,
+                borderRadius: BorderRadius.circular(
+                  20.0,
+                ),
+              ),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 10.0,
+                      left: 10.0,
+                      right: 180.0,
+                      bottom: 10.0,
+                    ),
+                    child: Text(
+                      flightTicket.flightCardDetails.arrivalCity!,
+                      style: const TextStyle(
+                        fontSize: 24.0,
+                        color: Colors.black87,
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      _controller.redirectAddPhoto();
+                    },
+                    icon: Image.asset(
+                      kPhotoAlbum,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           bottom: const TabBar(
@@ -46,15 +81,6 @@ class TravelInsightsScreen extends StatelessWidget {
             ],
           ),
         ),
-        // AppBar(
-        //   backgroundColor: kGeneralColor,
-        //   title: Text(
-        //     'Travel insights for ${flightTicket.flightCardDetails.arrivalCode![0]}',
-        //     style: const TextStyle(
-        //       color: Colors.black,
-        //     ),
-        //   ),
-        // ),
         body: CustomScrollView(
           slivers: [
             SliverList(

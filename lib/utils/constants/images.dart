@@ -45,3 +45,4 @@ const kPlaneTicket = "images/ticket.png";
 const kTicket = "images/card.png";
 const kCar = "images/car.png";
 const kOthers = "images/others.png";
+const kPhotoAlbum = "images/image.png";

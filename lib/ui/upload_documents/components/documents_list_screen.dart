@@ -4,6 +4,8 @@ import 'package:travel_app/ui/upload_documents/components/document_card.dart';
 import 'package:travel_app/ui/upload_documents/components/documnets_list_controller.dart';
 import 'package:travel_app/ui/widgets/empty_widget.dart';
 import 'package:travel_app/utils/constants/colors.dart';
+import 'package:travel_app/utils/constants/images.dart';
+import 'package:travel_app/utils/constants/styles.dart';
 
 class DocumentsListScreen extends StatelessWidget {
   final String title;
@@ -49,16 +51,72 @@ class DocumentsListScreen extends StatelessWidget {
                   children: [
                     Obx(
                       () => controller.imageList.isNotEmpty
-                          ? ListView.builder(
-                              physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount: controller.imageList.length,
-                              itemBuilder: (context, index) => DocumentCard(
-                                nameDocument: controller.imageList[index].name,
-                                imgURL: controller.imageList[index].url,
-                              ),
+                          ? Column(
+                              children: [
+                                Obx(
+                                  () => ListView.builder(
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemCount: controller.imageList.length,
+                                    itemBuilder: (context, index) =>
+                                        DocumentCard(
+                                      nameDocument:
+                                          controller.imageList[index].name,
+                                      imgURL: controller.imageList[index].url,
+                                    ),
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {
+                                        controller.redirectAddDocument();
+                                      },
+                                      icon: Image.asset(kAdd),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        controller.redirectAddDocument();
+                                      },
+                                      child: const Text(
+                                        'Add Documents',
+                                        style: kTitleScreenTextStyle,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             )
-                          : const EmptyWidget(),
+                          : Column(
+                              children: [
+                                const EmptyWidget(),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 100.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      IconButton(
+                                        onPressed: () {
+                                          controller.redirectAddDocument();
+                                        },
+                                        icon: Image.asset(kAdd),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          controller.redirectAddDocument();
+                                        },
+                                        child: const Text(
+                                          'Add Documents',
+                                          style: kTitleScreenTextStyle,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                     ),
                   ],
                 ),

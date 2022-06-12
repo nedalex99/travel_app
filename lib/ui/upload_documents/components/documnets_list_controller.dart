@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/model/image_model.dart';
+import 'package:travel_app/ui/upload_documents/components/add_document_widget.dart';
 import 'package:travel_app/ui/widgets/dialogs/loading_dialog.dart';
 import 'package:travel_app/utils/session_temp.dart';
 
@@ -20,6 +21,12 @@ class DocumentsListController extends GetxController {
       await getDocuments();
     });
     super.onInit();
+  }
+
+  void redirectAddDocument() {
+    Get.to(
+      () => AddDocumentWidget(),
+    );
   }
 
   Future<void> getDocuments() async {
