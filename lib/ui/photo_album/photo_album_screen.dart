@@ -2,16 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/ui/photo_album/photo_album_controller.dart';
 import 'package:travel_app/ui/to_do_list_screen/components/trips_card_to_do.dart';
+import 'package:travel_app/ui/widgets/buttons/custom_button.dart';
+import 'package:travel_app/ui/widgets/empty_widget.dart';
 import 'package:travel_app/utils/constants/colors.dart';
 
 class PhotoAlbumScreen extends StatelessWidget {
   String tripName;
-  PhotoAlbumController photoAlbumController = PhotoAlbumController();
+  late PhotoAlbumController photoAlbumController;
 
   PhotoAlbumScreen({
     Key? key,
     required this.tripName,
-  }) : super(key: key);
+  }) : super(key: key) {
+    photoAlbumController = PhotoAlbumController(nameTrip: tripName);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +34,74 @@ class PhotoAlbumScreen extends StatelessWidget {
             ),
           ),
         ),
-        body: Container(),
+        body: Column(
+          children: [
+            photoAlbumController.list.isEmpty
+                ? const EmptyWidget()
+                : Container(),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 20,
+                right: 20,
+                top: 80,
+                bottom: 20,
+              ),
+              child: CustomButton(
+                onTap: () {
+                  showModalBottomSheet(
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(20),
+                      ),
+                    ),
+                    backgroundColor: kGeneralColor,
+                    context: context,
+                    builder: ((bulder) => bottomSheet()),
+                  );
+                },
+                text: "Add a photo",
+                backgroundColor: kGeneralColor,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget bottomSheet() {
+    return Container(
+      height: 70.0,
+      width: 100.0,
+      decoration: BoxDecoration(
+        color: kGeneralColor,
+        borderRadius: BorderRadius.circular(
+          10,
+        ),
+      ),
+      margin: const EdgeInsets.symmetric(
+        horizontal: 20,
+        vertical: 20,
+      ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Column(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      photoAlbumController.uploadPhoto();
+                    },
+                    icon: const Icon(Icons.camera),
+                  ),
+                  const Text("Camera"),
+                ],
+              ),
+            ],
+          )
+        ],
       ),
     );
   }

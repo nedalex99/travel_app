@@ -82,4 +82,36 @@ class UsersCollection extends GetConnect {
       },
     );
   }
+
+  Future<void> savePhoto({
+    required String photoURL,
+    required String uid,
+    required String tripName,
+    required File? imageFile,
+    required ImageSource imageSource,
+  }) async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? pickedFile = await picker.pickImage(source: imageSource);
+    imageFile = File(pickedFile!.path);
+    TaskSnapshot taskSnapshot = await FirebaseStorage.instance
+        .ref(uid)
+        .child('photos/$tripName/$uid')
+        .putFile(imageFile);
+    taskSnapshot.ref.getDownloadURL();
+  }
+
+  Future<void> savePhotoInFirebase({
+    required String photoURL,
+    required String tripName,
+  }) async {
+    await FirebaseFirestore.instance
+        .collection("photos")
+        .doc(userLoggedIn.uid)
+        .collection(tripName)
+        .add(
+      {
+        'url': photoURL,
+      },
+    );
+  }
 }

@@ -47,7 +47,7 @@ class TravelInsightsScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(
                       top: 10.0,
                       left: 10.0,
-                      right: 180.0,
+                      right: 100.0,
                       bottom: 10.0,
                     ),
                     child: Text(
