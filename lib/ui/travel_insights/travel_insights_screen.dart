@@ -46,56 +46,93 @@ class TravelInsightsScreen extends StatelessWidget {
             ],
           ),
         ),
-        // AppBar(
-        //   backgroundColor: kGeneralColor,
-        //   title: Text(
-        //     'Travel insights for ${flightTicket.flightCardDetails.arrivalCode![0]}',
-        //     style: const TextStyle(
-        //       color: Colors.black,
-        //     ),
-        //   ),
-        // ),
-        body: CustomScrollView(
-          slivers: [
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {},
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  left: 4.0,
-                  right: 4.0,
-                  top: 8.0,
-                ),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Tours & Activities',
-                    style: Theme.of(context).textTheme.titleLarge,
+        body: Stack(
+          fit: StackFit.expand,
+          children: [
+            DraggableScrollableSheet(
+              initialChildSize: 0.5,
+              minChildSize: 0.5,
+              builder: (context, scrollController) {
+                return Obx(
+                  () => Container(
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(
+                          20.0,
+                        ),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey,
+                          spreadRadius: 1,
+                          blurRadius: 1,
+                        ),
+                      ],
+                    ),
+                    child: SingleChildScrollView(
+                      controller: scrollController,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(
+                            height: 10.0,
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 20.0,
+                            ),
+                            child: Text(
+                              'It\'s good to se you',
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 13.0,
+                              ),
+                            ),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 20.0,
+                              vertical: 8.0,
+                            ),
+                            child: Text(
+                              'Explore Tips & Recommendations',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20.0,
+                              ),
+                            ),
+                          ),
+                          Flexible(
+                            fit: FlexFit.loose,
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              // controller: scrollController,
+                              itemCount:
+                                  _controller.toursAndActivitiesList.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 4.0,
+                                    vertical: 8.0,
+                                  ),
+                                  child: TravelInsightCard(
+                                    toursAndActivitiesModel: _controller
+                                        .toursAndActivitiesList[index],
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ),
-            Obx(
-              () => SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 4.0,
-                        vertical: 8.0,
-                      ),
-                      child: TravelInsightCard(
-                        toursAndActivitiesModel:
-                            _controller.toursAndActivitiesList[index],
-                      ),
-                    );
-                  },
-                  childCount: _controller.toursAndActivitiesList.length,
-                ),
-              ),
+                );
+              },
             ),
           ],
         ),
