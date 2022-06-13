@@ -32,52 +32,27 @@ class DocumentCard extends StatelessWidget {
             ),
           ],
         ),
-        child: Padding(
-          padding: const EdgeInsets.only(
-            top: 10,
-            bottom: 10,
-          ),
-          child: Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 8.0,
-                  bottom: 8.0,
-                  left: 8.0,
-                ),
-                child: Image.network(
-                  imgURL,
-                  width: 250,
-                  height: 150,
-                  fit: BoxFit.fill,
+        child: Column(
+          children: [
+            Image.network(
+              imgURL,
+              fit: BoxFit.fill,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 8.0,
+                left: 8.0,
+                bottom: 8.0,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  nameDocument,
+                  style: kNormalTextStyle,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 8.0,
-                  left: 8.0,
-                  bottom: 8.0,
-                ),
-                child: Container(
-                  width: 90,
-                  decoration: const BoxDecoration(
-                    color: kWithe,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(40.0),
-                      bottomLeft: Radius.circular(40.0),
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Text(
-                      nameDocument,
-                      style: kNormalTextStyle,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
