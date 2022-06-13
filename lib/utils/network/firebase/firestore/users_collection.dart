@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:travel_app/model/user_model.dart';
 import 'package:travel_app/utils/session_temp.dart';
@@ -83,34 +84,36 @@ class UsersCollection extends GetConnect {
     );
   }
 
-  Future<void> savePhoto({
-    required String photoURL,
-    required String uid,
+  Future<void> choosePhoto({
+    required String? filePath,
     required String tripName,
-    required File? imageFile,
-    required ImageSource imageSource,
+    required String? fileName,
   }) async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? pickedFile = await picker.pickImage(source: imageSource);
-    imageFile = File(pickedFile!.path);
-    TaskSnapshot taskSnapshot = await FirebaseStorage.instance
-        .ref(uid)
-        .child('photos/$tripName/$uid')
-        .putFile(imageFile);
-    taskSnapshot.ref.getDownloadURL();
+    File file = File(filePath!);
+    try {
+      await FirebaseStorage.instance
+          .ref('${userLoggedIn.uid}/photoAlbum/$tripName/$fileName')
+          .putFile(file);
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future<void> savePhotoInFirebase({
-    required String photoURL,
     required String tripName,
+    required String? photoName
   }) async {
+    String downloadUrl = await FirebaseStorage.instance
+        .ref('${userLoggedIn.uid}/photoAlbum/$tripName/$photoName')
+        .getDownloadURL();
+
     await FirebaseFirestore.instance
         .collection("photos")
         .doc(userLoggedIn.uid)
         .collection(tripName)
         .add(
       {
-        'url': photoURL,
+        'url': downloadUrl,
       },
     );
   }

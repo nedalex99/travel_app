@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/ui/photo_album/photo_album_controller.dart';
-import 'package:travel_app/ui/to_do_list_screen/components/trips_card_to_do.dart';
+import 'package:travel_app/ui/upload_documents/components/document_card.dart';
 import 'package:travel_app/ui/widgets/buttons/custom_button.dart';
 import 'package:travel_app/ui/widgets/empty_widget.dart';
 import 'package:travel_app/utils/constants/colors.dart';
@@ -14,7 +14,7 @@ class PhotoAlbumScreen extends StatelessWidget {
     Key? key,
     required this.tripName,
   }) : super(key: key) {
-    photoAlbumController = PhotoAlbumController(nameTrip: tripName);
+    photoAlbumController = Get.put(PhotoAlbumController(nameTrip: tripName));
   }
 
   @override
@@ -34,37 +34,54 @@ class PhotoAlbumScreen extends StatelessWidget {
             ),
           ),
         ),
-        body: Column(
-          children: [
-            photoAlbumController.list.isEmpty
-                ? const EmptyWidget()
-                : Container(),
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 20,
-                right: 20,
-                top: 80,
-                bottom: 20,
-              ),
-              child: CustomButton(
-                onTap: () {
-                  showModalBottomSheet(
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(20),
-                      ),
+        body: CustomScrollView(slivers: [
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Obx(
+                    () => photoAlbumController.list.isEmpty
+                        ? const EmptyWidget()
+                        : ListView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: photoAlbumController.list.length,
+                            itemBuilder: (context, index) => DocumentCard(
+                              nameDocument: '',
+                              imgURL: photoAlbumController.list[index].url,
+                            ),
+                          ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 20,
+                      right: 20,
+                      top: 80,
+                      bottom: 20,
                     ),
-                    backgroundColor: kGeneralColor,
-                    context: context,
-                    builder: ((bulder) => bottomSheet()),
-                  );
-                },
-                text: "Add a photo",
-                backgroundColor: kGeneralColor,
+                    child: CustomButton(
+                      onTap: () {
+                        showModalBottomSheet(
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(20),
+                            ),
+                          ),
+                          backgroundColor: kGeneralColor,
+                          context: context,
+                          builder: ((bulder) => bottomSheet()),
+                        );
+                      },
+                      text: "Add a photo",
+                      backgroundColor: kGeneralColor,
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ]),
       ),
     );
   }

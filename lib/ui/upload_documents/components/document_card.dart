@@ -59,7 +59,7 @@ class DocumentCard extends StatelessWidget {
                   bottom: 8.0,
                 ),
                 child: Container(
-                  width: 113,
+                  width: 90,
                   decoration: const BoxDecoration(
                     color: kWithe,
                     borderRadius: BorderRadius.only(

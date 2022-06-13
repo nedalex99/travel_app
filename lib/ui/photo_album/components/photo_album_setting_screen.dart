@@ -16,19 +16,6 @@ class PhotoAlbumSettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        // appBar: AppBar(
-        //   backgroundColor: kGeneralColor.withOpacity(0.5),
-        //   elevation: 3,
-        //   leading: const BackButton(
-        //     color: Colors.black,
-        //   ),
-        //   title: const Text(
-        //     "Travel Album",
-        //     style: TextStyle(
-        //       color: Colors.black,
-        //     ),
-        //   ),
-        // ),
         body: CustomScrollView(
           slivers: [
             const SliverAppBar(
@@ -38,6 +25,9 @@ class PhotoAlbumSettingsScreen extends StatelessWidget {
                   fontSize: 24.0,
                   color: Colors.black87,
                 ),
+              ),
+              leading: BackButton(
+                color: Colors.black,
               ),
               backgroundColor: kGeneralColor,
             ),
