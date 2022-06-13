@@ -13,25 +13,38 @@ class ToDoCardController extends GetxController {
     required this.list,
   });
 
-  void onInputChanged(String value) {
-    isChecked.value;
+  void updateCheckBox() {
+    isChecked.toggle();
   }
 
   Future<void> editNote() async {}
 
-  Future<void> deleteNote() async {
+  Future<void> deleteNote(String title) async {
     try {
       await FirebaseFirestore.instance
           .collection('to-do')
           .doc(userLoggedIn.uid)
           .collection(nameTrip)
+          .where('title', isEqualTo: title)
           .get()
-          .then((QuerySnapshot snapshot) async {
-        snapshot.docs.forEach((e) {
-          list.removeWhere(
-              (element) => element.title == (e.data() as Map)['title']);
-        });
-      });
+          .then((value) => {
+                value.docs.forEach((element) {
+                  FirebaseFirestore.instance
+                      .collection('to-do')
+                      .doc(userLoggedIn.uid)
+                      .collection(nameTrip)
+                      .doc(title)
+                      .delete();
+                })
+              });
+      // .get()
+      // .then((value) async {
+      //   value.
+      // snapshot.docs.forEach((e) {
+      //   list.removeWhere(
+      //       (element) => element.title == (e.data() as Map)['title']);
+      // });
+      //});
     } catch (e) {
       print(e.toString());
     }

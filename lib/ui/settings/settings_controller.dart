@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:travel_app/ui/account_information/account_information_screen.dart';
 import 'package:travel_app/ui/change_password/change_password_screen.dart';
+import 'package:travel_app/ui/photo_album/components/photo_album_setting_screen.dart';
 import 'package:travel_app/ui/upload_documents/upload_documents_screen.dart';
 
 class SettingsController extends GetxController {
@@ -19,6 +20,12 @@ class SettingsController extends GetxController {
   void redirectDocumentsScreen() {
     Get.to(
           () => UploadDocumentsScreen(),
+    );
+  }
+
+  void redirectTravelAlbumScreen() {
+    Get.to(
+          () => PhotoAlbumSettingsScreen(),
     );
   }
 }

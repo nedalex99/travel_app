@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:travel_app/model/flight_card_details.dart';
 import 'package:travel_app/model/flight_ticket.dart';
 import 'package:travel_app/model/tours_and_activities_model.dart';
+import 'package:travel_app/ui/photo_album/photo_album_screen.dart';
 import 'package:travel_app/ui/widgets/dialogs/loading_dialog.dart';
 import 'package:travel_app/utils/network/amadeus_api/points_of_interest/points_of_interest.dart';
 import 'package:travel_app/utils/network/amadeus_api/travel_insights/get_tours_activities_response.dart';
@@ -27,9 +27,17 @@ class TravelInsightsController extends GetxController {
     super.onInit();
   }
 
+  void redirectAddPhoto() {
+    Get.to(
+      () => PhotoAlbumScreen(
+        tripName: flightCardDetails.flightCardDetails.arrivalCity!,
+      ),
+    );
+  }
+
   Future<void> getToursAndActivitiesByCity() async {
     Get.dialog(
-      LoadingDialog(),
+      const LoadingDialog(),
       barrierDismissible: false,
     );
     ToursAndActivitiesSearch()

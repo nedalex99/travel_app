@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:travel_app/ui/base_scaffold.dart';
 import 'package:travel_app/ui/settings/components/settings_card.dart';
 import 'package:travel_app/ui/settings/settings_controller.dart';
 import 'package:travel_app/ui/widgets/bottom_navigation_bar/bottom_nav_bar.dart';
-import 'package:travel_app/ui/widgets/bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'package:travel_app/utils/constants/colors.dart';
 import 'package:travel_app/utils/constants/images.dart';
 
@@ -95,18 +93,23 @@ class SettingsScreen extends StatelessWidget {
                       ),
                     ),
                     SettingsCard(
+                      onClick: settingsController.redirectTravelAlbumScreen,
                       text: 'Travel Album',
                       rightIcon: IconButton(
                         icon: Image.asset(
                           kSettingsArrow,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          settingsController.redirectTravelAlbumScreen();
+                        },
                       ),
                       leftIcon: IconButton(
                         icon: Image.asset(
                           kAlbum,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          settingsController.redirectTravelAlbumScreen();
+                        },
                       ),
                     ),
                     SettingsCard(

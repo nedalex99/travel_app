@@ -22,6 +22,9 @@ class ToDoListScreen extends StatelessWidget {
               ),
             ),
             backgroundColor: kGeneralColor,
+            leading: BackButton(
+              color: Colors.black,
+            ),
           ),
           Obx(
             () => SliverList(
