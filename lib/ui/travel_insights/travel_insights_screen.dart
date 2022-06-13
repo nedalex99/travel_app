@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:travel_app/model/flight_ticket.dart';
+import 'package:travel_app/ui/create_trip/components/flights_list_card.dart';
+import 'package:travel_app/ui/create_trip/components/long_hotel_card.dart';
 import 'package:travel_app/ui/travel_insights/components/travel_insight_card.dart';
 import 'package:travel_app/ui/travel_insights/travel_insights_controller.dart';
 import 'package:travel_app/utils/constants/colors.dart';
@@ -49,9 +52,43 @@ class TravelInsightsScreen extends StatelessWidget {
         body: Stack(
           fit: StackFit.expand,
           children: [
+            TabBarView(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(
+                    8.0,
+                  ),
+                  child: FlightsListCard(
+                    flightTicket: flightTicket,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(
+                    8.0,
+                  ),
+                  child: LongHotelCard(
+                    hotelModel: flightTicket.selectedHotel,
+                    checkIn: DateFormat("yyyy-MM-dd hh:mm")
+                        .format(
+                          DateTime.parse(
+                            flightTicket.flightCardDetails.departureTime![0],
+                          ),
+                        )
+                        .toString(),
+                    checkOut: DateFormat("yyyy-MM-dd hh:mm")
+                        .format(
+                          DateTime.parse(
+                            flightTicket.flightCardDetails.arrivalTime![0],
+                          ),
+                        )
+                        .toString(),
+                  ),
+                ),
+              ],
+            ),
             DraggableScrollableSheet(
-              initialChildSize: 0.5,
-              minChildSize: 0.5,
+              initialChildSize: 0.3,
+              minChildSize: 0.3,
               builder: (context, scrollController) {
                 return Obx(
                   () => Container(

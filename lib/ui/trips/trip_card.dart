@@ -73,6 +73,7 @@ class TripCard extends StatelessWidget {
               ListView.builder(
                 padding: EdgeInsets.zero,
                 shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
                 itemCount: flightTicket.flightCardDetails.departureCode!.length,
                 itemBuilder: (context, index) {
                   return Padding(

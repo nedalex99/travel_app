@@ -8,6 +8,7 @@ import 'package:travel_app/utils/responses/default_response.dart';
 import 'package:travel_app/utils/responses/error_response.dart';
 
 class Authorization extends GetConnect {
+
   Future<DefaultResponse> authorize() async {
     var headers = {
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -18,9 +19,14 @@ class Authorization extends GetConnect {
         'https://test.api.amadeus.com/v1/security/oauth2/token',
       ),
     );
+    // request.bodyFields = {
+    //   'client_id': 'TY0LGMjhgGXxkzvANZisECuSPNbkw0fk',
+    //   'client_secret': 'g3lz1fD2yFA8lH7D',
+    //   'grant_type': 'client_credentials'
+    // };
     request.bodyFields = {
-      'client_id': 'TY0LGMjhgGXxkzvANZisECuSPNbkw0fk',
-      'client_secret': 'g3lz1fD2yFA8lH7D',
+      'client_id': 'rIAi8hcBUd3uPLZQrdoPxMNZXr0J8pi1',
+      'client_secret': 'AkGnWVJcVGVNQ4k1',
       'grant_type': 'client_credentials'
     };
 

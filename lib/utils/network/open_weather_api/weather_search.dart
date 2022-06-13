@@ -41,4 +41,43 @@ class WeatherSearch extends GetConnect {
       );
     }
   }
+
+  Future<DefaultResponse> getWeatherForCityInInterval({
+    required String cityId,
+  }) async {
+    try {
+      var request = http.Request(
+        'GET',
+        Uri.parse(
+          'https://api.openweathermap.org/data/2.5/forecast/daily?q=$cityId&cnt=5&APPID=$apiKey',
+        ),
+      );
+
+      http.StreamedResponse response = await request.send().timeout(
+            Duration(
+              seconds: 10,
+            ),
+          );
+      var json = jsonDecode(
+        await response.stream.bytesToString(),
+      );
+
+      print(json);
+
+      if (response.statusCode == 200) {
+        return GetWeatherResponse(
+          statusCode: 200,
+          status: "success",
+          weather: Weather.fromJson(json),
+        );
+      } else {
+        return ErrorResponse(status: "error", statusCode: response.statusCode);
+      }
+    } catch (e) {
+      return ErrorResponse(
+        status: "error",
+        statusCode: 500,
+      );
+    }
+  }
 }
