@@ -111,6 +111,17 @@ class LoginScreen extends GetView<LoginController> {
                             'Don\'t have an account? Sign up',
                           ),
                         ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        GestureDetector(
+                          onTap: () => {
+                            controller.goToChangePasswordScreen(),
+                          },
+                          child: const Text(
+                            'Forgot your password?',
+                          ),
+                        ),
                       ],
                     ),
                   ),

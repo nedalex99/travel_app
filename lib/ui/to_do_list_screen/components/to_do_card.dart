@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:travel_app/model/to_do_model.dart';
 import 'package:travel_app/ui/to_do_list_screen/components/to_do_card_controller.dart';
+import 'package:travel_app/ui/widgets/check_box/custom_checkbox_widget.dart';
 import 'package:travel_app/utils/constants/images.dart';
 import 'package:travel_app/utils/constants/styles.dart';
 
@@ -14,10 +16,10 @@ class ToDoCard extends StatelessWidget {
     required this.titleToDo,
     required this.list,
   }) : super(key: key) {
-    controller = ToDoCardController(
+    controller = Get.put(ToDoCardController(
       nameTrip: titleToDo,
       list: list,
-    );
+    ));
   }
 
   late final ToDoCardController controller;
@@ -44,19 +46,19 @@ class ToDoCard extends StatelessWidget {
           ],
         ),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(20.0),
           child: Stack(
             children: [
               Row(
                 children: [
-                  Checkbox(
-                    value: false,
-                    onChanged: (value) => {
-                      controller.onInputChanged,
-                    },
+                  Obx(
+                    () => CustomCheckbox(
+                      isSelected: controller.isChecked.value,
+                      onTap: controller.updateCheckBox,
+                    ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(10.0),
                     child: Text(
                       titleToDo,
                       style: kNormalTextStyle,
@@ -79,8 +81,8 @@ class ToDoCard extends StatelessWidget {
                     ),
                     IconButton(
                       onPressed: () {
-                        controller.deleteNote().then(
-                              (value) => print("Amers"),
+                        controller.deleteNote(titleToDo).then(
+                              (value) => print("aaaaaaa"),
                             );
                       },
                       icon: Image.asset(
