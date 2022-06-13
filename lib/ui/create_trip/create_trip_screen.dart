@@ -191,6 +191,7 @@ class CreateTripScreen extends StatelessWidget {
                             textEditingController:
                                 controller.departureZoneController,
                             labelText: 'Departure zone',
+                            icon: Icons.flight_takeoff,
                           ),
                         )
                       : Container(),
@@ -235,6 +236,7 @@ class CreateTripScreen extends StatelessWidget {
                             textEditingController:
                                 controller.arrivalZoneController,
                             labelText: 'Arrival zone',
+                            icon: Icons.flight_land,
                           ),
                         )
                       : Container(),
@@ -245,7 +247,8 @@ class CreateTripScreen extends StatelessWidget {
                               DateTime(DateTime.now().year - 1) &&
                           controller.selectedArrival.value == "" &&
                           controller.selectedArrivalDate.value !=
-                              DateTime(DateTime.now().year - 1)
+                              DateTime(DateTime.now().year - 1) &&
+                          controller.flightList.value.data!.isEmpty
                       ? Column(
                           children: [
                             Padding(
@@ -255,7 +258,7 @@ class CreateTripScreen extends StatelessWidget {
                               child: CustomButton(
                                 onTap: controller.getFlights,
                                 text: 'Search Flights',
-                                backgroundColor: kPaleColor,
+                                backgroundColor: kGeneralColor,
                               ),
                             ),
                             const SizedBox(

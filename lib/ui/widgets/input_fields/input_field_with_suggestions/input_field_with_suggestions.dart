@@ -9,6 +9,7 @@ class InputFieldWithSuggestions extends StatelessWidget {
   final CreateTripController tripController = Get.find();
   final TextEditingController textEditingController;
   final String labelText;
+  final IconData icon;
 
   late final InputFieldWithSuggestionsController _inputController;
 
@@ -16,6 +17,7 @@ class InputFieldWithSuggestions extends StatelessWidget {
     Key? key,
     required this.textEditingController,
     required this.labelText,
+    required this.icon,
   }) : super(key: key) {
     _inputController = Get.put(
       InputFieldWithSuggestionsController(),
@@ -33,22 +35,17 @@ class InputFieldWithSuggestions extends StatelessWidget {
             _inputController.validateAirport(text: value);
           },
           decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
             contentPadding: const EdgeInsets.all(
               8,
             ),
-            border: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(
-                  6,
-                ),
-              ),
-            ),
+            floatingLabelBehavior: FloatingLabelBehavior.always,
             labelText: labelText,
             errorText: _inputController.errorText.value == ""
                 ? null
                 : _inputController.errorText.value,
+            prefixIcon: Icon(
+              icon,
+            ),
           ),
         ),
         suggestionsCallback: (pattern) {

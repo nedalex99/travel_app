@@ -55,6 +55,7 @@ class FlightCard extends StatelessWidget {
           ),
           ListView.builder(
             shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
             itemCount: flightCardDetails.departureCode!.length,
             itemBuilder: (context, index) {
               return Row(
@@ -75,7 +76,11 @@ class FlightCard extends StatelessWidget {
                         Icons.flight_takeoff,
                       ),
                       Text(
-                        flightCardDetails.flightDuration![index],
+                        flightCardDetails.flightDuration![index].replaceRange(
+                          0,
+                          2,
+                          "",
+                        ),
                         style: const TextStyle(
                           color: Color(
                             0x80000000,

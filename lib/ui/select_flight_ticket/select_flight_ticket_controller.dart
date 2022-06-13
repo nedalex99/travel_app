@@ -1,9 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/model/flight_card_details.dart';
 import 'package:travel_app/model/passenger_model.dart';
+import 'package:travel_app/model/user_data.dart';
 import 'package:travel_app/model/user_model.dart';
 import 'package:travel_app/ui/widgets/buttons/custom_button.dart';
 import 'package:travel_app/ui/widgets/input_fields/input_field.dart';
@@ -11,6 +12,7 @@ import 'package:travel_app/utils/constants/colors.dart';
 import 'package:travel_app/utils/constants/styles.dart';
 import 'package:travel_app/utils/constants/validator.dart';
 import 'package:travel_app/utils/network/firebase/firestore/find_users.dart';
+import 'package:travel_app/utils/session_temp.dart';
 
 class SelectFlightTicketController extends GetxController {
   TextEditingController firstNameTextController = TextEditingController();
@@ -23,6 +25,31 @@ class SelectFlightTicketController extends GetxController {
   RxList<Passenger> passengers = <Passenger>[].obs;
 
   RxList<UserModel> usersFindByUsername = <UserModel>[].obs;
+
+  RxBool openedTabIndex = false.obs;
+
+  @override
+  void onInit() {
+    getUserData();
+    super.onInit();
+  }
+
+  Future<void> getUserData() async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userLoggedIn.uid)
+        .get()
+        .then((value) {
+      var userData = UserData.fromJson(value);
+      passengers.add(
+        Passenger(
+          firstName: userData.firstName!,
+          lastName: userData.lastName!,
+          dateBirth: "aaa",
+        ),
+      );
+    });
+  }
 
   late Rx<UserModel> selectedUser = UserModel(
     userName: "",
@@ -66,7 +93,6 @@ class SelectFlightTicketController extends GetxController {
       Passenger(
         firstName: firstNameTextController.text,
         lastName: lastNameTextController.text,
-        gender: genderTextController.text,
         dateBirth: dateBirthTextController.text,
       ),
     );

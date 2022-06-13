@@ -4,6 +4,7 @@ import 'package:travel_app/model/flight_ticket.dart';
 import 'package:travel_app/model/hotel_model.dart';
 import 'package:travel_app/model/passenger_model.dart';
 import 'package:travel_app/utils/network/firebase/firestore/trips_collection.dart';
+import 'package:travel_app/utils/network/open_weather_api/weather_search.dart';
 import 'package:travel_app/utils/session_temp.dart';
 
 class TripsScreenController extends GetxController {
@@ -12,6 +13,7 @@ class TripsScreenController extends GetxController {
   @override
   void onInit() {
     getTrips();
+    getWeather();
     super.onInit();
   }
 
@@ -42,6 +44,12 @@ class TripsScreenController extends GetxController {
           trips.add(flightTicket);
         }
       });
+    });
+  }
+
+  Future<void> getWeather() async {
+    await WeatherSearch().getWeatherForCityInInterval(cityId: "Paris").then((value) {
+
     });
   }
 }
