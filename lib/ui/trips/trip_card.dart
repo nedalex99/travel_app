@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:travel_app/model/flight_ticket.dart';
+import 'package:travel_app/model/weather_model.dart';
 import 'package:travel_app/ui/create_trip/components/hotel_card.dart';
+import 'package:travel_app/ui/weather/weather_on_trip_widget.dart';
 import 'package:travel_app/utils/constants/images.dart';
 import 'package:travel_app/utils/constants/styles.dart';
+import 'package:travel_app/utils/constants/values.dart';
 
 class TripCard extends StatelessWidget {
   const TripCard({
     Key? key,
     required this.flightTicket,
+    required this.weather,
   }) : super(key: key);
 
   final FlightTicket flightTicket;
+  final Weather weather;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +49,7 @@ class TripCard extends StatelessWidget {
                 style: kTextColoredStyle,
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 8.0),
+                padding: const EdgeInsets.only(top: 20.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
@@ -73,7 +78,7 @@ class TripCard extends StatelessWidget {
               ListView.builder(
                 padding: EdgeInsets.zero,
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: flightTicket.flightCardDetails.departureCode!.length,
                 itemBuilder: (context, index) {
                   return Padding(
@@ -139,12 +144,23 @@ class TripCard extends StatelessWidget {
                   checkOut: flightTicket.flightCardDetails.arrivalTime![0],
                 ),
               ),
+
             ],
           ),
           Positioned(
             top: 0,
             right: 0,
             child: Image.asset(kDots),
+          ),
+          Positioned(
+            top: 0,
+            left: 0,
+            child: WeatherOnTripWidget(
+              temp: weather.temperature,
+              iconUrl: getWeatherImage(
+                weather.condition,
+              ),
+            ),
           ),
         ],
       ),

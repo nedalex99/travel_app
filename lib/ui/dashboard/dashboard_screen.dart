@@ -184,13 +184,6 @@ class DashboardScreen extends StatelessWidget {
                     viewportFraction: 0.7,
                   )),
             ),
-            const SizedBox(
-              height: 40.0,
-            ),
-            const Text(
-              'Most Wanted:',
-              style: kDefaultHeaderTextStyle,
-            ),
           ],
         ),
       ),

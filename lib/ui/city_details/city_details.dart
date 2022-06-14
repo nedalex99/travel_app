@@ -82,21 +82,21 @@ class CityDetails extends StatelessWidget {
                   ),
                   child: SizedBox(
                     height: 100,
-                    child: controller.weather.value != null
-                        ? Obx(
-                            () => WeatherWidget(
+                    child: Obx(
+                      () => controller.weather.value.condition != null
+                          ? WeatherWidget(
                               iconUrl: getWeatherImage(
-                                controller.weather.value.condition!.toInt(),
+                                controller.weather.value.condition,
                               ),
                               description:
                                   controller.weather.value.description!,
                               temp: controller.weather.value.temperature!,
+                            )
+                          : Container(
+                              height: 90,
+                              color: kGeneralColor,
                             ),
-                          )
-                        : Container(
-                            height: 90,
-                            color: kGeneralColor,
-                          ),
+                    ),
                   ),
                 ),
                 const Align(
@@ -110,26 +110,31 @@ class CityDetails extends StatelessWidget {
                   height: 150,
                   child: Obx(
                     () => ListView.builder(
-                        itemCount: controller.locationScoreList.length,
+                        itemCount: controller.locationScoreList.isEmpty
+                            ? 3
+                            : controller.locationScoreList.length,
                         itemBuilder: (context, index) {
-                          double notaShopping = controller
-                                  .locationScoreList[index]
-                                  .categoryScores!
-                                  .shopping!
-                                  .overall! /
-                              10;
-                          double notaNightLife = controller
-                                  .locationScoreList[index]
-                                  .categoryScores!
-                                  .nightLife!
-                                  .overall! /
-                              10;
-                          double notaRestaurant = controller
-                                  .locationScoreList[index]
-                                  .categoryScores!
-                                  .restaurant!
-                                  .overall! /
-                              10;
+                          double notaShopping =
+                              controller.locationScoreList.isEmpty
+                                  ? 9.5
+                                  : controller.locationScoreList[index]
+                                          .categoryScores!.shopping!.overall! /
+                                      10;
+                          double notaNightLife =
+                              controller.locationScoreList.isEmpty
+                                  ? 8.6
+                                  : controller.locationScoreList[index]
+                                          .categoryScores!.nightLife!.overall! /
+                                      10;
+                          double notaRestaurant =
+                              controller.locationScoreList.isEmpty
+                                  ? 9.7
+                                  : controller
+                                          .locationScoreList[index]
+                                          .categoryScores!
+                                          .restaurant!
+                                          .overall! /
+                                      10;
                           return DataTable(
                             dataRowHeight: 40,
                             headingRowHeight: 45,
@@ -203,24 +208,46 @@ class CityDetails extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 300,
-                  child: Obx(
-                    () => ListView.builder(
-                        itemCount: controller.toursAndActivitiesList.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 4.0,
-                              vertical: 8.0,
+                Obx(
+                  () => controller.toursAndActivitiesList.isNotEmpty
+                      ? ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: controller.toursAndActivitiesList.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 4.0,
+                                vertical: 8.0,
+                              ),
+                              child: TravelInsightCard(
+                                toursAndActivitiesModel:
+                                    controller.toursAndActivitiesList[index],
+                              ),
+                            );
+                          })
+                      : Container(
+                          height: 90,
+                          width: 370,
+                          decoration: BoxDecoration(
+                            color: kContainerRecommendation,
+                            borderRadius: BorderRadius.circular(
+                              10,
                             ),
-                            child: TravelInsightCard(
-                              toursAndActivitiesModel:
-                                  controller.toursAndActivitiesList[index],
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: Center(
+                              child: Text(
+                                'No data yet...',
+                                style: TextStyle(
+                                    fontSize: 18.0,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
-                          );
-                        }),
-                  ),
+                          ),
+                        ),
                 ),
               ],
             ),

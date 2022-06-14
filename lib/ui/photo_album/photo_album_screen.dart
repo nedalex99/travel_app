@@ -34,11 +34,7 @@ class PhotoAlbumScreen extends StatelessWidget {
             ),
           ),
         ),
-        body:
-            // CustomScrollView(slivers: [
-            //   SliverToBoxAdapter(
-            //child:
-            Padding(
+        body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [

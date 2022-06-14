@@ -88,8 +88,8 @@ String returnIcon(String cityName) {
   }
 }
 
-String getWeatherImage(int condition) {
-  if (condition < 300) {
+String getWeatherImage(num? condition) {
+  if (condition! < 300) {
     // thunderstorm
     return 'images/thunderstorm.png';
   } else if (condition < 400) {
@@ -106,6 +106,8 @@ String getWeatherImage(int condition) {
     return 'images/clear.png';
   } else if (condition < 804) {
     // cloudy
+    return 'images/cloudy.png';
+  } else if (condition.isNaN) {
     return 'images/cloudy.png';
   } else {
     return 'images/stars.png';

@@ -31,12 +31,12 @@ class TravelInsightsScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: kBackgroundColor,
         appBar: AppBar(
-          backgroundColor: kContainerRecommendation,
+          backgroundColor: kCardColor,
           leading: const BackButton(
             color: Colors.black,
           ),
           title: Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(8.0),
             child: Container(
               decoration: BoxDecoration(
                 color: kWithe,
@@ -44,42 +44,78 @@ class TravelInsightsScreen extends StatelessWidget {
                   20.0,
                 ),
               ),
-              child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      top: 10.0,
-                      left: 10.0,
-                      right: 100.0,
-                      bottom: 10.0,
-                    ),
-                    child: Text(
-                      flightTicket.flightCardDetails.arrivalCity!,
-                      style: const TextStyle(
-                        fontSize: 24.0,
-                        color: Colors.black87,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: kCardColor,
+                  border: Border.all(
+                    color: Colors.black,
+                  ),
+                  borderRadius: BorderRadius.circular(
+                    20.0,
+                  ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 10.0,
+                        left: 10.0,
+                        right: 10.0,
+                        bottom: 10.0,
+                      ),
+                      child: Text(
+                        flightTicket.flightCardDetails.arrivalCity!,
+                        style: const TextStyle(
+                          fontSize: 24.0,
+                          color: Colors.black87,
+                        ),
                       ),
                     ),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      _controller.redirectAddPhoto();
-                    },
-                    icon: Image.asset(
-                      kPhotoAlbum,
+                    IconButton(
+                      onPressed: () {
+                        _controller.redirectAddPhoto();
+                      },
+                      icon: Image.asset(
+                        kPhotoAlbum,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
-          bottom: const TabBar(
+          bottom: TabBar(
             tabs: [
               Tab(
-                text: 'Flight',
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Image.asset(kFlightTab),
+                    ),
+                    const Text(
+                      'Flight',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ],
+                ),
               ),
               Tab(
-                text: 'Hotels',
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Image.asset(kHotelTab),
+                    ),
+                    const Text(
+                      'Hotels',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -91,7 +127,7 @@ class TravelInsightsScreen extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(
-                    8.0,
+                    10.0,
                   ),
                   child: FlightsListCard(
                     flightTicket: flightTicket,
@@ -99,7 +135,7 @@ class TravelInsightsScreen extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(
-                    8.0,
+                    10.0,
                   ),
                   child: LongHotelCard(
                     hotelModel: flightTicket.selectedHotel,
@@ -156,7 +192,7 @@ class TravelInsightsScreen extends StatelessWidget {
                               horizontal: 20.0,
                             ),
                             child: Text(
-                              'It\'s good to se you',
+                              'It\'s good to see you',
                               style: TextStyle(
                                 color: Colors.grey,
                                 fontSize: 13.0,

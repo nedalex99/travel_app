@@ -46,3 +46,5 @@ const kTicket = "images/card.png";
 const kCar = "images/car.png";
 const kOthers = "images/others.png";
 const kPhotoAlbum = "images/image.png";
+const kFlightTab = "images/airplane.png";
+const kHotelTab = "images/hotel.png";
