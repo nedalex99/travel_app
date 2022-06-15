@@ -152,16 +152,16 @@ class TripCard extends StatelessWidget {
             right: 0,
             child: Image.asset(kDots),
           ),
-          Positioned(
-            top: 0,
-            left: 0,
-            child: WeatherOnTripWidget(
-              temp: weather.temperature,
-              iconUrl: getWeatherImage(
-                weather.condition,
-              ),
-            ),
-          ),
+          // Positioned(
+          //   top: 0,
+          //   left: 0,
+          //   child: WeatherOnTripWidget(
+          //     temp: weather.temperature,
+          //     iconUrl: getWeatherImage(
+          //       weather.condition,
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );
