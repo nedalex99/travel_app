@@ -34,54 +34,53 @@ class PhotoAlbumScreen extends StatelessWidget {
             ),
           ),
         ),
-        body: CustomScrollView(slivers: [
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Obx(
-                    () => photoAlbumController.list.isEmpty
-                        ? const EmptyWidget()
-                        : ListView.builder(
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: photoAlbumController.list.length,
-                            itemBuilder: (context, index) => DocumentCard(
-                              nameDocument: '',
-                              imgURL: photoAlbumController.list[index].url,
-                            ),
-                          ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 20,
-                      right: 20,
-                      top: 80,
-                      bottom: 20,
-                    ),
-                    child: CustomButton(
-                      onTap: () {
-                        showModalBottomSheet(
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(20),
-                            ),
-                          ),
-                          backgroundColor: kGeneralColor,
-                          context: context,
-                          builder: ((bulder) => bottomSheet()),
-                        );
-                      },
-                      text: "Add a photo",
-                      backgroundColor: kGeneralColor,
-                    ),
-                  ),
-                ],
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Obx(
+                () => photoAlbumController.list.isEmpty
+                    ? const EmptyWidget()
+                    : Expanded(
+                        child: GridView.count(
+                          crossAxisCount: 2,
+                          padding: EdgeInsets.all(10),
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
+                          children: photoAlbumController.list
+                              .map((element) => Image.network(element.url))
+                              .toList(),
+                        ),
+                      ),
               ),
-            ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 20,
+                  right: 20,
+                  top: 80,
+                  bottom: 20,
+                ),
+                child: CustomButton(
+                  onTap: () {
+                    showModalBottomSheet(
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(20),
+                        ),
+                      ),
+                      backgroundColor: kGeneralColor,
+                      context: context,
+                      builder: ((bulder) => bottomSheet()),
+                    );
+                  },
+                  text: "Add a photo",
+                  backgroundColor: kGeneralColor,
+                ),
+              ),
+            ],
           ),
-        ]),
+        ), //   ),
+        // ]),
       ),
     );
   }

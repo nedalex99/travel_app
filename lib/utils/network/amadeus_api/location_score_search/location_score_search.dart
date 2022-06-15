@@ -26,7 +26,7 @@ class LocationScoreSearch extends GetConnect {
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send().timeout(
-            Duration(
+            const Duration(
               seconds: 10,
             ),
           );

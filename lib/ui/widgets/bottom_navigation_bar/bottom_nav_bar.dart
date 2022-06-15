@@ -46,7 +46,7 @@ class BottomNavBar extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: handleTabBarItem(
-            Icons.heart_broken,
+            Icons.favorite,
             3,
           ),
           label: "",
@@ -78,7 +78,7 @@ class BottomNavBar extends StatelessWidget {
         width: 45,
         height: 45,
         decoration: BoxDecoration(
-          color: itemNumber == selectedIndex ? kSelectedItemBackground : null,
+          color: itemNumber == selectedIndex ? Colors.blue : null,
         ),
         child: Icon(
           iconData,
@@ -109,7 +109,7 @@ class BottomNavBar extends StatelessWidget {
             transition: Transition.noTransition,
           );
           break;
-        case 3:
+        case 4:
           Get.offAll(
             () => SettingsScreen(),
             transition: Transition.noTransition,

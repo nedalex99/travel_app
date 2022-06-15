@@ -9,12 +9,10 @@ class WeatherWidget extends StatelessWidget {
 
   const WeatherWidget({
     Key? key,
-   required this.iconUrl,
+    required this.iconUrl,
     required this.description,
     required this.temp,
   }) : super(key: key);
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +40,10 @@ class WeatherWidget extends StatelessWidget {
           Text(
             description.capitalizeFirst!,
             style: const TextStyle(
-                fontSize: 18.0,
-                color: Colors.black,
-                fontWeight: FontWeight.bold),
+              fontSize: 18.0,
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           const SizedBox(
             height: 10.0,

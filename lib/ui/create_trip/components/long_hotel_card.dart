@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/model/hotel_model.dart';
 import 'package:travel_app/ui/create_trip/components/hotel_card_controller.dart';
+import 'package:travel_app/utils/constants/styles.dart';
 
 class LongHotelCard extends StatelessWidget {
   LongHotelCard({
@@ -55,10 +56,14 @@ class LongHotelCard extends StatelessWidget {
               children: [
                 Text(
                   hotelModel.hotel!.name!,
+                  style: kNormalTextStyle,
                 ),
-                Row(
-                  children: _createStars(
-                    rating: hotelModel.hotel!.rating!,
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    children: _createStars(
+                      rating: hotelModel.hotel!.rating!,
+                    ),
                   ),
                 ),
                 Row(

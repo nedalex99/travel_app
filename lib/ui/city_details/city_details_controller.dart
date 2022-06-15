@@ -57,6 +57,7 @@ class CityDetailsController extends GetxController {
               .toList();
           print(value.statusCode);
         } else {
+          Get.back();
           print("eroare1 ${value.statusCode}");
         }
       },
