@@ -49,6 +49,17 @@ class UsersCollection extends GetConnect {
     userLoggedIn.updatePassword(newPass);
   }
 
+  Future<void> changePassword({
+    required String email,
+  }) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (e) {
+      print(e.code);
+      print(e.message);
+    }
+  }
+
   Future<void> updateDocumentsUser({
     required String photoURL,
     required String nameOfDocument,
@@ -99,10 +110,8 @@ class UsersCollection extends GetConnect {
     }
   }
 
-  Future<void> savePhotoInFirebase({
-    required String tripName,
-    required String? photoName
-  }) async {
+  Future<void> savePhotoInFirebase(
+      {required String tripName, required String? photoName}) async {
     String downloadUrl = await FirebaseStorage.instance
         .ref('${userLoggedIn.uid}/photoAlbum/$tripName/$photoName')
         .getDownloadURL();

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:travel_app/ui/change_password/change_password_screen.dart';
 import 'package:travel_app/ui/city_screen/city_screen.dart';
 import 'package:travel_app/ui/dashboard/dashboard_screen.dart';
+import 'package:travel_app/ui/forgot_password/forgot_password_screen.dart';
 import 'package:travel_app/ui/profile/user_profile.dart';
 import 'package:travel_app/ui/register/register_screen.dart';
 import 'package:travel_app/ui/widgets/dialogs/loading_dialog.dart';
@@ -39,7 +40,7 @@ class LoginController extends GetxController {
   }
 void goToChangePasswordScreen() {
     Get.to(
-      () => ChangePasswordScreen(),
+      () => ForgotPasswordScreen(),
     );
   }
 

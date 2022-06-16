@@ -2,14 +2,11 @@ import 'package:carousel_slider/carousel_slider.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:travel_app/model/recommendation_model.dart';
-import 'package:travel_app/ui/base_scaffold.dart';
 import 'package:travel_app/ui/create_trip/create_trip_screen.dart';
 import 'package:travel_app/ui/dashboard/components/recomandation_card.dart';
 import 'package:travel_app/ui/dashboard/dashboard_controller.dart';
 import 'package:travel_app/ui/to_do_list_screen/to_do_list_screen.dart';
 import 'package:travel_app/ui/widgets/bottom_navigation_bar/bottom_nav_bar.dart';
-import 'package:travel_app/ui/widgets/bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'package:travel_app/utils/constants/colors.dart';
 import 'package:travel_app/utils/constants/styles.dart';
 
@@ -95,10 +92,13 @@ class DashboardScreen extends StatelessWidget {
                   const SizedBox(
                     width: 10,
                   ),
-                  Obx(
-                    () => Text(
-                      "Hello ${controller.userData.value.userName!}!",
-                      style: kNormalTextStyle,
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16.0),
+                    child: Obx(
+                      () => Text(
+                        "Hello ${controller.userData.value.userName!}!",
+                        style: kNormalTextStyle,
+                      ),
                     ),
                   ),
                 ],
@@ -140,7 +140,7 @@ class DashboardScreen extends StatelessWidget {
               height: 30.0,
             ),
             const Text(
-              'Suggestions for:',
+              'Suggestions based on your wishlist:',
               style: kDefaultHeaderTextStyle,
             ),
             const SizedBox(
@@ -183,6 +183,61 @@ class DashboardScreen extends StatelessWidget {
                     enableInfiniteScroll: false,
                     viewportFraction: 0.7,
                   )),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(top: 30),
+              child: Text(
+                'Because you visit:',
+                style: kDefaultHeaderTextStyle,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Obx(
+                    () => controller.trips.isNotEmpty
+                        ? SizedBox(
+                            height: 100,
+                            child: ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: controller.trips.length,
+                                itemBuilder: (context, index) {
+                                  return TextButton(
+                                      onPressed: () => {
+                                            controller.getRecommendation(),
+                                          },
+                                      child: Text(controller.trips[index]
+                                          .flightCardDetails.arrivalCity!));
+                                }),
+                          )
+                        : Container(
+                            height: 90,
+                            width: 370,
+                            decoration: BoxDecoration(
+                              color: kContainerRecommendation,
+                              borderRadius: BorderRadius.circular(
+                                10,
+                              ),
+                            ),
+                            child: const Padding(
+                              padding: EdgeInsets.all(10.0),
+                              child: Center(
+                                child: Text(
+                                  'No data yet...',
+                                  style: TextStyle(
+                                      fontSize: 18.0,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          ),
+                  )
+                ],
+              ),
             ),
           ],
         ),
