@@ -55,7 +55,7 @@ class TripsScreen extends StatelessWidget {
                       ),
                       child: TripCard(
                         flightTicket: tripsScreenController.trips[index],
-                        weather:tripsScreenController.weather.value ,
+                        weather:tripsScreenController.weather.value,
                       ),
                     ),
                   );

@@ -13,7 +13,6 @@ class TripsScreenController extends GetxController {
   RxList<FlightTicket> trips = <FlightTicket>[].obs;
   Rx<Weather> weather = Weather().obs;
 
-
   @override
   void onInit() {
     getTrips();
@@ -38,12 +37,16 @@ class TripsScreenController extends GetxController {
               (e) => e.toString(),
             )
             .toList();
+        List<String> savedBy =
+            (json['savedBy'] as List).map((e) => e.toString()).toList();
         final FlightTicket flightTicket = FlightTicket(
           flightCardDetails: flightCardDetails,
           passengers: passengersList,
           selectedHotel: hotelModel,
           usersUid: usersUid,
+          savedBy: savedBy,
         );
+        flightTicket.id = element.id;
         if (flightTicket.usersUid.contains(userLoggedIn.uid)) {
           trips.add(flightTicket);
         }
@@ -57,17 +60,19 @@ class TripsScreenController extends GetxController {
           .getData(
             cityName: "Paris",
           )
-          .then((value) => {
-                if (value.statusCode == 200)
-                  {
-                    Get.back(),
-                    weather.value = (value as GetWeatherResponse).weather,
-                  }
-                else
-                  {
-                    print("eroare weather ${value.statusCode}"),
-                  }
-              });
+          .then(
+            (value) => {
+              if (value.statusCode == 200)
+                {
+                  Get.back(),
+                  weather.value = (value as GetWeatherResponse).weather,
+                }
+              else
+                {
+                  print("eroare weather ${value.statusCode}"),
+                }
+            },
+          );
     } catch (e) {
       print("Erroar +${e.toString()}");
     }

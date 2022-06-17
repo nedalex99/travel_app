@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/ui/dashboard/dashboard_screen.dart';
 import 'package:travel_app/ui/login/login_controller.dart';
+import 'package:travel_app/ui/saved_screen/saved_screen.dart';
 import 'package:travel_app/ui/settings/settings_screen.dart';
 import 'package:travel_app/ui/trips/trips_screen.dart';
 import 'package:travel_app/utils/constants/colors.dart';
@@ -106,6 +107,12 @@ class BottomNavBar extends StatelessWidget {
         case 1:
           Get.offAll(
             () => TripsScreen(),
+            transition: Transition.noTransition,
+          );
+          break;
+        case 3:
+          Get.offAll(
+            () => SavedScreen(),
             transition: Transition.noTransition,
           );
           break;

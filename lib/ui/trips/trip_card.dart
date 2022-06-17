@@ -1,22 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:travel_app/model/flight_ticket.dart';
 import 'package:travel_app/model/weather_model.dart';
 import 'package:travel_app/ui/create_trip/components/hotel_card.dart';
+import 'package:travel_app/ui/trips/trip_card_controller.dart';
 import 'package:travel_app/ui/weather/weather_on_trip_widget.dart';
 import 'package:travel_app/utils/constants/images.dart';
 import 'package:travel_app/utils/constants/styles.dart';
 import 'package:travel_app/utils/constants/values.dart';
+import 'package:travel_app/utils/session_temp.dart';
 
 class TripCard extends StatelessWidget {
-  const TripCard({
+  TripCard({
     Key? key,
     required this.flightTicket,
     required this.weather,
-  }) : super(key: key);
+    this.isInSavedScreen = false,
+  }) : super(key: key) {
+    controller = Get.put(
+      TripCardController(
+        isSaved:
+            flightTicket.savedBy.contains(userLoggedIn.uid) || isInSavedScreen
+                ? true.obs
+                : false.obs,
+        flightTicketId: flightTicket.id,
+        flightTicket: flightTicket,
+      ),
+      tag: flightTicket.id,
+    );
+  }
 
   final FlightTicket flightTicket;
   final Weather weather;
+  final bool isInSavedScreen;
+  late final TripCardController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -144,24 +162,20 @@ class TripCard extends StatelessWidget {
                   checkOut: flightTicket.flightCardDetails.arrivalTime![0],
                 ),
               ),
-
             ],
           ),
           Positioned(
             top: 0,
             right: 0,
-            child: Image.asset(kDots),
+            child: GestureDetector(
+              onTap: () => controller.showModal(
+                isInSavedScreen: isInSavedScreen,
+              ),
+              child: Image.asset(
+                kDots,
+              ),
+            ),
           ),
-          // Positioned(
-          //   top: 0,
-          //   left: 0,
-          //   child: WeatherOnTripWidget(
-          //     temp: weather.temperature,
-          //     iconUrl: getWeatherImage(
-          //       weather.condition,
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );

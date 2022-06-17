@@ -174,17 +174,19 @@ class CreateTripController extends GetxController {
       const LoadingDialog(),
       barrierDismissible: false,
     );
+    var flightTicket = FlightTicket(
+      passengers: passengersList,
+      flightCardDetails: selectedFlight.value!,
+      selectedHotel: hotelSelected.value,
+      usersUid: usersUid,
+    );
     await FlightTicketsCollection()
         .addFlightTicket(
-          flightTicket: FlightTicket(
-            passengers: passengersList,
-            flightCardDetails: selectedFlight.value!,
-            selectedHotel: hotelSelected.value,
-            usersUid: usersUid,
-          ),
+          flightTicket: flightTicket,
         )
         .then(
           (value) => {
+            flightTicket.id = value.id,
             Get.back(),
             Get.dialog(
               Center(
