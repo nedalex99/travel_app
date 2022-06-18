@@ -34,6 +34,8 @@ class DashboardController extends GetxController {
   RxList<RecommendationModel> recommendationList = <RecommendationModel>[].obs;
   RxList<RecommendationModel> recommendationList2 = <RecommendationModel>[].obs;
   RxList<RecommendationModel> recommendationList3 = <RecommendationModel>[].obs;
+  RxList<RecommendationModel> recommendationListForTrip =
+      <RecommendationModel>[].obs;
 
   DashboardController({
     required this.cityOne,
@@ -48,7 +50,10 @@ class DashboardController extends GetxController {
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
       getRecommendation();
     });
-     getCityFromTrips();
+    getCityFromTrips().then(
+      (value) => getRecommendationForFirstTrip(
+          trips[0].flightCardDetails.arrivalCode![0]),
+    );
     await verifyInvite();
     super.onInit();
   }
@@ -215,5 +220,39 @@ class DashboardController extends GetxController {
         }
       });
     });
+  }
+
+  Future<void> getRecommendationForMyTrips(String tripName) async {
+    try {
+      RecommendationSearch()
+          .getRecommendationSearch(
+        cityCode: tripName,
+      )
+          .then((value) {
+        if (value.statusCode == 200) {
+          recommendationListForTrip.value =
+              (value as GetRecommendationResponse).recommendationModelList;
+        } else {}
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> getRecommendationForFirstTrip(String tripName) async {
+    try {
+      RecommendationSearch()
+          .getRecommendationSearch(
+        cityCode: tripName,
+      )
+          .then((value) {
+        if (value.statusCode == 200) {
+          recommendationListForTrip.value =
+              (value as GetRecommendationResponse).recommendationModelList;
+        } else {}
+      });
+    } catch (e) {
+      print(e);
+    }
   }
 }
