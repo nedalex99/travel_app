@@ -16,7 +16,7 @@ class TripsScreenController extends GetxController {
   @override
   void onInit() {
     getTrips();
-    getWeather();
+   // getWeather();
     super.onInit();
   }
 
@@ -53,28 +53,28 @@ class TripsScreenController extends GetxController {
       });
     });
   }
-
-  Future<void> getWeather() async {
-    try {
-      WeatherSearch()
-          .getData(
-            cityName: "Paris",
-          )
-          .then(
-            (value) => {
-              if (value.statusCode == 200)
-                {
-                  Get.back(),
-                  weather.value = (value as GetWeatherResponse).weather,
-                }
-              else
-                {
-                  print("eroare weather ${value.statusCode}"),
-                }
-            },
-          );
-    } catch (e) {
-      print("Erroar +${e.toString()}");
-    }
-  }
+  //
+  // Future<void> getWeather() async {
+  //   try {
+  //     WeatherSearch()
+  //         .getData(
+  //           cityName: "Paris",
+  //         )
+  //         .then(
+  //           (value) => {
+  //             if (value.statusCode == 200)
+  //               {
+  //                 Get.back(),
+  //                 weather.value = (value as GetWeatherResponse).weather,
+  //               }
+  //             else
+  //               {
+  //                 print("eroare weather ${value.statusCode}"),
+  //               }
+  //           },
+  //         );
+  //   } catch (e) {
+  //     print("Erroar +${e.toString()}");
+  //   }
+  // }
 }

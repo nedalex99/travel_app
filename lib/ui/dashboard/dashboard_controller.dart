@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:travel_app/model/flight_card_details.dart';
+import 'package:travel_app/model/flight_ticket.dart';
+import 'package:travel_app/model/hotel_model.dart';
 import 'package:travel_app/model/notification_data.dart';
+import 'package:travel_app/model/passenger_model.dart';
 import 'package:travel_app/model/recommendation_model.dart';
 import 'package:travel_app/model/user_data.dart';
 import 'package:travel_app/ui/widgets/dialogs/loading_dialog.dart';
@@ -12,10 +16,12 @@ import 'package:travel_app/utils/constants/enum.dart';
 import 'package:travel_app/utils/constants/values.dart';
 import 'package:travel_app/utils/network/amadeus_api/recommendation_search/get_recommendation_response.dart';
 import 'package:travel_app/utils/network/amadeus_api/recommendation_search/recommendation_search.dart';
+import 'package:travel_app/utils/network/firebase/firestore/trips_collection.dart';
 import 'package:travel_app/utils/session_temp.dart';
 import 'package:travel_app/utils/util_functions.dart';
 
 class DashboardController extends GetxController {
+  RxList<FlightTicket> trips = <FlightTicket>[].obs;
   DocumentSnapshot? documentSnapshot;
   final String cityOne;
   final String cityTwo;
@@ -28,6 +34,8 @@ class DashboardController extends GetxController {
   RxList<RecommendationModel> recommendationList = <RecommendationModel>[].obs;
   RxList<RecommendationModel> recommendationList2 = <RecommendationModel>[].obs;
   RxList<RecommendationModel> recommendationList3 = <RecommendationModel>[].obs;
+  RxList<RecommendationModel> recommendationListForTrip =
+      <RecommendationModel>[].obs;
 
   DashboardController({
     required this.cityOne,
@@ -42,6 +50,10 @@ class DashboardController extends GetxController {
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
       getRecommendation();
     });
+    getCityFromTrips().then(
+      (value) => getRecommendationForFirstTrip(
+          trips[0].flightCardDetails.arrivalCode![0]),
+    );
     await verifyInvite();
     super.onInit();
   }
@@ -179,5 +191,68 @@ class DashboardController extends GetxController {
         } else {}
       });
     } catch (e) {}
+  }
+
+  Future<void> getCityFromTrips() async {
+    await TripsCollection().getTrips().then((value) {
+      value.docs.forEach((element) {
+        var json = element.data() as Map;
+        final FlightCardDetails flightCardDetails =
+            FlightCardDetails.fromJson(json['flightCardDetails']);
+        final List<Passenger> passengersList = (json['passenger'] as List)
+            .map((e) => Passenger.fromJson(e))
+            .toList();
+        final HotelModel hotelModel =
+            HotelModel.fromJson(json['selectedHotel']);
+        final List<String> usersUid = (json['usersUid'] as List)
+            .map(
+              (e) => e.toString(),
+            )
+            .toList();
+        final FlightTicket flightTicket = FlightTicket(
+          flightCardDetails: flightCardDetails,
+          passengers: passengersList,
+          selectedHotel: hotelModel,
+          usersUid: usersUid,
+        );
+        if (flightTicket.usersUid.contains(userLoggedIn.uid)) {
+          trips.add(flightTicket);
+        }
+      });
+    });
+  }
+
+  Future<void> getRecommendationForMyTrips(String tripName) async {
+    try {
+      RecommendationSearch()
+          .getRecommendationSearch(
+        cityCode: tripName,
+      )
+          .then((value) {
+        if (value.statusCode == 200) {
+          recommendationListForTrip.value =
+              (value as GetRecommendationResponse).recommendationModelList;
+        } else {}
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> getRecommendationForFirstTrip(String tripName) async {
+    try {
+      RecommendationSearch()
+          .getRecommendationSearch(
+        cityCode: tripName,
+      )
+          .then((value) {
+        if (value.statusCode == 200) {
+          recommendationListForTrip.value =
+              (value as GetRecommendationResponse).recommendationModelList;
+        } else {}
+      });
+    } catch (e) {
+      print(e);
+    }
   }
 }
