@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/model/flight_ticket.dart';
 import 'package:travel_app/model/tours_and_activities_model.dart';
+import 'package:travel_app/ui/expenses_screen/expenses_screen.dart';
 import 'package:travel_app/ui/photo_album/photo_album_screen.dart';
 import 'package:travel_app/ui/widgets/dialogs/loading_dialog.dart';
 import 'package:travel_app/utils/network/amadeus_api/points_of_interest/points_of_interest.dart';
@@ -31,6 +33,14 @@ class TravelInsightsController extends GetxController {
     Get.to(
       () => PhotoAlbumScreen(
         tripName: flightCardDetails.flightCardDetails.arrivalCity!,
+      ),
+    );
+  }
+
+  void redirectExpenses() {
+    Get.to(
+      () => TransactionsScreen(
+        flightTicket: flightCardDetails,
       ),
     );
   }
@@ -69,5 +79,19 @@ class TravelInsightsController extends GetxController {
             if (value.statusCode == 200) {},
           },
         );
+  }
+
+  Future<void> addToDo({
+    required ToursAndActivitiesModel toursAndActivitiesModel,
+  }) async {
+    await FirebaseFirestore.instance
+        .collection('trips')
+        .doc(flightCardDetails.id)
+        .collection('to-do')
+        .add(
+      {
+        'name': toursAndActivitiesModel.name!,
+      },
+    );
   }
 }

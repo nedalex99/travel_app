@@ -52,9 +52,11 @@ class ToDoCard extends StatelessWidget {
               Row(
                 children: [
                   Obx(
-                    () => CustomCheckbox(
-                      isSelected: controller.isChecked.value,
-                      onTap: controller.updateCheckBox,
+                    () => Checkbox(
+                      value: controller.isChecked.value,
+                      onChanged: (value) {
+                        controller.isChecked.toggle();
+                      },
                     ),
                   ),
                   Padding(

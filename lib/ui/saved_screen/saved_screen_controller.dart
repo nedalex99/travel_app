@@ -49,12 +49,14 @@ class SavedScreenController extends GetxController {
               .toList();
           List<String> savedBy =
               (json['savedBy'] as List).map((e) => e.toString()).toList();
+          final int budget = json['budget'];
           final FlightTicket flightTicket = FlightTicket(
             flightCardDetails: flightCardDetails,
             passengers: passengersList,
             selectedHotel: hotelModel,
             usersUid: usersUid,
             savedBy: savedBy,
+            budget: budget,
           );
           flightTicket.id = element.id;
           trips.add(flightTicket);

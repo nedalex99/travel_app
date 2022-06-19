@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cupertino_icons/cupertino_icons.dart';
 import 'package:get/get.dart';
+import 'package:travel_app/model/flight_ticket.dart';
 import 'package:travel_app/model/tours_and_activities_model.dart';
 import 'package:travel_app/ui/travel_insights/components/travel_insight_card_controller.dart';
 
@@ -9,7 +10,11 @@ class TravelInsightCard extends StatelessWidget {
     Key? key,
     required this.toursAndActivitiesModel,
   }) : super(key: key) {
-    controller = Get.put(TravelInsightCardController());
+    controller = Get.put(
+      TravelInsightCardController(
+        toursAndActivitiesModel: toursAndActivitiesModel,
+      ),
+    );
   }
 
   final ToursAndActivitiesModel toursAndActivitiesModel;
@@ -111,6 +116,17 @@ class TravelInsightCard extends StatelessWidget {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Checkbox(
+                value: controller.isChecked.value,
+                onChanged: controller.onToDoPress,
+              ),
+              const Text(
+                'Add To Do',
               ),
             ],
           ),

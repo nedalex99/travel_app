@@ -64,32 +64,25 @@ class CreateTripScreen extends StatelessWidget {
                 const SizedBox(
                   height: 16.0,
                 ),
-                Obx(
-                  () => controller.selectedDepartureDate.value ==
-                          DateTime(DateTime.now().year - 1)
-                      ? Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16.0,
-                          ),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: GestureDetector(
-                              onTap: () =>
-                                  controller.getDate(isFromDeparture: true),
-                              child: const Text(
-                                "Select a starting date",
-                                style: TextStyle(
-                                  color: Colors.blueGrey,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16.0,
-                                ),
-                              ),
-                            ),
-                          ),
-                        )
-                      : Container(),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                  ),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: GestureDetector(
+                      onTap: () => controller.getDate(isFromDeparture: true),
+                      child: const Text(
+                        "Select a starting date",
+                        style: TextStyle(
+                          color: Colors.blueGrey,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16.0,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-                //
                 Obx(
                   () => controller.selectedDepartureDate.value !=
                           DateTime(DateTime.now().year - 1)
@@ -378,6 +371,9 @@ class CreateTripScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
+                            const SizedBox(
+                              height: 16.0,
+                            ),
                             HotelCardDetails(
                               hotelModel: controller.hotelSelected.value,
                               checkIn: controller.selectedDepartureDate.value
@@ -393,48 +389,125 @@ class CreateTripScreen extends StatelessWidget {
                   height: 16.0,
                 ),
                 Obx(
-                  () => controller.hotelsList.isNotEmpty &&
-                          controller.hotelSelected.value.hotel == null
-                      ? ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: controller.hotelsList.length,
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: () => controller.onHotelSelected(index),
-                              child: HotelCardDetails(
-                                hotelModel: controller.hotelsList[index],
-                                checkIn: controller.selectedDepartureDate.value
-                                    .toString(),
-                                checkOut: controller.selectedDepartureDate.value
-                                    .toString(),
+                  () => controller.hotelSelected.value.hotel != null &&
+                          controller.budget.value == 0
+                      ? GestureDetector(
+                          onTap: controller.setBudget,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Icon(
+                                Icons.add_circle_outline_rounded,
+                                size: 26,
+                                color: Colors.green,
                               ),
-                            );
-                          },
+                              SizedBox(
+                                width: 6,
+                              ),
+                              Text(
+                                'Set a budget',
+                                style: TextStyle(
+                                  color: Colors.green,
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      : Container(),
+                ),
+                Obx(
+                  () => controller.hotelSelected.value.hotel != null &&
+                          controller.budget.value != 0
+                      ? Padding(
+                          padding: const EdgeInsets.only(
+                            bottom: 8.0,
+                          ),
+                          child: RichText(
+                            text: TextSpan(
+                              children: [
+                                const TextSpan(
+                                  text: 'Budget available for this trip: ',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 18.0,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: '${controller.budget.value}\$',
+                                  style: const TextStyle(
+                                    color: Colors.green,
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      : Container(),
+                ),
+                Obx(
+                  () => controller.budget.value != 0
+                      ? CustomButton(
+                          onTap: controller.onSaveTrip,
+                          text: 'Save trip',
+                          backgroundColor: Colors.blue,
+                        )
+                      : Container(),
+                ),
+                Obx(
+                  () => controller.hotelsList.isNotEmpty
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.only(
+                                left: 16,
+                                top: 16.0,
+                                bottom: 8,
+                              ),
+                              child: Text(
+                                'Available hotels',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.blueAccent,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                            ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: controller.hotelsList.length,
+                              itemBuilder: (context, index) {
+                                return GestureDetector(
+                                  onTap: () =>
+                                      controller.onHotelSelected(index),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(
+                                      6.0,
+                                    ),
+                                    child: HotelCardDetails(
+                                      hotelModel: controller.hotelsList[index],
+                                      checkIn: controller
+                                          .selectedDepartureDate.value
+                                          .toString(),
+                                      checkOut: controller
+                                          .selectedDepartureDate.value
+                                          .toString(),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
                         )
                       : Container(),
                 ),
               ],
-            ),
-          ),
-          SliverFillRemaining(
-            hasScrollBody: false,
-            child: Obx(
-              () => controller.hotelSelected.value.hotel != null
-                  ? Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                          bottom: 24,
-                        ),
-                        child: CustomButton(
-                          onTap: controller.onSaveTrip,
-                          text: 'Save trip',
-                          backgroundColor: Colors.blue,
-                        ),
-                      ),
-                    )
-                  : Container(),
             ),
           ),
         ],

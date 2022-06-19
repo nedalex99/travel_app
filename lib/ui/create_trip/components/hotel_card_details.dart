@@ -25,179 +25,170 @@ class HotelCardDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => ClipRRect(
-        borderRadius: BorderRadius.circular(
-          5.0,
+      () => Container(
+        margin: EdgeInsets.only(
+          bottom: controller.isSelected.value ? 6.0 : 0.0,
         ),
-        child: Container(
-          margin: EdgeInsets.only(
-            bottom: controller.isSelected.value ? 6.0 : 0.0,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(
+            2.0,
           ),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(
-              2.0,
+          boxShadow: const [
+            BoxShadow(
+              blurRadius: 3,
+              spreadRadius: 3,
+              color: Color(0xFFe6e6e6),
+            )
+          ],
+        ),
+        padding: const EdgeInsets.all(
+          8.0,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              hotelModel.hotel!.name!,
             ),
-            boxShadow: const [
-              BoxShadow(
-                blurRadius: 3,
-                spreadRadius: 1,
-                offset: Offset(
-                  0,
-                  3,
-                ),
-                color: Colors.grey,
-              )
-            ],
-          ),
-          // padding: const EdgeInsets.all(
-          //   8.0,
-          // ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                hotelModel.hotel!.name!,
+            Row(
+              children: _createStars(
+                rating: hotelModel.hotel!.rating!,
               ),
-              Row(
-                children: _createStars(
-                  rating: hotelModel.hotel!.rating!,
+            ),
+            Row(
+              children: [
+                const Icon(
+                  Icons.location_on_outlined,
+                  size: 18,
                 ),
-              ),
-              Row(
+                const SizedBox(
+                  width: 2.0,
+                ),
+                Text(
+                  hotelModel.hotel!.address!.lines![0],
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 4.0,
+            ),
+            Obx(
+              () => Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  const Icon(
-                    Icons.location_on_outlined,
-                    size: 18,
-                  ),
-                  const SizedBox(
-                    width: 2.0,
-                  ),
                   Text(
-                    hotelModel.hotel!.address!.lines![0],
+                    hotelModel.hotel!.description!.text ?? "",
+                    maxLines: controller.textShowMoreFlag.value ? null : 3,
+                    overflow: controller.textShowMoreFlag.value
+                        ? TextOverflow.visible
+                        : TextOverflow.ellipsis,
+                  ),
+                  GestureDetector(
+                    onTap: () => controller.textShowMoreFlag.value =
+                        !controller.textShowMoreFlag.value,
+                    child: Text(
+                      controller.textShowMoreFlag.value
+                          ? 'show less'
+                          : 'show more',
+                      style: const TextStyle(
+                        color: Colors.blue,
+                      ),
+                    ),
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 4.0,
+            ),
+            RichText(
+              text: TextSpan(
+                children: [
+                  const TextSpan(
+                    text: 'Check in: ',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  TextSpan(
+                    text: checkIn,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
               ),
-              Obx(
-                () => Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      hotelModel.hotel!.description!.text ?? "",
-                      maxLines: controller.textShowMoreFlag.value ? null : 3,
-                      overflow: controller.textShowMoreFlag.value
-                          ? TextOverflow.visible
-                          : TextOverflow.ellipsis,
+            ),
+            const SizedBox(
+              height: 2.0,
+            ),
+            RichText(
+              text: TextSpan(
+                children: [
+                  const TextSpan(
+                    text: 'Check out: ',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w400,
                     ),
-                    GestureDetector(
-                      onTap: () => controller.textShowMoreFlag.value =
-                          !controller.textShowMoreFlag.value,
-                      child: Text(
-                        controller.textShowMoreFlag.value
-                            ? 'show less'
-                            : 'show more',
-                        style: const TextStyle(
-                          color: Colors.blue,
-                        ),
-                      ),
+                  ),
+                  TextSpan(
+                    text: checkOut,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w700,
                     ),
-                  ],
+                  ),
+                ],
+              ),
+            ),
+            const Text(
+              'Room available: ',
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 8.0,
+              ),
+              child: Text(
+                hotelModel.offers![0].room!.typeEstimated!.category!,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 8.0,
+              ),
+              child: Text(
+                hotelModel.offers![0].room!.description!.text!,
+              ),
+            ),
+            Text(
+              'Contact: ${hotelModel.hotel!.contact!.phone!}',
+            ),
+            GestureDetector(
+              onTap: () => controller.openLocation(
+                latitude: hotelModel.hotel!.latitude!,
+                longitude: hotelModel.hotel!.longitude!,
+              ),
+              child: const Text(
+                "See location",
+                style: TextStyle(
+                  color: Colors.blue,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
-              RichText(
-                text: TextSpan(
-                  children: [
-                    const TextSpan(
-                      text: 'Check in: ',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    TextSpan(
-                      text: checkIn,
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 2.0,
-              ),
-              RichText(
-                text: TextSpan(
-                  children: [
-                    const TextSpan(
-                      text: 'Check out: ',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    TextSpan(
-                      text: checkOut,
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const Text(
-                'Room available: ',
-              ),
-              Padding(
+            ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Padding(
                 padding: const EdgeInsets.only(
-                  left: 8.0,
+                  top: 8.0,
                 ),
                 child: Text(
-                  hotelModel.offers![0].room!.typeEstimated!.category!,
+                  '${hotelModel.offers![0].price!.total!} ${hotelModel.offers![0].price!.currency!}',
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 8.0,
-                ),
-                child: Text(
-                  hotelModel.offers![0].room!.description!.text!,
-                ),
-              ),
-              Text(
-                'Contact: ${hotelModel.hotel!.contact!.phone!}',
-              ),
-              GestureDetector(
-                onTap: () => controller.openLocation(
-                  latitude: hotelModel.hotel!.latitude!,
-                  longitude: hotelModel.hotel!.longitude!,
-                ),
-                child: const Text(
-                  "See location",
-                  style: TextStyle(
-                    color: Colors.blue,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    top: 8.0,
-                  ),
-                  child: Text(
-                    '${hotelModel.offers![0].price!.total!} ${hotelModel.offers![0].price!.currency!}',
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

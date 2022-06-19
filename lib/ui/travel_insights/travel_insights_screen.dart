@@ -80,6 +80,14 @@ class TravelInsightsScreen extends StatelessWidget {
                         kPhotoAlbum,
                       ),
                     ),
+                    IconButton(
+                      onPressed: () {
+                        _controller.redirectExpenses();
+                      },
+                      icon: Image.asset(
+                        kExpenseImage,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -218,7 +226,6 @@ class TravelInsightsScreen extends StatelessWidget {
                             child: ListView.builder(
                               shrinkWrap: true,
                               physics: NeverScrollableScrollPhysics(),
-                              // controller: scrollController,
                               itemCount:
                                   _controller.toursAndActivitiesList.length,
                               itemBuilder: (context, index) {
@@ -230,6 +237,7 @@ class TravelInsightsScreen extends StatelessWidget {
                                   child: TravelInsightCard(
                                     toursAndActivitiesModel: _controller
                                         .toursAndActivitiesList[index],
+                                    // flightTicket: flightTicket,
                                   ),
                                 );
                               },

@@ -13,7 +13,7 @@ class ToDoCardController extends GetxController {
     required this.list,
   });
 
-  void updateCheckBox() {
+  void updateCheckBox(bool value) {
     isChecked.toggle();
   }
 

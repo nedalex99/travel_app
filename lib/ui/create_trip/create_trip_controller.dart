@@ -14,6 +14,10 @@ import 'package:travel_app/model/passenger_model.dart';
 import 'package:travel_app/ui/create_trip/components/hotel_card_controller.dart';
 import 'package:travel_app/ui/widgets/buttons/custom_button.dart';
 import 'package:travel_app/ui/widgets/dialogs/loading_dialog.dart';
+import 'package:travel_app/ui/widgets/input_fields/input_field.dart';
+import 'package:travel_app/utils/constants/colors.dart';
+import 'package:travel_app/utils/constants/styles.dart';
+import 'package:travel_app/utils/constants/validator.dart';
 import 'package:travel_app/utils/network/amadeus_api/flight_offer_search/flight_offer_search.dart';
 import 'package:travel_app/utils/network/amadeus_api/flight_offer_search/get_flight_offer_response.dart';
 import 'package:travel_app/utils/network/amadeus_api/hotel_search/get_hotels_response.dart';
@@ -35,6 +39,7 @@ class CreateTripController extends GetxController {
   TextEditingController arrivalZoneController = TextEditingController();
   TextEditingController dateOfDeparture = TextEditingController();
   TextEditingController dateOfArrival = TextEditingController();
+  TextEditingController budgetTextController = TextEditingController();
 
   List<AirportModel> airportsList = [];
   RxBool didSearchFlights = false.obs;
@@ -47,6 +52,8 @@ class CreateTripController extends GetxController {
   Rx<HotelModel> hotelSelected = HotelModel().obs;
 
   RxBool textShowMoreFlag = false.obs;
+
+  RxInt budget = 0.obs;
 
   @override
   void onInit() {
@@ -93,9 +100,6 @@ class CreateTripController extends GetxController {
 
   Future<void> getFlights() async {
     didSearchFlights.value = true;
-    print(
-      DateFormat("yyyy-MM-dd").format(selectedDepartureDate.value).toString(),
-    );
     Get.dialog(
       const LoadingDialog(),
       barrierDismissible: false,
@@ -179,6 +183,7 @@ class CreateTripController extends GetxController {
       flightCardDetails: selectedFlight.value!,
       selectedHotel: hotelSelected.value,
       usersUid: usersUid,
+      budget: budget.value,
     );
     await FlightTicketsCollection()
         .addFlightTicket(
@@ -237,5 +242,51 @@ class CreateTripController extends GetxController {
             ),
           },
         );
+  }
+
+  void setBudget() {
+    showModalBottomSheet(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(20),
+        ),
+      ),
+      backgroundColor: Colors.white,
+      context: Get.context!,
+      builder: ((builder) {
+        return Padding(
+          padding: const EdgeInsets.all(
+            16.0,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Set a budget',
+                style: kHeaderFieldTextStyle,
+              ),
+              InputField(
+                textCapitalization: TextCapitalization.characters,
+                textInputType: TextInputType.number,
+                textInputAction: TextInputAction.done,
+                validator: isValidName,
+                labelText: 'Set your budget',
+                onInputFieldChanged: (value) {
+                  budget.value = int.tryParse(value)!;
+                },
+                textEditingController: TextEditingController(),
+              ),
+              CustomButton(
+                onTap: () => {
+                  Get.back(),
+                },
+                text: "Set your budget",
+                backgroundColor: kGeneralColor,
+              ),
+            ],
+          ),
+        );
+      }),
+    );
   }
 }

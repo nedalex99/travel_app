@@ -11,12 +11,14 @@ class FlightTicket {
   HotelModel selectedHotel;
   List<String> usersUid;
   List<String> savedBy;
+  int budget;
 
   FlightTicket({
     required this.flightCardDetails,
     required this.passengers,
     required this.selectedHotel,
     required this.usersUid,
+    required this.budget,
     this.savedBy = const [],
   });
 
@@ -26,6 +28,7 @@ class FlightTicket {
         'selectedHotel': selectedHotel.toJson(),
         'usersUid': usersUid,
         'savedBy': savedBy,
+        'budget': budget,
       };
 
 // factory FlightTicket.fromJson(dynamic json) {

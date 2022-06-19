@@ -40,11 +40,13 @@ class PhotoAlbumSettingController extends GetxController {
               (e) => e.toString(),
             )
             .toList();
+        final int budget = json['budget'];
         final FlightTicket flightTicket = FlightTicket(
           flightCardDetails: flightCardDetails,
           passengers: passengersList,
           selectedHotel: hotelModel,
           usersUid: usersUid,
+          budget: budget,
         );
         if (flightTicket.usersUid.contains(userLoggedIn.uid)) {
           trips.add(flightTicket);
