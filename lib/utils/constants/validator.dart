@@ -12,6 +12,18 @@ String? isValidName(String? value) {
   }
 }
 
+String? isValidAmount(String? value) {
+  if (value != null) {
+    if (value.isEmpty) {
+      return "Name cannot be empty";
+    } else {
+      return null;
+    }
+  } else {
+    return null;
+  }
+}
+
 String? isValidEmail(String? value) {
   Pattern pattern =
       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';

@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/model/expense_model.dart';
 import 'package:travel_app/model/flight_ticket.dart';
+import 'package:travel_app/ui/expenses_screen/expense_modal_controller.dart';
 import 'package:travel_app/ui/widgets/buttons/custom_button.dart';
 import 'package:travel_app/ui/widgets/dialogs/loading_dialog.dart';
 import 'package:travel_app/ui/widgets/input_fields/input_field.dart';
+import 'package:travel_app/ui/widgets/input_fields/input_field_controller.dart';
 import 'package:travel_app/utils/constants/colors.dart';
 import 'package:travel_app/utils/constants/styles.dart';
 import 'package:travel_app/utils/constants/validator.dart';
@@ -86,6 +88,7 @@ class TransactionsScreenController extends GetxController {
   }
 
   void showAddExpenseModal() {
+    ExpenseModalController controller = Get.put(ExpenseModalController());
     showModalBottomSheet(
         context: Get.context!,
         shape: const RoundedRectangleBorder(
@@ -113,11 +116,17 @@ class TransactionsScreenController extends GetxController {
                       textInputType: TextInputType.text,
                       textInputAction: TextInputAction.next,
                       validator: isValidName,
+                      controller: Get.put(
+                        InputFieldController(),
+                        tag: "name_controller",
+                      ),
                       labelText: 'Transaction name',
                       onInputFieldChanged: (value) {
+                        controller.onNameInputChanged;
                         expenseName = value;
                       },
-                      textEditingController: TextEditingController(),
+                      textEditingController:
+                          controller.nameTextEditingController,
                     ),
                   ],
                 ),
@@ -135,12 +144,18 @@ class TransactionsScreenController extends GetxController {
                       textCapitalization: TextCapitalization.characters,
                       textInputType: TextInputType.number,
                       textInputAction: TextInputAction.next,
-                      validator: isValidName,
+                      validator: isValidAmount,
                       labelText: 'Transaction amount',
+                      controller: Get.put(
+                        InputFieldController(),
+                        tag: "amount_controller",
+                      ),
                       onInputFieldChanged: (value) {
+                        controller.amountTextEditingController;
                         expenseSum = int.tryParse(value)!;
                       },
-                      textEditingController: TextEditingController(),
+                      textEditingController:
+                          controller.amountTextEditingController,
                     ),
                   ],
                 ),
