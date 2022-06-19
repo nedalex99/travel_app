@@ -149,6 +149,7 @@ class _AddPassengerDropdownState extends State<AddPassengerDropdown>
                           textEditingController:
                               _controller.dateBirthTextController,
                           labelText: 'Birth date',
+                          isBirthday: true,
                         ),
                       ),
                       const SizedBox(

@@ -14,9 +14,9 @@ class ListPerTripController extends GetxController {
   });
 
   @override
-  onInit()  {
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp)  {
-       getNotes();
+  onInit() {
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      getNotes();
     });
     super.onInit();
   }

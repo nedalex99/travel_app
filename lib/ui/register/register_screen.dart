@@ -4,6 +4,8 @@ import 'package:travel_app/ui/register/register_controller.dart';
 import 'package:travel_app/ui/widgets/buttons/custom_button.dart';
 import 'package:travel_app/ui/widgets/input_fields/input_field.dart';
 import 'package:travel_app/ui/widgets/input_fields/input_field_controller.dart';
+import 'package:travel_app/ui/widgets/input_fields/input_field_date_picker/input_field_date_picker.dart';
+import 'package:travel_app/ui/widgets/input_fields/input_field_date_picker_register.dart';
 import 'package:travel_app/utils/constants/colors.dart';
 import 'package:travel_app/utils/constants/images.dart';
 import 'package:travel_app/utils/constants/styles.dart';
@@ -19,14 +21,14 @@ class RegisterScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: true,
         body: Form(
           key: controller.formKey,
           child: Scrollbar(
-            child: Column(
-              children: [
-                Expanded(
-                  child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Center(
                     child: Column(
                       children: [
                         const SizedBox(
@@ -125,8 +127,30 @@ class RegisterScreen extends StatelessWidget {
                           height: 16,
                         ),
                         Padding(
-                          padding:
-                              const EdgeInsets.symmetric(horizontal: 18.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Date of birth',
+                                style: kHeaderFieldTextStyle,
+                              ),
+                              const SizedBox(
+                                height: 4.0,
+                              ),
+                              InputFieldDatePickerRegister(
+                                isBirthday: true,
+                                textEditingController: TextEditingController(),
+                                labelText: "Date of birth",
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 18.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -216,8 +240,7 @@ class RegisterScreen extends StatelessWidget {
                                   ),
                                   textInputAction: TextInputAction.next,
                                   validator: isValidPassword,
-                                  textInputType:
-                                      TextInputType.visiblePassword,
+                                  textInputType: TextInputType.visiblePassword,
                                   onInputFieldChanged:
                                       controller.onPasswordInputChanged,
                                   labelText: 'Password',
@@ -230,8 +253,7 @@ class RegisterScreen extends StatelessWidget {
                           height: 16,
                         ),
                         Padding(
-                          padding:
-                              const EdgeInsets.symmetric(horizontal: 18.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 18.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -264,42 +286,42 @@ class RegisterScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                ),
-                Stack(
-                  children: [
-                    Image.asset(
-                      kPlane,
-                      height: 50,
-                      width: 50,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                              bottom: 10.0,
-                            ),
-                            child: Obx(
-                              () => CustomButton(
-                                onTap: controller.isButtonEnabled.value
-                                    ? controller.registerUser
-                                    : null,
-                                text: controller.loginText,
-                                backgroundColor:
-                                    controller.isButtonEnabled.value
-                                        ? const Color(0xFF7B94FF)
-                                        : kGeneralColor.withOpacity(0.5),
+                  Stack(
+                    children: [
+                      Image.asset(
+                        kPlane,
+                        height: 50,
+                        width: 50,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                bottom: 10.0,
+                              ),
+                              child: Obx(
+                                () => CustomButton(
+                                  onTap: controller.isButtonEnabled.value
+                                      ? controller.registerUser
+                                      : null,
+                                  text: controller.loginText,
+                                  backgroundColor:
+                                      controller.isButtonEnabled.value
+                                          ? const Color(0xFF7B94FF)
+                                          : kGeneralColor.withOpacity(0.5),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

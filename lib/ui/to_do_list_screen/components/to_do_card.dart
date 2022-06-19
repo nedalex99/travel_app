@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:travel_app/model/to_do_model.dart';
+import 'package:travel_app/ui/to_do_list_screen/components/edit_to_do_screen.dart';
 import 'package:travel_app/ui/to_do_list_screen/components/to_do_card_controller.dart';
 import 'package:travel_app/ui/widgets/check_box/custom_checkbox_widget.dart';
 import 'package:travel_app/utils/constants/images.dart';
@@ -10,16 +11,24 @@ import 'package:travel_app/utils/constants/styles.dart';
 class ToDoCard extends StatelessWidget {
   final String titleToDo;
   final RxList<ToDo> list;
+  final String cityName;
+  final int index;
 
   ToDoCard({
     Key? key,
     required this.titleToDo,
     required this.list,
+    required this.cityName,
+    required this.index,
   }) : super(key: key) {
-    controller = Get.put(ToDoCardController(
-      nameTrip: titleToDo,
-      list: list,
-    ));
+    controller = Get.put(
+      ToDoCardController(
+        nameTrip: titleToDo,
+        list: list,
+        cityName: cityName,
+      ),
+      tag: titleToDo,
+    );
   }
 
   late final ToDoCardController controller;
@@ -47,54 +56,49 @@ class ToDoCard extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.all(20.0),
-          child: Stack(
+          child: Row(
             children: [
+              Obx(
+                () => Checkbox(
+                  value: controller.isChecked.value,
+                  onChanged: (value) {
+                    controller.isChecked.toggle();
+                  },
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  titleToDo,
+                  style: kNormalTextStyle,
+                ),
+              ),
               Row(
                 children: [
-                  Obx(
-                    () => Checkbox(
-                      value: controller.isChecked.value,
-                      onChanged: (value) {
-                        controller.isChecked.toggle();
-                      },
+                  IconButton(
+                    onPressed: () => Get.to(
+                      () => EditToDoScreen(
+                        nameTrip: cityName,
+                        defaultText: titleToDo,
+                        index: index,
+                      ),
+                    ),
+                    icon: Image.asset(
+                      kEdit,
+                      width: 20,
+                      height: 20,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text(
-                      titleToDo,
-                      style: kNormalTextStyle,
+                  IconButton(
+                    onPressed: () {
+                      controller.deleteNote(titleToDo, cityName);
+                    },
+                    icon: Image.asset(
+                      kDelete,
+                      width: 20,
+                      height: 20,
                     ),
                   ),
                 ],
-              ),
-              Positioned(
-                top: 0,
-                right: 0,
-                child: Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: Image.asset(
-                        kEdit,
-                        width: 20,
-                        height: 20,
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        controller.deleteNote(titleToDo).then(
-                              (value) => print("aaaaaaa"),
-                            );
-                      },
-                      icon: Image.asset(
-                        kDelete,
-                        width: 20,
-                        height: 20,
-                      ),
-                    ),
-                  ],
-                ),
               ),
             ],
           ),

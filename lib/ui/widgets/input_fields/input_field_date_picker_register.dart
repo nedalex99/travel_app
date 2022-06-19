@@ -3,7 +3,7 @@ import 'package:travel_app/ui/widgets/input_fields/input_field_date_picker/input
 import 'package:get/get.dart';
 import 'package:travel_app/utils/constants/colors.dart';
 
-class InputFieldDatePicker extends StatelessWidget {
+class InputFieldDatePickerRegister extends StatelessWidget {
   late final InputFieldDatePickerController _controller;
 
   final String? text;
@@ -11,7 +11,7 @@ class InputFieldDatePicker extends StatelessWidget {
   final bool isBirthday;
   final TextEditingController textEditingController;
 
-  InputFieldDatePicker({
+  InputFieldDatePickerRegister({
     Key? key,
     this.text,
     required this.textEditingController,
@@ -41,20 +41,32 @@ class InputFieldDatePicker extends StatelessWidget {
       readOnly: true,
       onTap: () => _controller.getDate(isBirthday: isBirthday),
       controller: _controller.textController,
+      style: TextStyle(
+        color: Colors.black.withOpacity(0.75),
+        fontSize: 14.0,
+      ),
       decoration: InputDecoration(
-        contentPadding: const EdgeInsets.all(
-          8,
+        errorStyle: const TextStyle(
+          color: kRedErrorField,
         ),
-        // border: const OutlineInputBorder(
-        //   borderRadius: BorderRadius.all(
-        //     Radius.circular(
-        //       6,
-        //     ),
-        //   ),
-        // ),
-        labelText: labelText,
-        prefixIcon: Icon(
-          Icons.date_range,
+        hintText: labelText,
+        hintStyle: TextStyle(
+          color: Colors.black.withOpacity(0.4),
+        ),
+        border: const UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.black26,
+          ),
+        ),
+        focusedBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.black54,
+          ),
+        ),
+        disabledBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.black54,
+          ),
         ),
       ),
     );

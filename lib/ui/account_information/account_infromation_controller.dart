@@ -75,20 +75,23 @@ class AccountInformationController extends GetxController {
         firstName: firstNameTextController.text,
         userName: usernameTextController.text,
         email: userLoggedIn.email.toString(),
+        dateOfBirth: userData.value.dateOfBirth!,
       );
 
       await UsersCollection()
           .updateUser(userModel: userModel, uid: userLoggedIn.uid)
-          .then((value) => {
-                Get.back(),
-                Get.defaultDialog(
-                  title: "Success!",
-                  middleText: "Your data has been modified.",
-                  backgroundColor: kGeneralColor,
-                  titleStyle: kNormalTextStyle,
-                  radius: 10,
-                ),
-              });
+          .then(
+            (value) => {
+              Get.back(),
+              Get.defaultDialog(
+                title: "Success!",
+                middleText: "Your data has been modified.",
+                backgroundColor: kGeneralColor,
+                titleStyle: kNormalTextStyle,
+                radius: 10,
+              ),
+            },
+          );
     } catch (e) {
       print(e.toString());
     }

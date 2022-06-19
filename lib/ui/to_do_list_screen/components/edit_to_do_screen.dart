@@ -1,19 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/ui/to_do_list_screen/components/add_to_do_controller.dart';
+import 'package:travel_app/ui/to_do_list_screen/components/edit_to_controller.dart';
 import 'package:travel_app/ui/widgets/buttons/custom_button.dart';
 import 'package:travel_app/utils/constants/colors.dart';
 import 'package:travel_app/utils/constants/styles.dart';
 
-class AddToDoScreen extends StatelessWidget {
-  AddToDoScreen({
+class EditToDoScreen extends StatelessWidget {
+  final int index;
+
+  EditToDoScreen({
     Key? key,
     required this.nameTrip,
-  }) : super(key: key);
+    required this.defaultText,
+    required this.index,
+  }) {
+    controller = Get.put(
+      EditToDoController(
+        defaultText: defaultText,
+        index: index,
+      ),
+    );
+  }
+
   final String nameTrip;
-  final AddToDoController controller = Get.put(
-    AddToDoController(),
-  );
+  final String defaultText;
+  late final EditToDoController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +46,7 @@ class AddToDoScreen extends StatelessWidget {
                       autofocus: true,
                       textCapitalization: TextCapitalization.sentences,
                       decoration: InputDecoration(
-                        hintText: 'Create a new note!!',
-                        labelText: ' My Note',
+                        hintText: 'Edit your note',
                         border: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.black87),
                           borderRadius: BorderRadius.circular(10),
@@ -48,7 +59,7 @@ class AddToDoScreen extends StatelessWidget {
                   ),
                   CustomButton(
                     onTap: () {
-                      controller.addNote(nameTrip: nameTrip).then(
+                      controller.editNote(nameTrip: nameTrip).then(
                             (value) => Get.defaultDialog(
                               title: "Success!",
                               middleText: "Your note has been added!",

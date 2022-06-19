@@ -17,6 +17,8 @@ class RegisterController extends GetxController {
   final TextEditingController firstNameTextController = TextEditingController();
   final TextEditingController lastNameTextController = TextEditingController();
   final TextEditingController userNameTextController = TextEditingController();
+  final TextEditingController dateOfBirthTextController =
+      TextEditingController();
 
   RxBool isButtonEnabled = false.obs;
 
@@ -66,6 +68,7 @@ class RegisterController extends GetxController {
           firstName: firstNameTextController.text,
           userName: userNameTextController.text,
           email: emailTextController.text,
+          dateOfBirth: dateOfBirthTextController.text,
         );
         await Authentication()
             .registerUser(
@@ -77,10 +80,11 @@ class RegisterController extends GetxController {
             )
             .then(
               (value) => {
+                userModel.uid = (value as SignInResponse).user.uid,
                 UsersCollection()
                     .addUser(
-                        userModel: userModel,
-                        uid: (value as SignInResponse).user.uid)
+                      userModel: userModel,
+                    )
                     .then(
                       (value) => {
                         Get.back(),

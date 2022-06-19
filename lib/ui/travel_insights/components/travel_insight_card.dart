@@ -8,14 +8,18 @@ class TravelInsightCard extends StatelessWidget {
   TravelInsightCard({
     Key? key,
     required this.toursAndActivitiesModel,
+    this.flightTicket,
   }) : super(key: key) {
     controller = Get.put(
       TravelInsightCardController(
         toursAndActivitiesModel: toursAndActivitiesModel,
+        flightTicket: flightTicket,
       ),
+      tag: toursAndActivitiesModel.id!,
     );
   }
 
+  final FlightTicket? flightTicket;
   final ToursAndActivitiesModel toursAndActivitiesModel;
   late final TravelInsightCardController controller;
 
@@ -120,9 +124,11 @@ class TravelInsightCard extends StatelessWidget {
           ),
           Row(
             children: [
-              Checkbox(
-                value: controller.isChecked.value,
-                onChanged: controller.onToDoPress,
+              Obx(
+                () => Checkbox(
+                  value: controller.isChecked.value,
+                  onChanged: controller.onToDoPress,
+                ),
               ),
               const Text(
                 'Add To Do',

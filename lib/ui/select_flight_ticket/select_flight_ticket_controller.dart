@@ -48,7 +48,7 @@ class SelectFlightTicketController extends GetxController {
         Passenger(
           firstName: userData.firstName!,
           lastName: userData.lastName!,
-          dateBirth: "aaa",
+          dateBirth: userData.dateOfBirth!,
         ),
       );
     });
@@ -59,6 +59,8 @@ class SelectFlightTicketController extends GetxController {
     email: "",
     firstName: "",
     lastName: "",
+    uid: "",
+    dateOfBirth: '',
   ).obs;
 
   void firstNameChanged(String value) {}
@@ -141,7 +143,7 @@ class SelectFlightTicketController extends GetxController {
           Passenger(
             firstName: selectedUser.value.firstName,
             lastName: selectedUser.value.lastName,
-            dateBirth: "20.06.1999",
+            dateBirth: selectedUser.value.dateOfBirth,
           ),
         );
         Get.back();
@@ -196,8 +198,19 @@ class SelectFlightTicketController extends GetxController {
                     itemCount: usersFindByUsername.length,
                     itemBuilder: (context, index) {
                       return GestureDetector(
-                        onTap: () =>
-                            selectedUser.value = usersFindByUsername[index],
+                        onTap: () {
+                          selectedUser.value.uid =
+                              usersFindByUsername[index].uid;
+                          selectedUser.value.firstName =
+                              usersFindByUsername[index].firstName;
+                          selectedUser.value.lastName =
+                              usersFindByUsername[index].lastName;
+                          selectedUser.value.email =
+                              usersFindByUsername[index].email;
+                          selectedUser.value.userName =
+                              usersFindByUsername[index].userName;
+                          print(selectedUser.value.uid);
+                        },
                         child: Padding(
                           padding: const EdgeInsets.only(
                             bottom: 16.0,
@@ -273,9 +286,11 @@ class SelectFlightTicketController extends GetxController {
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: CustomButton(
-                    onTap: () => sendInviteToUser(
-                      uid: selectedUser.value.uid!,
-                    ),
+                    onTap: () {
+                      sendInviteToUser(
+                        uid: selectedUser.value.uid!,
+                      );
+                    },
                     text: 'Send invite',
                     backgroundColor: kGeneralColor,
                   ),

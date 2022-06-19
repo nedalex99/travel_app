@@ -12,10 +12,12 @@ import 'package:travel_app/utils/session_temp.dart';
 class UsersCollection extends GetConnect {
   Future<void> addUser({
     required UserModel userModel,
-    required String uid,
   }) async {
-    return FirebaseFirestore.instance.collection('users').doc(uid).set(
-          userModel.toJson(),
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(userModel.uid)
+        .set(
+          userModel.toJsonWithUid(),
         );
   }
 

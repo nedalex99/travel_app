@@ -38,7 +38,8 @@ class LoginController extends GetxController {
       () => RegisterScreen(),
     );
   }
-void goToChangePasswordScreen() {
+
+  void goToChangePasswordScreen() {
     Get.to(
       () => ForgotPasswordScreen(),
     );
@@ -98,27 +99,29 @@ void goToChangePasswordScreen() {
                               else
                                 {
                                   Get.back(),
-                                  if (FirebaseFirestore.instance
-                                          .collection('selected-cities')
-                                          .doc(userLoggedIn.uid) !=
-                                      null)
-                                    {
-                                      getCitiesForUser().then(
-                                        (value) => Get.to(
-                                          () => DashboardScreen(
-                                            cityOne: data['city1'],
-                                            cityTwo: data['city2'],
-                                            cityThree:data['city3'],
+                                  FirebaseFirestore.instance
+                                      .collection('selected-cities')
+                                      .doc(userLoggedIn.uid)
+                                      .get()
+                                      .then(
+                                    (value) {
+                                      if (value.exists) {
+                                        getCitiesForUser().then(
+                                          (value) => Get.to(
+                                            () => DashboardScreen(
+                                              cityOne: data['city1'],
+                                              cityTwo: data['city2'],
+                                              cityThree: data['city3'],
+                                            ),
                                           ),
-                                        ),
-                                      )
-                                    }
-                                  else
-                                    {
-                                      Get.off(
-                                        () => ChooseCity(),
-                                      ),
-                                    }
+                                        );
+                                      } else {
+                                        Get.off(
+                                          () => ChooseCity(),
+                                        );
+                                      }
+                                    },
+                                  ),
                                 }
                             }
                         },

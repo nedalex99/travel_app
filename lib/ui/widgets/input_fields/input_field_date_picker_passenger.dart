@@ -7,6 +7,7 @@ class InputFieldDatePickerPassenger extends StatelessWidget {
 
   final String? text;
   final String labelText;
+  final bool isBirthday;
   final TextEditingController textEditingController;
 
   InputFieldDatePickerPassenger({
@@ -14,6 +15,7 @@ class InputFieldDatePickerPassenger extends StatelessWidget {
     this.text,
     required this.textEditingController,
     required this.labelText,
+    required this.isBirthday,
   }) : super(key: key) {
     if (text == null) {
       _controller = Get.put(
@@ -36,7 +38,7 @@ class InputFieldDatePickerPassenger extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       readOnly: true,
-      onTap: _controller.getDate,
+      onTap: () => _controller.getDate(isBirthday: isBirthday),
       controller: _controller.textController,
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.all(

@@ -8,15 +8,17 @@ import 'package:travel_app/ui/widgets/empty_widget.dart';
 import 'package:travel_app/utils/constants/colors.dart';
 
 class ListPerTripScreen extends StatelessWidget {
-  String nameTrip;
+  final String nameTrip;
 
   ListPerTripScreen({
     Key? key,
     required this.nameTrip,
   }) : super(key: key) {
-    listPerTripController = Get.put(ListPerTripController(
-      nameTrip: nameTrip,
-    ));
+    listPerTripController = Get.put(
+      ListPerTripController(
+        nameTrip: nameTrip,
+      ),
+    );
   }
 
   late final ListPerTripController listPerTripController;
@@ -55,6 +57,8 @@ class ListPerTripScreen extends StatelessWidget {
                               shrinkWrap: true,
                               itemCount: listPerTripController.list.length,
                               itemBuilder: (context, index) => ToDoCard(
+                                index: index,
+                                cityName: nameTrip,
                                 titleToDo:
                                     listPerTripController.list[index].title!,
                                 list: listPerTripController.list,

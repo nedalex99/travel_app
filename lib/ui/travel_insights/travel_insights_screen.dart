@@ -235,6 +235,7 @@ class TravelInsightsScreen extends StatelessWidget {
                                     vertical: 8.0,
                                   ),
                                   child: TravelInsightCard(
+                                    flightTicket: flightTicket,
                                     toursAndActivitiesModel: _controller
                                         .toursAndActivitiesList[index],
                                     // flightTicket: flightTicket,

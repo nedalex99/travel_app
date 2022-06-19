@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:travel_app/ui/create_trip/create_trip_screen.dart';
 import 'package:travel_app/ui/settings/components/settings_card.dart';
 import 'package:travel_app/ui/settings/settings_controller.dart';
 import 'package:travel_app/ui/widgets/bottom_navigation_bar/bottom_nav_bar.dart';
@@ -15,12 +16,20 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => Get.to(
+            () => CreateTripScreen(),
+          ),
+          tooltip: 'Add trip',
+          child: const Icon(
+            Icons.add,
+          ),
+          elevation: 2.0,
+        ),
         appBar: AppBar(
           backgroundColor: kGeneralColor.withOpacity(0.5),
           elevation: 3,
-          leading: const BackButton(
-            color: Colors.black,
-          ),
           title: const Text(
             "Settings",
             style: TextStyle(

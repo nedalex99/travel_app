@@ -97,6 +97,7 @@ class CreateTripScreen extends StatelessWidget {
                                 .toString(),
                             textEditingController: controller.dateOfDeparture,
                             labelText: 'Departure date',
+                            isBirthday: false,
                           ),
                         )
                       : Container(),
@@ -143,6 +144,7 @@ class CreateTripScreen extends StatelessWidget {
                                 .toString(),
                             textEditingController: controller.dateOfArrival,
                             labelText: 'Arrival date',
+                            isBirthday: false,
                           ),
                         )
                       : Container(),

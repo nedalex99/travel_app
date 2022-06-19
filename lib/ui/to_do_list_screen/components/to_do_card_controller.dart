@@ -7,10 +7,12 @@ class ToDoCardController extends GetxController {
   String nameTrip;
   RxList<ToDo> list;
   RxBool isChecked = false.obs;
+  final String cityName;
 
   ToDoCardController({
     required this.nameTrip,
     required this.list,
+    required this.cityName,
   });
 
   void updateCheckBox(bool value) {
@@ -19,12 +21,13 @@ class ToDoCardController extends GetxController {
 
   Future<void> editNote() async {}
 
-  Future<void> deleteNote(String title) async {
+  Future<void> deleteNote(String title, String cityName) async {
     try {
+      print(cityName);
       await FirebaseFirestore.instance
           .collection('to-do')
           .doc(userLoggedIn.uid)
-          .collection(nameTrip)
+          .collection(cityName)
           .where('title', isEqualTo: title)
           .get()
           .then((value) => {
@@ -32,19 +35,14 @@ class ToDoCardController extends GetxController {
                   FirebaseFirestore.instance
                       .collection('to-do')
                       .doc(userLoggedIn.uid)
-                      .collection(nameTrip)
-                      .doc(title)
-                      .delete();
+                      .collection(cityName)
+                      .doc(element.id)
+                      .delete()
+                      .then((value) {
+                    list.removeWhere((element) => element.title == title);
+                  });
                 })
               });
-      // .get()
-      // .then((value) async {
-      //   value.
-      // snapshot.docs.forEach((e) {
-      //   list.removeWhere(
-      //       (element) => element.title == (e.data() as Map)['title']);
-      // });
-      //});
     } catch (e) {
       print(e.toString());
     }

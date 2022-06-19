@@ -6,6 +6,7 @@ class UserModel {
   String email;
   String firstName;
   String lastName;
+  String dateOfBirth;
   String? uid;
 
   UserModel({
@@ -13,6 +14,7 @@ class UserModel {
     required this.email,
     required this.firstName,
     required this.lastName,
+    required this.dateOfBirth,
     this.uid,
   });
 
@@ -23,7 +25,20 @@ class UserModel {
         ),
         'email': email,
         'firstName': firstName,
-        'lastName': lastName
+        'lastName': lastName,
+        'dateOfBirth': dateOfBirth,
+      };
+
+  Map<String, dynamic> toJsonWithUid() => {
+        'userName': userName,
+        'userNameSearch': getWordsToSearch(
+          text: userName,
+        ),
+        'email': email,
+        'firstName': firstName,
+        'lastName': lastName,
+        'dateOfBirth': dateOfBirth,
+        'uid': uid,
       };
 
   factory UserModel.fromJson(dynamic json) {
@@ -33,6 +48,7 @@ class UserModel {
       firstName: json['firstName'],
       lastName: json['lastName'],
       uid: json['uid'],
+      dateOfBirth: json['dateOfBirth'],
     );
   }
 }
