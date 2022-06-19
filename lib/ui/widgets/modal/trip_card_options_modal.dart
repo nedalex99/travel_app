@@ -44,6 +44,15 @@ class TripCardOptionsModal extends StatelessWidget {
               flightTicketId: flightTicket.id,
             ),
           ),
+          ListTile(
+            leading: const Icon(Icons.star_rate_outlined),
+            title: const Text(
+              'Add rating',
+            ),
+            onTap: () => controller.goToRatingScreen(
+              flightTicket: flightTicket,
+            ),
+          ),
         ],
       ),
     );

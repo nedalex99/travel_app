@@ -83,6 +83,9 @@ class CreateTripScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+                const SizedBox(
+                  height: 16.0,
+                ),
                 Obx(
                   () => controller.selectedDepartureDate.value !=
                           DateTime(DateTime.now().year - 1)

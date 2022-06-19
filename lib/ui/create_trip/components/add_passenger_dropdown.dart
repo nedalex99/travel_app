@@ -34,14 +34,14 @@ class _AddPassengerDropdownState extends State<AddPassengerDropdown>
   }
 
   void prepareAnimations() {
-    widget.controller.expandController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    widget.controller.expandController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 500));
     widget.controller.expandAnimation = CurvedAnimation(
       parent: widget.controller.expandController,
       curve: Curves.fastOutSlowIn,
     );
-    widget.controller.rotateController =
-        AnimationController(duration: Duration(milliseconds: 400), vsync: this);
+    widget.controller.rotateController = AnimationController(
+        duration: const Duration(milliseconds: 400), vsync: this);
   }
 
   @override
@@ -159,11 +159,21 @@ class _AddPassengerDropdownState extends State<AddPassengerDropdown>
                         text: "Add passenger",
                         backgroundColor: kPaleColor,
                       ),
+                      const SizedBox(
+                        height: 16.0,
+                      ),
                       GestureDetector(
                         onTap: _controller.findFriend,
-                        child: Text(
+                        child: const Text(
                           'Find a friend',
+                          style: TextStyle(
+                            color: kDark2Color,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
+                      ),
+                      const SizedBox(
+                        height: 16.0,
                       ),
                     ],
                   ),

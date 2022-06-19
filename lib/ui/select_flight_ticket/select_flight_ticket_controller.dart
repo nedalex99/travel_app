@@ -6,8 +6,11 @@ import 'package:travel_app/model/flight_card_details.dart';
 import 'package:travel_app/model/passenger_model.dart';
 import 'package:travel_app/model/user_data.dart';
 import 'package:travel_app/model/user_model.dart';
+import 'package:travel_app/ui/create_trip/create_trip_controller.dart';
 import 'package:travel_app/ui/widgets/buttons/custom_button.dart';
+import 'package:travel_app/ui/widgets/dialogs/loading_dialog.dart';
 import 'package:travel_app/ui/widgets/input_fields/input_field.dart';
+import 'package:travel_app/ui/widgets/input_fields/input_field_controller.dart';
 import 'package:travel_app/utils/constants/colors.dart';
 import 'package:travel_app/utils/constants/styles.dart';
 import 'package:travel_app/utils/constants/validator.dart';
@@ -66,12 +69,14 @@ class SelectFlightTicketController extends GetxController {
 
   void dateBirthNameChanged(String value) {}
 
-  void friendUsernameChanged(String value) {
+  Future<void> friendUsernameChanged(String value) async {
     usersFindByUsername.clear();
     if (value.length > 2) {
-      FindUsers().findUsersByUsername(username: value).then(
+      await FindUsers().findUsersByUsername(username: value).then(
             (value) => {
+              print(value),
               value.docs.forEach((element) {
+                print(element.data() as Map);
                 UserModel userModel = UserModel.fromJson(element.data() as Map);
                 print(userModel.uid!);
                 usersFindByUsername.add(
@@ -80,6 +85,7 @@ class SelectFlightTicketController extends GetxController {
                   ),
                 );
               }),
+              print(usersFindByUsername.length),
             },
           );
     } else {
@@ -126,9 +132,22 @@ class SelectFlightTicketController extends GetxController {
   Future<void> sendInviteToUser({
     required String uid,
   }) async {
+    Get.dialog(const LoadingDialog());
     await FindUsers().inviteUser(uid: uid).then(
-          (value) => {},
+      (value) {
+        final CreateTripController createTripController = Get.find();
+        createTripController.usersUid.add(uid);
+        passengers.add(
+          Passenger(
+            firstName: selectedUser.value.firstName,
+            lastName: selectedUser.value.lastName,
+            dateBirth: "20.06.1999",
+          ),
         );
+        Get.back();
+        Get.back();
+      },
+    );
   }
 
   void findFriend() {
@@ -158,13 +177,15 @@ class SelectFlightTicketController extends GetxController {
                   style: kHeaderFieldTextStyle,
                 ),
                 InputField(
+                  controller: InputFieldController(),
                   textCapitalization: TextCapitalization.characters,
                   textInputType: TextInputType.text,
                   textInputAction: TextInputAction.done,
                   validator: isValidName,
                   labelText: 'Find a friend',
-                  onInputFieldChanged: friendUsernameChanged,
+                  onInputFieldChanged: (value) {},
                   textEditingController: friendUsername,
+                  hasSufixIcon: true,
                 ),
                 const SizedBox(
                   height: 16.0,
@@ -177,38 +198,71 @@ class SelectFlightTicketController extends GetxController {
                       return GestureDetector(
                         onTap: () =>
                             selectedUser.value = usersFindByUsername[index],
-                        child: Container(
-                          padding: const EdgeInsets.all(
-                            8,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            bottom: 16.0,
+                            left: 16.0,
+                            right: 16.0,
                           ),
-                          decoration: BoxDecoration(
-                            color: Colors.white70,
-                            border: Border.all(
-                              color: Colors.blueAccent,
-                            ),
-                            borderRadius: BorderRadius.circular(
-                              6.0,
-                            ),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Colors.grey,
-                                blurRadius: 2.0,
-                                spreadRadius: 1.0,
+                          child: Obx(
+                            () => Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(
+                                  6.0,
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: selectedUser.value.lastName == ""
+                                        ? Colors.grey
+                                        : Colors.red,
+                                    blurRadius: 0.5,
+                                    spreadRadius: 1,
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  usersFindByUsername[index].firstName,
-                                ),
-                                Text(
-                                  usersFindByUsername[index].lastName,
-                                ),
-                              ],
+                              padding: const EdgeInsets.all(
+                                8,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.person,
+                                        color: Colors.indigoAccent,
+                                      ),
+                                      const SizedBox(
+                                        width: 8.0,
+                                      ),
+                                      Text(
+                                        usersFindByUsername[index].firstName,
+                                        style: const TextStyle(
+                                          fontSize: 18.0,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.date_range,
+                                        color: Colors.indigoAccent,
+                                      ),
+                                      const SizedBox(
+                                        width: 8.0,
+                                      ),
+                                      Text(
+                                        usersFindByUsername[index].lastName,
+                                        style: const TextStyle(
+                                          fontSize: 16.0,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),

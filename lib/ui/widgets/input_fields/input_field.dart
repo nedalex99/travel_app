@@ -13,6 +13,7 @@ class InputField extends StatelessWidget {
   final Validator validator;
   final String labelText;
   final OnInputFieldChanged onInputFieldChanged;
+  final bool hasSufixIcon;
 
   const InputField({
     Key? key,
@@ -24,6 +25,7 @@ class InputField extends StatelessWidget {
     required this.labelText,
     required this.onInputFieldChanged,
     required this.textEditingController,
+    this.hasSufixIcon = false,
   }) : super(key: key);
 
   @override
@@ -85,7 +87,18 @@ class InputField extends StatelessWidget {
                         ),
                 ),
               )
-            : null,
+            : hasSufixIcon
+                ? GestureDetector(
+                    onTap: () {
+                      controller?.friendUsernameChanged(
+                        textEditingController.text,
+                      );
+                    },
+                    child: const Icon(
+                      Icons.search,
+                    ),
+                  )
+                : null,
       ),
     );
   }
