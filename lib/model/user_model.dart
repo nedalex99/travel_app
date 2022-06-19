@@ -17,7 +17,8 @@ class UserModel {
   });
 
   Map<String, dynamic> toJson() => {
-        'userName': getWordsToSearch(
+        'userName': userName,
+        'userNameSearch': getWordsToSearch(
           text: userName,
         ),
         'email': email,
