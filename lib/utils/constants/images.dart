@@ -49,3 +49,4 @@ const kPhotoAlbum = "images/image.png";
 const kFlightTab = "images/airplane.png";
 const kHotelTab = "images/hotel.png";
 const kExpenseImage = "images/expense_image.png";
+const kArrow = "images/downArrow.png";

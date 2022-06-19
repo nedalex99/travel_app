@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:travel_app/ui/settings/components/settings_card.dart';
 import 'package:travel_app/ui/settings/settings_controller.dart';
 import 'package:travel_app/ui/widgets/bottom_navigation_bar/bottom_nav_bar.dart';
+import 'package:travel_app/ui/widgets/buttons/custom_button.dart';
 import 'package:travel_app/utils/constants/colors.dart';
 import 'package:travel_app/utils/constants/images.dart';
 
@@ -131,6 +132,13 @@ class SettingsScreen extends StatelessWidget {
                           settingsController.redirectDocumentsScreen();
                         },
                       ),
+                    ),
+                    CustomButton(
+                      onTap: () {
+                        settingsController.logOut();
+                      },
+                      text: "Log out",
+                      backgroundColor: kGeneralColor,
                     ),
                   ],
                 ),

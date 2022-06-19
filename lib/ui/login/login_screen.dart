@@ -10,8 +10,9 @@ import 'package:travel_app/utils/constants/strings.dart';
 import 'package:travel_app/utils/constants/styles.dart';
 import 'package:travel_app/utils/constants/validator.dart';
 
-class LoginScreen extends GetView<LoginController> {
-  const LoginScreen({Key? key}) : super(key: key);
+class LoginScreen extends StatelessWidget {
+  LoginScreen({Key? key}) : super(key: key);
+  LoginController controller = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {

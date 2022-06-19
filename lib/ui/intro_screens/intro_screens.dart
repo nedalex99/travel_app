@@ -123,7 +123,7 @@ class IntroScreens extends StatelessWidget {
                       child: CustomButton(
                         onTap: () => index == 2
                             ? Get.to(
-                                () => const LoginScreen(),
+                                () =>  LoginScreen(),
                               )
                             : pageController.nextPage(
                                 duration: Duration(

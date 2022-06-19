@@ -2,15 +2,15 @@ import 'package:carousel_slider/carousel_slider.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:travel_app/model/recommendation_model.dart';
-import 'package:travel_app/ui/base_scaffold.dart';
 import 'package:travel_app/ui/create_trip/create_trip_screen.dart';
+import 'package:travel_app/ui/dashboard/components/city_buttons_controller.dart';
+import 'package:travel_app/ui/dashboard/components/city_buttons_widget.dart';
 import 'package:travel_app/ui/dashboard/components/recomandation_card.dart';
 import 'package:travel_app/ui/dashboard/dashboard_controller.dart';
 import 'package:travel_app/ui/to_do_list_screen/to_do_list_screen.dart';
 import 'package:travel_app/ui/widgets/bottom_navigation_bar/bottom_nav_bar.dart';
-import 'package:travel_app/ui/widgets/bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'package:travel_app/utils/constants/colors.dart';
+import 'package:travel_app/utils/constants/images.dart';
 import 'package:travel_app/utils/constants/styles.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -51,7 +51,7 @@ class DashboardScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.only(
-          left: 18.0,
+          left: 10.0,
           top: 8,
         ),
         child: Column(
@@ -59,7 +59,7 @@ class DashboardScreen extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.only(
-                top: 60.0,
+                top: 50.0,
                 left: 10.0,
               ),
               child: Row(
@@ -95,10 +95,13 @@ class DashboardScreen extends StatelessWidget {
                   const SizedBox(
                     width: 10,
                   ),
-                  Obx(
-                    () => Text(
-                      "Hello ${controller.userData.value.userName!}!",
-                      style: kNormalTextStyle,
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16.0),
+                    child: Obx(
+                      () => Text(
+                        "Hello ${controller.userData.value.userName!}!",
+                        style: kNormalTextStyle,
+                      ),
                     ),
                   ),
                 ],
@@ -140,7 +143,7 @@ class DashboardScreen extends StatelessWidget {
               height: 30.0,
             ),
             const Text(
-              'Suggestions for:',
+              'Suggestions based on your wishlist:',
               style: kDefaultHeaderTextStyle,
             ),
             const SizedBox(
@@ -149,6 +152,27 @@ class DashboardScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                // CityButtonsWidget(
+                //   text: controller.cityOne,
+                //   controller: Get.put(
+                //     CityButtonsController(),
+                //     tag: "button_controller_1",
+                //   ),
+                // ),
+                // CityButtonsWidget(
+                //   text: controller.cityTwo,
+                //   controller: Get.put(
+                //     CityButtonsController(),
+                //     tag: "button_controller_2",
+                //   ),
+                // ),
+                // CityButtonsWidget(
+                //   text: controller.cityThree,
+                //   controller: Get.put(
+                //     CityButtonsController(),
+                //     tag: "button_controller_3",
+                //   ),
+                // ),
                 TextButton(
                   onPressed: () => {controller.getRecommendation()},
                   child: Text(controller.cityOne),
@@ -183,6 +207,102 @@ class DashboardScreen extends StatelessWidget {
                     enableInfiniteScroll: false,
                     viewportFraction: 0.7,
                   )),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(top: 30),
+              child: Text(
+                'Because you visit:',
+                style: kDefaultHeaderTextStyle,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Obx(
+                    () => controller.trips.isNotEmpty
+                        ? SizedBox(
+                            height: 30,
+                            child: ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: controller.trips.length,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(left: 30.0),
+                                    child: TextButton(
+                                        onPressed: () => {
+                                              controller
+                                                  .getRecommendationForMyTrips(
+                                                controller
+                                                    .trips[index]
+                                                    .flightCardDetails
+                                                    .arrivalCode![0],
+                                              ),
+                                            },
+                                        child: Text(
+                                          controller.trips[index]
+                                              .flightCardDetails.arrivalCity!,
+                                        )),
+                                  );
+                                }),
+                          )
+                        : Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                height: 90,
+                                width: 370,
+                                decoration: BoxDecoration(
+                                  color: kContainerRecommendation,
+                                  borderRadius: BorderRadius.circular(
+                                    10,
+                                  ),
+                                ),
+                                child: const Padding(
+                                  padding: EdgeInsets.all(10.0),
+                                  child: Center(
+                                    child: Text(
+                                      'You have no saved trips...',
+                                      style: TextStyle(
+                                          fontSize: 18.0,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  top: 5,
+                                ),
+                                child: Image.asset(
+                                  kArrow,
+                                  height: 50,
+                                ),
+                              ),
+                            ],
+                          ),
+                  )
+                ],
+              ),
+            ),
+            Obx(
+              () => CarouselSlider.builder(
+                itemCount: controller.recommendationListForTrip.value.length,
+                itemBuilder: (context, index, realIndex) {
+                  return CardRecommendation(
+                    recommendationModel:
+                        controller.recommendationListForTrip[index],
+                  );
+                },
+                options: CarouselOptions(
+                  height: 130,
+                  enableInfiniteScroll: false,
+                  viewportFraction: 0.7,
+                ),
+              ),
             ),
           ],
         ),
