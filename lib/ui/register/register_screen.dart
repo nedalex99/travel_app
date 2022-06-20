@@ -140,7 +140,8 @@ class RegisterScreen extends StatelessWidget {
                               ),
                               InputFieldDatePickerRegister(
                                 isBirthday: true,
-                                textEditingController: TextEditingController(),
+                                textEditingController:
+                                    controller.dateOfBirthTextController,
                                 labelText: "Date of birth",
                               ),
                             ],
@@ -162,20 +163,21 @@ class RegisterScreen extends StatelessWidget {
                                 height: 4.0,
                               ),
                               InputField(
-                                  textCapitalization:
-                                      TextCapitalization.sentences,
-                                  controller: Get.put(
-                                    InputFieldController(),
-                                    tag: "register_screen_userName",
-                                  ),
-                                  textInputAction: TextInputAction.next,
-                                  labelText: 'Username',
-                                  onInputFieldChanged:
-                                      controller.onNameInputChanged,
-                                  validator: isValidName,
-                                  textInputType: TextInputType.text,
-                                  textEditingController:
-                                      controller.userNameTextController),
+                                textCapitalization:
+                                    TextCapitalization.sentences,
+                                controller: Get.put(
+                                  InputFieldController(),
+                                  tag: "register_screen_userName",
+                                ),
+                                textInputAction: TextInputAction.next,
+                                labelText: 'Username',
+                                onInputFieldChanged:
+                                    controller.onNameInputChanged,
+                                validator: isValidName,
+                                textInputType: TextInputType.text,
+                                textEditingController:
+                                    controller.userNameTextController,
+                              ),
                             ],
                           ),
                         ),

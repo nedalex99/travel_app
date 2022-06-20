@@ -209,6 +209,8 @@ class SelectFlightTicketController extends GetxController {
                               usersFindByUsername[index].email;
                           selectedUser.value.userName =
                               usersFindByUsername[index].userName;
+                          selectedUser.value.dateOfBirth =
+                              usersFindByUsername[index].dateOfBirth;
                           print(selectedUser.value.uid);
                         },
                         child: Padding(

@@ -248,19 +248,11 @@ class DashboardScreen extends StatelessWidget {
                                   );
                                 }),
                           )
-                        : Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Container(
-                                height: 90,
-                                width: 370,
-                                decoration: BoxDecoration(
-                                  color: kContainerRecommendation,
-                                  borderRadius: BorderRadius.circular(
-                                    10,
-                                  ),
-                                ),
-                                child: const Padding(
+                        : Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const Padding(
                                   padding: EdgeInsets.all(10.0),
                                   child: Center(
                                     child: Text(
@@ -272,17 +264,17 @@ class DashboardScreen extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                  top: 5,
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                    top: 5,
+                                  ),
+                                  child: Image.asset(
+                                    kArrow,
+                                    height: 50,
+                                  ),
                                 ),
-                                child: Image.asset(
-                                  kArrow,
-                                  height: 50,
-                                ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                   )
                 ],
