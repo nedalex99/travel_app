@@ -88,18 +88,23 @@ class SettingsScreen extends StatelessWidget {
                       ),
                     ),
                     SettingsCard(
+                      onClick: settingsController.redirectBudgetScreen,
                       text: 'Budget',
                       rightIcon: IconButton(
                         icon: Image.asset(
                           kSettingsArrow,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          settingsController.redirectBudgetScreen();
+                        },
                       ),
                       leftIcon: IconButton(
                         icon: Image.asset(
                           kBudget,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          settingsController.redirectBudgetScreen();
+                        },
                       ),
                     ),
                     SettingsCard(

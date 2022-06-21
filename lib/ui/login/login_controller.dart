@@ -8,6 +8,8 @@ import 'package:travel_app/ui/forgot_password/forgot_password_screen.dart';
 import 'package:travel_app/ui/profile/user_profile.dart';
 import 'package:travel_app/ui/register/register_screen.dart';
 import 'package:travel_app/ui/widgets/dialogs/loading_dialog.dart';
+import 'package:travel_app/utils/constants/colors.dart';
+import 'package:travel_app/utils/constants/styles.dart';
 import 'package:travel_app/utils/constants/validator.dart';
 import 'package:travel_app/utils/network/amadeus_api/authorization/authorization.dart';
 import 'package:travel_app/utils/network/amadeus_api/authorization/authorization_response.dart';
@@ -56,17 +58,6 @@ class LoginController extends GetxController {
   }
 
   void printText() {
-    // Get.to(const DashboardScreen());
-    // if (formKey.currentState!.validate()) {
-    //   Authentication()
-    //       .signInWithEmailAndPassword(
-    //         email: emailTextController.text,
-    //         password: passwordTextController.text,
-    //       )
-    //       .then((value) => {
-    //           });
-    // }
-
     if (formKey.currentState!.validate()) {
       Get.dialog(
         const LoadingDialog(),

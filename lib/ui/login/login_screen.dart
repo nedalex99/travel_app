@@ -85,20 +85,20 @@ class LoginScreen extends StatelessWidget {
                               style: kHeaderFieldTextStyle,
                             ),
                             InputField(
-                                textCapitalization:
-                                    TextCapitalization.sentences,
-                                controller: Get.put(
-                                  InputFieldController(),
-                                  tag: "register_screen_password",
-                                ),
-                                textInputAction: TextInputAction.done,
-                                validator: isValidPassword,
-                                textInputType: TextInputType.visiblePassword,
-                                onInputFieldChanged:
-                                    controller.onPasswordInputChanged,
-                                labelText: 'Enter your password',
-                                textEditingController:
-                                    controller.passwordTextController),
+                              textCapitalization: TextCapitalization.sentences,
+                              controller: Get.put(
+                                InputFieldController(),
+                                tag: "register_screen_password",
+                              ),
+                              textInputAction: TextInputAction.done,
+                              validator: isValidPassword,
+                              textInputType: TextInputType.visiblePassword,
+                              onInputFieldChanged:
+                                  controller.onPasswordInputChanged,
+                              labelText: 'Enter your password',
+                              textEditingController:
+                                  controller.passwordTextController,
+                            ),
                           ],
                         ),
                         const SizedBox(

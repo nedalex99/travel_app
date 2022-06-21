@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:travel_app/utils/constants/colors.dart';
+import 'package:travel_app/utils/constants/styles.dart';
 import 'package:travel_app/utils/network/firebase/authentication/sign_in_response.dart';
 import 'package:travel_app/utils/responses/default_response.dart';
 import 'package:travel_app/utils/responses/error_response.dart';
@@ -17,7 +19,6 @@ class Authentication extends GetConnect {
       email: email,
       password: password,
     );
-
     if (userCredential.user != null) {
       return SignInResponse(
         statusCode: 200,
@@ -30,6 +31,21 @@ class Authentication extends GetConnect {
         statusCode: 400,
       );
     }
+    // } catch (e) {
+    //   Get.defaultDialog(
+    //     title: "Upps..",
+    //     middleText: "Data entered is incorrect.",
+    //     backgroundColor: kGeneralColor,
+    //     titleStyle: kNormalTextStyle,
+    //     radius: 10,
+    //   ).then(
+    //         (value) => Get.back(),
+    //   );
+    //   return ErrorResponse(
+    //     status: "error",
+    //     statusCode: 400,
+    //   );
+    // }
   }
 
   Future<DefaultResponse> registerUser({
