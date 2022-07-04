@@ -104,8 +104,8 @@ class SelectFlightTicketController extends GetxController {
         dateBirth: dateBirthTextController.text,
       ),
     );
-    firstNameTextController.clear();
-    lastNameTextController.clear();
+    // firstNameTextController.clear();
+    // lastNameTextController.clear();
     genderTextController.clear();
     dateBirthTextController.clear();
   }

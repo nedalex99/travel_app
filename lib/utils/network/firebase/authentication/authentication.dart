@@ -14,38 +14,39 @@ class Authentication extends GetConnect {
     required String email,
     required String password,
   }) async {
-    UserCredential userCredential =
-        await _firebaseAuth.signInWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
-    if (userCredential.user != null) {
-      return SignInResponse(
-        statusCode: 200,
-        user: userCredential.user!,
-        status: 'success',
+    try {
+      UserCredential userCredential =
+          await _firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
       );
-    } else {
+      if (userCredential.user != null) {
+        return SignInResponse(
+          statusCode: 200,
+          user: userCredential.user!,
+          status: 'success',
+        );
+      } else {
+        return ErrorResponse(
+          status: "error",
+          statusCode: 400,
+        );
+      }
+    } on FirebaseAuthException catch (e) {
+      Get.defaultDialog(
+        title: "Upss...",
+        middleText: "Data entered is incorrect.",
+        backgroundColor: kGeneralColor,
+        titleStyle: kNormalTextStyle,
+        radius: 10,
+      ).then(
+        (value) => Get.back(),
+      );
       return ErrorResponse(
         status: "error",
         statusCode: 400,
       );
     }
-    // } catch (e) {
-    //   Get.defaultDialog(
-    //     title: "Upps..",
-    //     middleText: "Data entered is incorrect.",
-    //     backgroundColor: kGeneralColor,
-    //     titleStyle: kNormalTextStyle,
-    //     radius: 10,
-    //   ).then(
-    //         (value) => Get.back(),
-    //   );
-    //   return ErrorResponse(
-    //     status: "error",
-    //     statusCode: 400,
-    //   );
-    // }
   }
 
   Future<DefaultResponse> registerUser({
