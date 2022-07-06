@@ -158,8 +158,8 @@ class TripCard extends StatelessWidget {
                 padding: const EdgeInsets.all(10.0),
                 child: HotelCard(
                   hotelModel: flightTicket.selectedHotel,
-                  checkIn: flightTicket.flightCardDetails.departureTime![0],
-                  checkOut: flightTicket.flightCardDetails.arrivalTime![0],
+                  checkIn: flightTicket.selectedHotel.offers![0].checkInDate!,
+                  checkOut: flightTicket.selectedHotel.offers![0].checkOutDate!,
                 ),
               ),
             ],
@@ -193,9 +193,6 @@ class TripCard extends StatelessWidget {
             left: 0,
             child: WeatherOnTripWidget(
               weather: controller.weather,
-              // iconUrl: getWeatherImage(
-              //   weather.condition,
-              // ),
             ),
           ),
         ],

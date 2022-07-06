@@ -139,8 +139,8 @@ class Price {
   }
 
   Price.fromJson(dynamic json) {
-    _currencyCode = json['currencyCode'];
-    _amount = json['amount'];
+    _currencyCode = json['currencyCode'] ?? "";
+    _amount = json['amount'] ?? "";
   }
 
   String? _currencyCode;

@@ -32,23 +32,6 @@ class HotelCard extends StatelessWidget {
           margin: EdgeInsets.only(
             bottom: controller.isSelected.value ? 6.0 : 0.0,
           ),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(
-              2.0,
-            ),
-            boxShadow: const [
-              BoxShadow(
-                blurRadius: 3,
-                spreadRadius: 1,
-                offset: Offset(
-                  0,
-                  3,
-                ),
-                color: Colors.grey,
-              )
-            ],
-          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -111,6 +94,13 @@ class HotelCard extends StatelessWidget {
                         fontWeight: FontWeight.w700,
                       ),
                     ),
+                    const TextSpan(
+                      text: " 14:00",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -130,6 +120,13 @@ class HotelCard extends StatelessWidget {
                     TextSpan(
                       text: checkOut,
                       style: const TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const TextSpan(
+                      text: " 11:00",
+                      style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.w700,
                       ),

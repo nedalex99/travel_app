@@ -68,37 +68,18 @@ class InputField extends StatelessWidget {
             color: Colors.black54,
           ),
         ),
-        suffixIcon: textInputType == TextInputType.visiblePassword
-            ? Obx(
-                () => GestureDetector(
-                  onTap: () {
-                    controller!.isVisible.value = !controller!.isVisible.value;
-                  },
-                  child: controller!.isVisible.value
-                      ? const Icon(
-                          Icons.remove_red_eye,
-                          color: Colors.black,
-                          size: 20.0,
-                        )
-                      : const Icon(
-                          Icons.visibility_off,
-                          color: Colors.black,
-                          size: 20.0,
-                        ),
+        suffixIcon: hasSufixIcon
+            ? GestureDetector(
+                onTap: () {
+                  controller?.friendUsernameChanged(
+                    textEditingController.text,
+                  );
+                },
+                child: const Icon(
+                  Icons.search,
                 ),
               )
-            : hasSufixIcon
-                ? GestureDetector(
-                    onTap: () {
-                      controller?.friendUsernameChanged(
-                        textEditingController.text,
-                      );
-                    },
-                    child: const Icon(
-                      Icons.search,
-                    ),
-                  )
-                : null,
+            : null,
       ),
     );
   }
