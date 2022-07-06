@@ -78,7 +78,10 @@ class HotelCardDetails extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    hotelModel.hotel!.description!.text ?? "",
+                    // hotelModel.hotel!.description!.text ?? "",
+                    hotelModel.hotel!.description != null
+                        ? hotelModel.hotel!.description!.text!
+                        : "",
                     maxLines: controller.textShowMoreFlag.value ? null : 3,
                     overflow: controller.textShowMoreFlag.value
                         ? TextOverflow.visible
