@@ -45,7 +45,7 @@ class TravelInsightCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          toursAndActivitiesModel.pictures![0] != null
+          toursAndActivitiesModel.pictures != null && toursAndActivitiesModel.pictures!.isNotEmpty
               ? Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
                   child: ClipRRect(
@@ -71,7 +71,7 @@ class TravelInsightCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  toursAndActivitiesModel.shortDescription!,
+                  toursAndActivitiesModel.shortDescription ?? "No description",
                   style: Theme.of(context).textTheme.bodySmall,
                   maxLines: controller.textShowMoreFlag.value ? null : 3,
                   overflow: controller.textShowMoreFlag.value

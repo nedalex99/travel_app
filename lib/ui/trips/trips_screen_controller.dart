@@ -4,6 +4,7 @@ import 'package:travel_app/model/flight_ticket.dart';
 import 'package:travel_app/model/hotel_model.dart';
 import 'package:travel_app/model/passenger_model.dart';
 import 'package:travel_app/model/weather_model.dart';
+import 'package:travel_app/ui/create_trip/create_trip_screen.dart';
 import 'package:travel_app/utils/network/firebase/firestore/trips_collection.dart';
 import 'package:travel_app/utils/network/open_weather_api/get_weather_response.dart';
 import 'package:travel_app/utils/network/open_weather_api/weather_search.dart';
@@ -16,7 +17,6 @@ class TripsScreenController extends GetxController {
   @override
   void onInit() {
     getTrips();
-   // getWeather();
     super.onInit();
   }
 
@@ -55,28 +55,13 @@ class TripsScreenController extends GetxController {
       });
     });
   }
-  //
-  // Future<void> getWeather() async {
-  //   try {
-  //     WeatherSearch()
-  //         .getData(
-  //           cityName: "Paris",
-  //         )
-  //         .then(
-  //           (value) => {
-  //             if (value.statusCode == 200)
-  //               {
-  //                 Get.back(),
-  //                 weather.value = (value as GetWeatherResponse).weather,
-  //               }
-  //             else
-  //               {
-  //                 print("eroare weather ${value.statusCode}"),
-  //               }
-  //           },
-  //         );
-  //   } catch (e) {
-  //     print("Erroar +${e.toString()}");
-  //   }
-  // }
+
+  Future<void> redirectAddTrip() async {
+    await Get.to(
+      () => CreateTripScreen(),
+    )?.then((value) {
+      trips.value.clear();
+      getTrips();
+    });
+  }
 }

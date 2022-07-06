@@ -18,9 +18,7 @@ class TripsScreen extends StatelessWidget {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Get.to(
-          () => CreateTripScreen(),
-        ),
+        onPressed: tripsScreenController.redirectAddTrip,
         tooltip: 'Add trip',
         child: const Icon(
           Icons.add,
@@ -55,7 +53,7 @@ class TripsScreen extends StatelessWidget {
                       ),
                       child: TripCard(
                         flightTicket: tripsScreenController.trips[index],
-                        weather:tripsScreenController.weather.value,
+                        weather: tripsScreenController.weather.value,
                       ),
                     ),
                   );
