@@ -197,50 +197,34 @@ class SelectFlightTicketController extends GetxController {
                     shrinkWrap: true,
                     itemCount: usersFindByUsername.length,
                     itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          selectedUser.value.uid =
-                              usersFindByUsername[index].uid;
-                          selectedUser.value.firstName =
-                              usersFindByUsername[index].firstName;
-                          selectedUser.value.lastName =
-                              usersFindByUsername[index].lastName;
-                          selectedUser.value.email =
-                              usersFindByUsername[index].email;
-                          selectedUser.value.userName =
-                              usersFindByUsername[index].userName;
-                          selectedUser.value.dateOfBirth =
-                              usersFindByUsername[index].dateOfBirth;
-                          print(selectedUser.value.uid);
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                            bottom: 16.0,
-                            left: 16.0,
-                            right: 16.0,
+                      return Padding(
+                        padding: const EdgeInsets.only(
+                          bottom: 16.0,
+                          left: 16.0,
+                          right: 16.0,
+                        ),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(
+                              6.0,
+                            ),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Colors.grey,
+                                blurRadius: 0.5,
+                                spreadRadius: 1,
+                              ),
+                            ],
                           ),
-                          child: Obx(
-                            () => Container(
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(
-                                  6.0,
-                                ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: selectedUser.value.lastName == ""
-                                        ? Colors.grey
-                                        : Colors.red,
-                                    blurRadius: 0.5,
-                                    spreadRadius: 1,
-                                  ),
-                                ],
-                              ),
-                              padding: const EdgeInsets.all(
-                                8,
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                          padding: const EdgeInsets.all(
+                            8,
+                          ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
                                 children: [
                                   Row(
                                     children: [
@@ -278,25 +262,49 @@ class SelectFlightTicketController extends GetxController {
                                   ),
                                 ],
                               ),
-                            ),
+                              GestureDetector(
+                                onTap: () {
+                                  selectedUser.value.uid =
+                                      usersFindByUsername[index].uid;
+                                  selectedUser.value.firstName =
+                                      usersFindByUsername[index].firstName;
+                                  selectedUser.value.lastName =
+                                      usersFindByUsername[index].lastName;
+                                  selectedUser.value.email =
+                                      usersFindByUsername[index].email;
+                                  selectedUser.value.userName =
+                                      usersFindByUsername[index].userName;
+                                  selectedUser.value.dateOfBirth =
+                                      usersFindByUsername[index].dateOfBirth;
+                                  print(selectedUser.value.lastName);
+                                  sendInviteToUser(
+                                    uid: selectedUser.value.uid!,
+                                  );
+                                },
+                                child: const Icon(
+                                  Icons.send,
+                                  color: kGeneralColor,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       );
                     },
                   ),
                 ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: CustomButton(
-                    onTap: () {
-                      sendInviteToUser(
-                        uid: selectedUser.value.uid!,
-                      );
-                    },
-                    text: 'Send invite',
-                    backgroundColor: kGeneralColor,
-                  ),
-                ),
+                // Align(
+                //   alignment: Alignment.bottomCenter,
+                //   child: CustomButton(
+                //     onTap: () {
+                //       sendInviteToUser(
+                //         uid: selectedUser.value.uid!,
+                //       );
+                //     },
+                //     text: 'Send invite',
+                //     backgroundColor: kGeneralColor,
+                //   ),
+                // ),
               ],
             ),
           ),

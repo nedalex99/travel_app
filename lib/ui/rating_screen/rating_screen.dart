@@ -229,6 +229,17 @@ class RatingScreen extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(
+                          height: 16.0,
+                        ),
+                        Text(
+                          'General rating ${((controller.restaurantsRating.value + controller.nightLifeRating.value + controller.safetyRating.value + controller.shoppingRating.value + controller.medicalRating.value + controller.sightseeingRating.value) / 6).toStringAsFixed(2)}',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18.0,
+                          ),
+                        ),
+                        const SizedBox(
                           height: 32.0,
                         ),
                         const Text(

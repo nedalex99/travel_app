@@ -48,8 +48,25 @@ class FriendsRatingScreen extends StatelessWidget {
                       return index == 0
                           ? Obx(
                               () => controller.userData.value.firstName != null
-                                  ? Text(
-                                      controller.userData.value.firstName!,
+                                  ? Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 4.0,
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            controller
+                                                .userData.value.firstName!,
+                                            style: const TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                          getGeneralRating(),
+                                        ],
+                                      ),
                                     )
                                   : Container(),
                             )
@@ -61,7 +78,8 @@ class FriendsRatingScreen extends StatelessWidget {
                                 ),
                                 Row(
                                   children: createStars(
-                                      controller.ratings[index - 1].ratingValue),
+                                    controller.ratings[index - 1].ratingValue,
+                                  ),
                                 ),
                               ],
                             );
@@ -73,6 +91,19 @@ class FriendsRatingScreen extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget getGeneralRating() {
+    double generalRating = 0;
+    controller.ratings.forEach((element) {
+      generalRating += element.ratingValue;
+    });
+    return Text(
+      'General rating ${(generalRating / controller.ratings.length).toStringAsFixed(2)}',
+      style: TextStyle(
+        color: Colors.black,
       ),
     );
   }

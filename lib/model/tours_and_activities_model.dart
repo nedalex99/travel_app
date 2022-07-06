@@ -180,8 +180,8 @@ class GeoCode {
   }
 
   GeoCode.fromJson(dynamic json) {
-    _latitude = json['latitude'];
-    _longitude = json['longitude'];
+    _latitude = json['latitude'].toString();
+    _longitude = json['longitude'].toString();
   }
 
   String? _latitude;
