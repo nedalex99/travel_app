@@ -150,29 +150,8 @@ class DashboardScreen extends StatelessWidget {
               height: 10.0,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                // CityButtonsWidget(
-                //   text: controller.cityOne,
-                //   controller: Get.put(
-                //     CityButtonsController(),
-                //     tag: "button_controller_1",
-                //   ),
-                // ),
-                // CityButtonsWidget(
-                //   text: controller.cityTwo,
-                //   controller: Get.put(
-                //     CityButtonsController(),
-                //     tag: "button_controller_2",
-                //   ),
-                // ),
-                // CityButtonsWidget(
-                //   text: controller.cityThree,
-                //   controller: Get.put(
-                //     CityButtonsController(),
-                //     tag: "button_controller_3",
-                //   ),
-                // ),
                 TextButton(
                   onPressed: () => {controller.getRecommendation()},
                   child: Text(controller.cityOne),
@@ -196,17 +175,18 @@ class DashboardScreen extends StatelessWidget {
             ),
             Obx(
               () => CarouselSlider.builder(
-                  itemCount: controller.recommendationList.value.length,
-                  itemBuilder: (context, index, realIndex) {
-                    return CardRecommendation(
-                      recommendationModel: controller.recommendationList[index],
-                    );
-                  },
-                  options: CarouselOptions(
-                    height: 130,
-                    enableInfiniteScroll: false,
-                    viewportFraction: 0.7,
-                  )),
+                itemCount: controller.recommendationList.value.length,
+                itemBuilder: (context, index, realIndex) {
+                  return CardRecommendation(
+                    recommendationModel: controller.recommendationList[index],
+                  );
+                },
+                options: CarouselOptions(
+                  height: 130,
+                  enableInfiniteScroll: false,
+                  viewportFraction: 0.7,
+                ),
+              ),
             ),
             const Padding(
               padding: EdgeInsets.only(top: 30),
@@ -225,28 +205,24 @@ class DashboardScreen extends StatelessWidget {
                         ? SizedBox(
                             height: 30,
                             child: ListView.builder(
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                itemCount: controller.trips.length,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.only(left: 30.0),
-                                    child: TextButton(
-                                        onPressed: () => {
-                                              controller
-                                                  .getRecommendationForMyTrips(
-                                                controller
-                                                    .trips[index]
-                                                    .flightCardDetails
-                                                    .arrivalCode![0],
-                                              ),
-                                            },
-                                        child: Text(
-                                          controller.trips[index]
-                                              .flightCardDetails.arrivalCity!,
-                                        )),
-                                  );
-                                }),
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              itemCount: controller.trips.length,
+                              itemBuilder: (context, index) {
+                                return TextButton(
+                                  onPressed: () => {
+                                    controller.getRecommendationForMyTrips(
+                                      controller.trips[index].flightCardDetails
+                                          .arrivalCode![0],
+                                    ),
+                                  },
+                                  child: Text(
+                                    controller.trips[index].flightCardDetails
+                                        .arrivalCity!,
+                                  ),
+                                );
+                              },
+                            ),
                           )
                         : Expanded(
                             child: Column(

@@ -50,7 +50,7 @@ class TravelInsightsController extends GetxController {
       const LoadingDialog(),
       barrierDismissible: false,
     );
-    ToursAndActivitiesSearch()
+    await ToursAndActivitiesSearch()
         .getToursAndActivitiesByLocation(
           latitude:
               double.tryParse(flightCardDetails.flightCardDetails.arrivalLat!)!,
@@ -64,7 +64,10 @@ class TravelInsightsController extends GetxController {
             if (value.statusCode == 200)
               {
                 toursAndActivitiesList.value =
-                    (value as GetToursActivitiesResponse).toursAndActivities,
+                    (value as GetToursActivitiesResponse)
+                        .toursAndActivities
+                        .take(15)
+                        .toList(),
                 print(toursAndActivitiesList.length),
               },
           },

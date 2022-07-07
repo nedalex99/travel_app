@@ -20,7 +20,7 @@ class ToursAndActivitiesSearch extends GetConnect {
     var request = http.Request(
         'GET',
         Uri.parse(
-            'https://test.api.amadeus.com/v1/shopping/activities?latitude=$latitude&longitude=$longitude&radius=1'));
+            'https://test.api.amadeus.com/v1/shopping/activities?latitude=$latitude&longitude=$longitude&radius=10'));
 
     request.headers.addAll(headers);
 
